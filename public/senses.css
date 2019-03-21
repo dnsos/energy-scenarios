@@ -1,0 +1,7 @@
+body > * {
+  border-bottom: 1px dashed black;
+}
+
+header, main, footer {
+  padding: 10px;
+}
