@@ -1,16 +1,23 @@
 <template>
-  <div>
-    <HelloWorld />
+  <div class="intro">
+    <ModuleIntroduction />
   </div>
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue'
+import ModuleIntroduction from '@/components/ModuleIntroduction.vue'
 
 export default {
   name: 'intro',
   components: {
-    HelloWorld
+    ModuleIntroduction
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .intro {
+    grid-area: s;
+  }
+</style>
+

@@ -6,10 +6,10 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'ModuleIntroduction',
   data: function() {
     return {
-      msg: "Energy Scenarios"
+      msg: "Energy Scenarios Module"
     }
   }
 }
