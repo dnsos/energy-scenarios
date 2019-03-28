@@ -1,17 +1,13 @@
 <template>
   <div class="intro">
-    <ModuleIntroduction />
+    <h1>Primary Energy Module</h1>
   </div>
 </template>
 
 <script>
-import ModuleIntroduction from '@/components/ModuleIntroduction.vue'
 
 export default {
-  name: 'intro',
-  components: {
-    ModuleIntroduction
-  }
+  name: 'intro'
 }
 </script>
 

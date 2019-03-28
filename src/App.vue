@@ -46,8 +46,16 @@ body {
   grid-template-columns: repeat(12, 1fr);
   grid-template-areas:
     "h h h h h h h h h h h h"
-    "s s s s c c c c c c c c"
+    "c c c c c c c c c c c c"
     "f f f f f f f f f f f f";
+}
+
+.chapter {
+  grid-area: c;
+  display: grid;
+  grid-gap: var(--grid-spacing);
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: max-content;
 }
 
 #nav {
