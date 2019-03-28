@@ -20,6 +20,7 @@ let carriers = [
   { ...solar }
 ]
 
+/*
 // loop through all carriers and change the values arrays from string values to numbers
 carriers.forEach(carrier => {
   carrier.data.forEach(scenario => {
@@ -30,5 +31,6 @@ carriers.forEach(carrier => {
     }
   })
 })
+*/
 
 export default carriers
