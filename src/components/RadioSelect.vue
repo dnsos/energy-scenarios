@@ -5,7 +5,13 @@
       v-for="option in options"
       :key="option"
     >
-      <input type="radio" :id="option" :name="id" :value="option">
+      <input
+        type="radio"
+        :id="option"
+        :name="id"
+        :value="option"
+        @input="$emit('input', $event.target.value)"
+      >
       <label :for="option">{{ option }}</label>
     </div>
   </fieldset>
