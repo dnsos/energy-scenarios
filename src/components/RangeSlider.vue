@@ -10,7 +10,7 @@
       value="0"
       step="1"
       @input="$emit('input', $event.target.value)"
-    >
+    ><!-- TODO: automate min and max values etc. -->
   </fieldset>
 </template>
 

@@ -20,7 +20,7 @@
     </section>
     <section class="content">
       <p>Selected region: {{ selectedRegion }}</p>
-      <p>Selected year: {{ startyear + (yearinterval * rangeValue) }}</p>
+      <p>Selected year: {{ displayedYear }}</p>
       <p>Fossil energy: {{ fossilAmount }} {{ unit }}</p>
       <p>Non-fossil energy: {{ nonfossilAmount }} {{ unit }}</p>
       <p>Total energy: {{ totalAmount }} {{ unit }}</p>
@@ -53,6 +53,9 @@ export default {
       'fossilData',
       'totalData'
     ]),
+    displayedYear: function () {
+      return this.startyear + (this.yearinterval * this.rangeValue)
+    },
     fossilAmount: function () {
       let fossilAmount = this.fossilData[0].values[this.rangeValue]
       return fossilAmount
