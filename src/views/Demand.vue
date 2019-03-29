@@ -1,7 +1,7 @@
 <template>
   <article class="chapter">
     <section class="title">
-      <h1>This is the energy demand of our world in 2020.</h1>
+      <h1>This is the energy consumption of our world.</h1>
       <p>(SSP2-Baseline)</p>
     </section>
     <section class="intro">
@@ -15,29 +15,42 @@
       <RangeSlider
         id="years"
         label="Year"
-        @input="rangeValue = $event"
+        v-model="rangeValue"
+        @input="selectedYear = $event"
       />
     </section>
-    <section class="content">
-      <p>Selected region: {{ selectedRegion }}</p>
-      <p>Selected year: {{ displayedYear }}</p>
-      <p>Fossil energy: {{ fossilAmount }} {{ unit }}</p>
-      <p>Non-fossil energy: {{ nonfossilAmount }} {{ unit }}</p>
-      <p>Total energy: {{ totalAmount }} {{ unit }}</p>
-    </section>
+    <section class="testvalues">
+        <ul>
+          <li>Selected region: {{ selectedRegion }}</li>
+          <li>Selected year: {{ displayedYear }}</li>
+          <li>Fossil energy: {{ fossilAmount }} {{ unit }}</li>
+          <li>Non-fossil energy: {{ nonfossilAmount }} {{ unit }}</li>
+          <li>Total energy: {{ totalAmount }} {{ unit }}</li>
+        </ul>
+      </section>
+    <figure class="testfigure">
+      <TypeCircles
+        :figureWidth="800"
+        :figureHeight="400"
+        :fossilData="fossilAmount"
+        :nonfossilData="nonfossilAmount"
+      />
+    </figure>
   </article>
 </template>
 
 <script>
 import RadioSelect from '@/components/RadioSelect.vue'
 import RangeSlider from '@/components/RangeSlider.vue'
+import TypeCircles from '@/components/TypeCircles.vue'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'demand',
   components: {
     RadioSelect,
-    RangeSlider
+    RangeSlider,
+    TypeCircles
   },
   data: function () {
     return {
@@ -75,6 +88,14 @@ export default {
       set (value) {
         this.$store.commit('setRegion', value) // commits active region to store from :value
       }
+    },
+    selectedYear: {
+      get () {
+        return this.$store.state.selection.year
+      },
+      set (value) {
+        this.$store.commit('setYear', value) // commits active region to store from :value
+      }
     }
   },
   methods: {
@@ -88,13 +109,17 @@ export default {
 
 <style lang="scss" scoped>
 .title {
-  grid-column: 1 / 4;
+  grid-column: 1 / 6;
 }
 .intro {
-  grid-column: 1 / 4;
+  grid-column: 1 / 3;
 }
-.content {
-  grid-column: 4 / 13;
+.testvalues {
+  grid-column: 3 / 6;
+}
+.testfigure {
+  grid-column: 6 / 13;
+  margin: 0;
 }
 
 </style>
