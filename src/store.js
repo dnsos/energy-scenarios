@@ -41,7 +41,8 @@ export default new Vuex.Store({
     },
     selection: {
       region: "World",
-      scenario: "SSP2-Baseline"
+      scenario: "SSP2-Baseline",
+      year: 2020
     },
     general: {
       startyear: total.startyear,
@@ -67,6 +68,9 @@ export default new Vuex.Store({
         return s.regioncode === state.selection.region && s.scenario === state.selection.scenario
       })
     },
+    year: (state) => {
+      return state.selection.year
+    },
     startyear: (state) => {
       return state.general.startyear
     },
@@ -80,6 +84,9 @@ export default new Vuex.Store({
   mutations: {
     setRegion: (state, payload) => {
       state.selection.region = payload
+    },
+    setYear: (state, payload) => {
+      state.selection.year = state.general.startyear + (payload * state.general.yearinterval)
     }
   },
   actions: {
