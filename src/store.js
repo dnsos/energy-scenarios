@@ -41,7 +41,7 @@ export default new Vuex.Store({
     },
     selection: {
       region: "World",
-      scenario: "SSP2-Baseline",
+      society: "SSP2-Baseline",
       year: 2020
     },
     general: {
@@ -53,19 +53,27 @@ export default new Vuex.Store({
   getters: {
     regions: (state) => {
       let scenarios = state.carriers.total.aggregated.data // all possible scenario/region combinations
-      
       // create set of distinct regions (https://codeburst.io/javascript-array-distinct-5edc93501dc4)
       const distinctRegions = [...new Set(scenarios.map(scenario => scenario.regioncode))]
       return distinctRegions
     },
+    societies: (state) => {
+      let societies = state.carriers.total.aggregated.data
+      const distinctSocieties = [...new Set(societies.map(society => {
+        return society.scenario
+      }))]
+      return distinctSocieties.filter(society => {
+        return society.includes('Baseline') // TODO: create variable parameter for getting different RCPs
+      })
+    },
     fossilData: (state) => {
       return state.carriers.fossil.aggregated.data.filter(s => { // TODO: rename the s
-        return s.regioncode === state.selection.region && s.scenario === state.selection.scenario
+        return s.regioncode === state.selection.region && s.scenario === state.selection.society
       })
     },
     totalData: (state) => {
       return state.carriers.total.aggregated.data.filter(s => { // TODO: rename the s
-        return s.regioncode === state.selection.region && s.scenario === state.selection.scenario
+        return s.regioncode === state.selection.region && s.scenario === state.selection.society
       })
     },
     year: (state) => {
@@ -84,6 +92,9 @@ export default new Vuex.Store({
   mutations: {
     setRegion: (state, payload) => {
       state.selection.region = payload
+    },
+    setSociety: (state, payload) => {
+      state.selection.society = payload
     },
     setYear: (state, payload) => {
       state.selection.year = state.general.startyear + (payload * state.general.yearinterval)
