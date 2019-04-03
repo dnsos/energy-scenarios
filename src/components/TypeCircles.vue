@@ -36,6 +36,8 @@ export default {
 
 <style scoped lang="scss">
 svg {
-  border: 1px dashed black; /* TODO: Remove. Only for layouting purposes */
+  /* TODO: Remove. Only for layouting purposes */
+  border: 1px dashed black;
+  overflow: visible;
 }
 </style>

@@ -12,6 +12,13 @@
         :value="selectedRegion"
         @input="selectedRegion = $event"
       />
+      <RadioSelect
+        id="societies"
+        :options="societies"
+        :message="'Select a future society'"
+        :value="selectedSociety"
+        @input="selectedSociety = $event"
+      />
       <RangeSlider
         id="years"
         label="Year"
@@ -63,6 +70,7 @@ export default {
       'yearinterval',
       'unit',
       'regions',
+      'societies',
       'fossilData',
       'totalData'
     ]),
@@ -83,10 +91,18 @@ export default {
     },
     selectedRegion: {
       get () {
-        return this.$store.state.selection.region // gets active region from store
+        return this.$store.state.selection.region // get from store
       },
       set (value) {
-        this.$store.commit('setRegion', value) // commits active region to store from :value
+        this.$store.commit('setRegion', value) // commit to store
+      }
+    },
+    selectedSociety: {
+      get () {
+        return this.$store.state.selection.society // get from store
+      },
+      set (value) {
+        this.$store.commit('setSociety', value) // commit to store
       }
     },
     selectedYear: {

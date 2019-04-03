@@ -1,5 +1,5 @@
 <template>
-  <circle :cx="radius" cy="radius / 8" :r="radius" />
+  <circle :cx="tweeningValue" cy="0" :r="tweeningValue" />
 </template>
 
 <script>
@@ -9,7 +9,9 @@ export default {
   name: 'EnergyCircle',
   props: [ "maxRadius", "value", "maxValue" ],
   data: function() {
-    return {}
+    return {
+      tweeningValue: 0
+    }
   },
   computed: {
     radius: function () {
@@ -19,6 +21,34 @@ export default {
         .domain([0, this.maxValue])
 
       return scale(this.value)
+    }
+  },
+  watch: {
+    radius: function (oldValue, newValue) {
+      console.log('From:', oldValue, 'to', newValue)
+      this.tween(oldValue, newValue)
+    }
+  },
+  mounted: function () {
+    this.tween(0, this.radius)
+  },
+  methods: {
+    tween: function (startValue, endValue) {
+      var vm = this
+      function animate () {
+        if (TWEEN.update()) {
+          requestAnimationFrame(animate)
+        }
+      }
+
+      new TWEEN.Tween({ tweeningValue: startValue })
+        .to({ tweeningValue: endValue }, 300)
+        .onUpdate(function () {
+          vm.tweeningValue = this.tweeningValue.toFixed(0)
+        })
+        .start()
+      
+      animate()
     }
   }
 }
