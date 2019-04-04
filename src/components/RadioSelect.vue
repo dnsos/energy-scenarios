@@ -11,6 +11,7 @@
         :name="id"
         :value="option"
         @input="$emit('input', $event.target.value)"
+        v-model="selectedOption"
       >
       <label :for="option">{{ option }}</label>
     </div>
@@ -20,9 +21,11 @@
 <script>
 export default {
   name: 'RadioSelect',
-  props: [ "id", "options", "message" ],
+  props: [ "id", "options", "message", "defaultSelection" ],
   data: function() {
-    return {}
+    return {
+      selectedOption: this.defaultSelection
+    }
   }
 }
 </script>
