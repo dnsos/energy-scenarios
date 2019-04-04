@@ -2,7 +2,6 @@
   <article class="chapter">
     <section class="title">
       <h1>This is the energy consumption of our world.</h1>
-      <p>(SSP2-Baseline)</p>
     </section>
     <section class="intro">
       <RadioSelect

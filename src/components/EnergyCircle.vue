@@ -4,10 +4,24 @@
 
 <script>
 import * as d3 from "d3" // TODO: create d3 functionalities asset
+// TODO: import Tween lib and remove script tag in index.html
 
 export default {
   name: 'EnergyCircle',
-  props: [ "maxRadius", "value", "maxValue" ],
+  props: { 
+    maxRadius: {
+      type: Number,
+      required: true
+    },
+    value: {
+      type: Number,
+      required: true
+    },
+    maxValue: {
+      type: Number,
+      required: true
+    }
+  },
   data: function() {
     return {
       tweeningValue: 0
@@ -25,12 +39,11 @@ export default {
   },
   watch: {
     radius: function (oldValue, newValue) {
-      console.log('From:', oldValue, 'to', newValue)
-      this.tween(oldValue, newValue)
+      this.tween(newValue, oldValue) // TODO: works, but why new before old?
     }
   },
   mounted: function () {
-    this.tween(0, this.radius)
+    this.tween(0, this.radius) // TODO: why inversed values here?
   },
   methods: {
     tween: function (startValue, endValue) {
@@ -42,9 +55,9 @@ export default {
       }
 
       new TWEEN.Tween({ tweeningValue: startValue })
-        .to({ tweeningValue: endValue }, 300)
+        .to({ tweeningValue: endValue }, 200)
         .onUpdate(function () {
-          vm.tweeningValue = this.tweeningValue.toFixed(0)
+          vm.tweeningValue = this.tweeningValue
         })
         .start()
       
