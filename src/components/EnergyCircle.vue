@@ -1,5 +1,5 @@
 <template>
-  <circle :cx="tweeningValue" cy="0" :r="tweeningValue" />
+  <circle :class="carrierType" :cx="tweeningValue" cy="0" :r="tweeningValue" />
 </template>
 
 <script>
@@ -8,7 +8,11 @@ import * as d3 from "d3" // TODO: create d3 functionalities asset
 
 export default {
   name: 'EnergyCircle',
-  props: { 
+  props: {
+    carrierType: {
+      type: String,
+      required: true
+    },
     maxRadius: {
       type: Number,
       required: true
@@ -69,6 +73,8 @@ export default {
 
 <style scoped lang="scss">
 circle {
-  fill: rgb(200, 0, 95);
+  stroke: black;
+  stroke-width: 1;
+  fill: transparent;
 }
 </style>

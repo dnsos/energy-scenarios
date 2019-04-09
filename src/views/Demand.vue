@@ -9,7 +9,7 @@
         :options="regions"
         :message="'Select a region'"
         :value="selectedRegion"
-        defaultSelection="World"
+        :defaultSelection="selectedRegion"
         @input="selectedRegion = $event"
       />
       <RadioSelect
@@ -17,7 +17,7 @@
         :options="societies"
         :message="'Select a future society'"
         :value="selectedSociety"
-        defaultSelection="SSP2-Baseline"
+        :defaultSelection="selectedSociety"
         @input="selectedSociety = $event"
       />
       <RangeSlider

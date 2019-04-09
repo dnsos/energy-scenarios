@@ -22,18 +22,11 @@ export default new Vuex.Store({
     carriers: {
       fossil: {
         aggregated: fossil,
-        coal: coal,
-        gas: gas,
-        oil: oil
+        unique: [coal, gas, oil]
       },
       nonfossil: {
         aggregated: {},
-        biomass: biomass,
-        geothermal: geothermal,
-        hydro: hydro,
-        nuclear: nuclear,
-        other: other,
-        solar: solar
+        unique: [biomass, geothermal, hydro, nuclear, other, solar]
       },
       total: {
         aggregated: total
@@ -75,6 +68,24 @@ export default new Vuex.Store({
       return state.carriers.total.aggregated.data.filter(s => { // TODO: rename the s
         return s.regioncode === state.selection.region && s.scenario === state.selection.society
       })
+    },
+    carriersData: (state) => {
+      // TODO: optimise (redundant code)
+      const fossilCarriers = state.carriers.fossil.unique.map(carrier => {
+        return carrier.data.filter(s => {
+          s.name = carrier.variable // copy carrier name to selection
+          return s.regioncode === state.selection.region && s.scenario === state.selection.society
+        })
+      })
+
+      const nonfossilCarriers = state.carriers.nonfossil.unique.map(carrier => {
+        return carrier.data.filter(s => {
+          s.name = carrier.variable // copy carrier name to selection
+          return s.regioncode === state.selection.region && s.scenario === state.selection.society
+        })
+      })
+
+      return [...fossilCarriers, ...nonfossilCarriers]
     },
     year: (state) => {
       return state.selection.year

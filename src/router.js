@@ -20,9 +20,9 @@ export default new Router({
       component: () => import('./views/Demand.vue')
     },
     {
-      path: '/composition',
-      name: 'composition',
-      component: () => import('./views/Composition.vue')
+      path: '/mix',
+      name: 'mix',
+      component: () => import('./views/Mix.vue')
     },
     {
       path: '/tracks',

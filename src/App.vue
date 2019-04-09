@@ -1,12 +1,12 @@
 <template>
   <main id="app">
-    <div id="nav">
+    <nav id="nav">
       <router-link to="/">Intro</router-link> |
       <router-link to="/demand">Demand</router-link> |
-      <router-link to="/composition">Composition</router-link> |
+      <router-link to="/mix">Mix</router-link> |
       <router-link to="/tracks">Tracks</router-link> |
       <router-link to="/carbon-price">Integration of a Carbon Price</router-link>
-    </div>
+    </nav>
     <router-view/>
   </main>
 </template>
@@ -17,6 +17,7 @@
 ----------------------------------------------------- */
 :root {
   --color-primary: #4e40b2;
+  --color-dark-blue: #2f3652;
   --color-grey-76: #3e3e3e;
   --color-grey-20: #cccccc;
   --color-grey-09: #e7e7e7;
@@ -39,8 +40,13 @@ body {
   color: var(--color-grey-76);
 }
 
+figure {
+  margin: 0;
+}
+
 #app {
   min-height: 100vh;
+  padding: var(--grid-spacing);
   display: grid;
   grid-gap: var(--grid-spacing);
   grid-template-columns: repeat(12, 1fr);
@@ -55,10 +61,10 @@ body {
   display: grid;
   grid-gap: var(--grid-spacing);
   grid-template-columns: repeat(12, 1fr);
-  grid-auto-rows: max-content;
+  grid-template-rows: max-content;
 }
 
-#nav {
+nav {
   grid-area: h;
   a {
     color: var(--color-grey-76);
