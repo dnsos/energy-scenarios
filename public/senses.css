@@ -5,3 +5,8 @@ body > *:not(footer) {
 header, main, footer {
   padding: 10px;
 }
+
+header, footer {
+  color: white;
+  background-color: #2f3652;
+}
