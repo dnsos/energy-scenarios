@@ -13,6 +13,7 @@ import nuclear from './assets/data/nuclear.json'
 import oil from './assets/data/oil.json'
 import other from './assets/data/other.json'
 import solar from './assets/data/solar.json'
+import wind from './assets/data/wind.json'
 
 Vue.use(Vuex)
 
@@ -21,12 +22,14 @@ export default new Vuex.Store({
   state: {
     carriers: {
       fossil: {
-        aggregated: fossil,
-        unique: [coal, gas, oil]
+        aggregated: fossil
       },
       nonfossil: {
-        aggregated: {},
-        unique: [biomass, geothermal, hydro, nuclear, other, solar]
+        aggregated: {}
+      },
+      grouped: {
+        original: [coal, gas, oil, biomass, geothermal, hydro, nuclear, other, solar, wind],
+        selected: [] // will be populated with mutation
       },
       total: {
         aggregated: total
@@ -35,6 +38,7 @@ export default new Vuex.Store({
     selection: {
       region: "World",
       society: "SSP2-Baseline",
+      target: "SSP2-19",
       year: 2020
     },
     general: {
@@ -60,32 +64,26 @@ export default new Vuex.Store({
       })
     },
     fossilData: (state) => {
-      return state.carriers.fossil.aggregated.data.filter(s => { // TODO: rename the s
+      return state.carriers.fossil.aggregated.data.filter(s => {
         return s.regioncode === state.selection.region && s.scenario === state.selection.society
       })
     },
     totalData: (state) => {
-      return state.carriers.total.aggregated.data.filter(s => { // TODO: rename the s
+      return state.carriers.total.aggregated.data.filter(s => {
         return s.regioncode === state.selection.region && s.scenario === state.selection.society
       })
     },
     carriersData: (state) => {
-      // TODO: optimise (redundant code)
-      const fossilCarriers = state.carriers.fossil.unique.map(carrier => {
-        return carrier.data.filter(s => {
-          s.name = carrier.variable // copy carrier name to selection
-          return s.regioncode === state.selection.region && s.scenario === state.selection.society
-        })
+      return state.carriers.grouped.selected
+    },
+    carriersMaxValue: (state) => {
+      const maxBaseline = state.carriers.grouped.selected.map(carrier => {
+        return Math.max(...carrier.baseline[0].values)
       })
-
-      const nonfossilCarriers = state.carriers.nonfossil.unique.map(carrier => {
-        return carrier.data.filter(s => {
-          s.name = carrier.variable // copy carrier name to selection
-          return s.regioncode === state.selection.region && s.scenario === state.selection.society
-        })
+      const maxTarget = state.carriers.grouped.selected.map(carrier => {
+        return Math.max(...carrier.target[0].values)
       })
-
-      return [...fossilCarriers, ...nonfossilCarriers]
+      return Math.max(...[...maxBaseline, ...maxTarget])
     },
     year: (state) => {
       return state.selection.year
@@ -109,8 +107,28 @@ export default new Vuex.Store({
     },
     setYear: (state, payload) => {
       state.selection.year = state.general.startyear + (payload * state.general.yearinterval)
+    },
+    setCarriersData: (state, payload) => {
+      let selectedData = state.carriers.grouped.original.map(carrier => {
+        // filter baseline scenario
+        carrier.baseline = carrier.data.filter(s => {
+          return s.regioncode === payload.region && s.scenario === payload.society
+        })
+        // filter target scenario
+        carrier.target = carrier.data.filter(s => {
+          return s.regioncode === payload.region && s.scenario === payload.target
+        })
+        return carrier
+      })
+      state.carriers.grouped.selected = selectedData
     }
   },
   actions: {
+    changeCarriersData: ({ commit }, payload) => {
+      commit('setCarriersData', payload)
+    },
+    changeSociety: ({ commit }, payload) => {
+      commit('setSociety', payload)
+    }
   }
 })
