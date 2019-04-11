@@ -1,4 +1,5 @@
 { "variable" : "Oil",
+  "type" : "Fossil",
   "startyear" : 2020,
   "yearinterval" : 10,
   "unit" : "EJ/yr",
