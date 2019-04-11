@@ -1,22 +1,60 @@
 <template>
   <article class="chapter">
-    <section class="chapter__content">
-      <CarriersCircles />
-    </section>
     <section class="chapter__story">
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora nisi sed, quos hic quam culpa corrupti veritatis iste incidunt obcaecati ad asperiores dolor minima, ratione et saepe est quisquam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero eaque voluptatum dignissimos aliquam sit. Magnam minus odio cumque harum corporis illo et error debitis minima, architecto omnis obcaecati, dolorum nam!</p>
+      <RangeSlider
+        id="years"
+        label="Year"
+        v-model="rangeValue"
+        @input="selectedYear = $event"
+      />
+      <p>Region: {{ selection.region }}</p>
+      <p>Society: {{ selection.society }}</p>
+      <p>Target: {{ selection.target }}</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, et id provident est laudantium quaerat voluptatum pariatur, corporis iure earum modi nulla labore magnam iste illo, laborum maiores ad ab?</p>
+    </section>
+    <section class="chapter__content">
+      <CarriersCircles :carriers="carriers" :maxValue="carriersMaxValue" :rangeValue="rangeValue" />
     </section>
   </article>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import CarriersCircles from '@/components/CarriersCircles.vue'
+import RangeSlider from '@/components/RangeSlider.vue'
 
 export default {
   name: 'mix',
   components: {
-    CarriersCircles
+    CarriersCircles,
+    RangeSlider
+  },
+  data: function () {
+    return {
+      rangeValue: 0
+    }
+  },
+  computed: {
+    ...mapState(['selection']),
+    carriers: function () {
+      return this.$store.getters.carriersData(this.selection.society, this.selection.target)
+    },
+    carriersMaxValue: function () {
+      const maxValues = this.carriers.map(carrier => {
+        return Math.max(...carrier.baseline.values, ...carrier.target.values)
+      })
+      return Math.max(...maxValues)
+    },
+    selectedYear: {
+      get () {
+        return this.$store.state.selection.year
+      },
+      set (value) {
+        this.$store.commit('setYear', value)
+      }
+    }
+  },
+  mounted: function () {
   }
 }
 </script>

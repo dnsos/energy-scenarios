@@ -28,8 +28,8 @@ export default new Vuex.Store({
         aggregated: {}
       },
       grouped: {
-        original: [coal, gas, oil, biomass, geothermal, hydro, nuclear, other, solar, wind],
-        selected: [] // will be populated with mutation
+        original: [coal, gas, oil, biomass, hydro, nuclear, solar, wind],
+        selected: []
       },
       total: {
         aggregated: total
@@ -64,7 +64,7 @@ export default new Vuex.Store({
       })
     },
     fossilData: (state) => {
-      return state.carriers.fossil.aggregated.data.filter(s => {
+      return state.carriers.fossil.aggregated.data.filter(s => { // TODO: change to find to remove array creation
         return s.regioncode === state.selection.region && s.scenario === state.selection.society
       })
     },
@@ -73,9 +73,18 @@ export default new Vuex.Store({
         return s.regioncode === state.selection.region && s.scenario === state.selection.society
       })
     },
-    carriersData: (state) => {
-      return state.carriers.grouped.selected
-    },
+    carriersData: (state) => (society, target) => {
+      const arr = state.carriers.grouped.original.map(carrier => {
+        carrier.baseline = carrier.data.find(s => {
+          return s.regioncode === state.selection.region && s.scenario === state.selection.society
+        })
+        carrier.target = carrier.data.find(s => {
+          return s.regioncode === state.selection.region && s.scenario === state.selection.target
+        })
+        return carrier
+      })
+      return arr
+    }/*,
     carriersMaxValue: (state) => {
       const maxBaseline = state.carriers.grouped.selected.map(carrier => {
         return Math.max(...carrier.baseline[0].values)
@@ -84,7 +93,7 @@ export default new Vuex.Store({
         return Math.max(...carrier.target[0].values)
       })
       return Math.max(...[...maxBaseline, ...maxTarget])
-    },
+    }*/,
     year: (state) => {
       return state.selection.year
     },
@@ -107,7 +116,7 @@ export default new Vuex.Store({
     },
     setYear: (state, payload) => {
       state.selection.year = state.general.startyear + (payload * state.general.yearinterval)
-    },
+    }/*,
     setCarriersData: (state, payload) => {
       let selectedData = state.carriers.grouped.original.map(carrier => {
         // filter baseline scenario
@@ -121,7 +130,7 @@ export default new Vuex.Store({
         return carrier
       })
       state.carriers.grouped.selected = selectedData
-    }
+    }*/
   },
   actions: {
     changeCarriersData: ({ commit }, payload) => {

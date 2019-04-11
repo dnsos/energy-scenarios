@@ -11,7 +11,7 @@ export default {
   props: {
     carrierType: {
       type: String,
-      required: true
+      required: false
     },
     maxRadius: {
       type: Number,
@@ -19,7 +19,8 @@ export default {
     },
     value: {
       type: Number,
-      required: true
+      required: true,
+      default: 0
     },
     maxValue: {
       type: Number,
@@ -74,7 +75,17 @@ export default {
 <style scoped lang="scss">
 circle {
   stroke: black;
-  stroke-width: 1;
+  stroke-width: 2;
   fill: transparent;
+}
+
+.circle--baseline {
+  stroke: var(--color-violet);
+}
+
+.circle--target {
+  stroke: var(--color-yellow);
+  fill: var(--color-yellow);
+  fill-opacity: 1;
 }
 </style>

@@ -4,13 +4,25 @@
       <g>
         <g
           v-for="(carrier, index) in carriers"
-          :key="carrier[0].name"
+          :key="carrier.variable"
           class="carrier-circle"
-          :transform="'translate(0' + (carrierMaxWidth * index) + ',' + figureHeight / 2 + ')'"
+          :transform="'translate(0' + ((carrierMaxWidth * index) + carrierMaxRadius) + ',' + figureHeight / 2 + ')'"
         >
-          <EnergyCircle :maxRadius="carrierMaxRadius" :value="500" :maxValue="500" />
-          <text>{{ carrier[0].name }}</text>
-          <EnergyCircle :maxRadius="carrierMaxRadius" :value="400" :maxValue="500" />
+          <EnergyCircle
+            class="circle--target"
+            :maxRadius="carrierMaxRadius"
+            :value="carrier.target.values[rangeValue]"
+            :maxValue="maxValue"
+            transform="rotate(-90)"
+          />
+          <EnergyCircle
+            class="circle--baseline"
+            :maxRadius="carrierMaxRadius"
+            :value="carrier.baseline.values[rangeValue]"
+            :maxValue="maxValue"
+            transform="rotate(-90)"
+          />
+          <text dy="20">{{ carrier.variable }}</text>
         </g>
       </g>
     </svg>
@@ -19,24 +31,23 @@
 
 <script>
 import EnergyCircle from '@/components/EnergyCircle.vue'
-import { mapGetters } from 'vuex'
 
 export default {
   name: 'CarriersCircles',
   components: {
     EnergyCircle
   },
-  props: [],
+  props: ['carriers', 'maxValue', 'rangeValue'],
   data: function() {
     return {
       figureWidth: 1095,
-      figureHeight: 300
+      figureHeight: 400
     }
   },
   computed: {
-    ...mapGetters({
-      carriers: 'carriersData'
-    }),
+    carriersMaxValue: function () {
+      return 362
+    },
     carrierMaxWidth: function () {
       return this.figureWidth / this.carriers.length
     },
@@ -45,8 +56,6 @@ export default {
     }
   },
   mounted: function () {
-    // log stuff here
-    console.log(this.carriers)
   }
 }
 </script>
@@ -58,8 +67,13 @@ figure {
 
 svg {
   /* TODO: Remove. Only for layouting purposes */
-  border: 1px dashed black;
+  border: 1px dashed grey;
   overflow: visible;
+
+  text {
+    font-size: calc(var(--font-size) - 4px);
+    text-anchor: middle;
+  }
 }
 
 .carrier-circle {

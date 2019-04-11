@@ -16,8 +16,9 @@
 /* BASICS
 ----------------------------------------------------- */
 :root {
-  --color-primary: #4e40b2;
+  --color-violet: #4e40b2;
   --color-dark-blue: #2f3652;
+  --color-yellow: rgb(254, 174, 0);
   --color-grey-76: #3e3e3e;
   --color-grey-20: #cccccc;
   --color-grey-09: #e7e7e7;

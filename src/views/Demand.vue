@@ -103,7 +103,7 @@ export default {
         return this.$store.state.selection.society // get from store
       },
       set (value) {
-        this.$store.commit('setSociety', value) // commit to store
+        this.$store.dispatch('changeSociety', value) // commit to store
       }
     },
     selectedYear: {
