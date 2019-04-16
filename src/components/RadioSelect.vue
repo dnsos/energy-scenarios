@@ -3,17 +3,17 @@
     <legend v-if="message">{{ message }}</legend>
     <div
       v-for="option in options"
-      :key="option"
+      :key="option.code"
     >
       <input
         type="radio"
-        :id="option"
+        :id="option.code"
         :name="id"
-        :value="option"
+        :value="option.code"
         @input="$emit('input', $event.target.value)"
         v-model="selectedOption"
       >
-      <label :for="option">{{ option }}</label>
+      <label :for="option.code">{{ option.name }}</label> <!-- TODO: document option.name and option.code somehow -->
     </div>
   </fieldset>
 </template>
@@ -21,7 +21,24 @@
 <script>
 export default {
   name: 'RadioSelect',
-  props: [ "id", "options", "message", "defaultSelection" ],
+  props: {
+    id: {
+      type: String,
+      required: true
+    },
+    options: {
+      type: Array,
+      required: true
+    },
+    message: {
+      type: String,
+      required: true
+    },
+    defaultSelection: {
+      type: String,
+      required: true
+    }
+  },
   data: function() {
     return {
       selectedOption: this.defaultSelection

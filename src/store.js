@@ -7,11 +7,11 @@ import total from './assets/data/total.json'
 import biomass from './assets/data/biomass.json'
 import coal from './assets/data/coal.json'
 import gas from './assets/data/gas.json'
-import geothermal from './assets/data/geothermal.json'
+// import geothermal from './assets/data/geothermal.json'
 import hydro from './assets/data/hydro.json'
 import nuclear from './assets/data/nuclear.json'
 import oil from './assets/data/oil.json'
-import other from './assets/data/other.json'
+// import other from './assets/data/other.json'
 import solar from './assets/data/solar.json'
 import wind from './assets/data/wind.json'
 
@@ -36,11 +36,69 @@ export default new Vuex.Store({
       }
     },
     selection: {
-      region: "World",
-      society: "SSP2-Baseline",
-      target: "SSP2-19",
+      region: { name: "World", code: "World"},
+      society: { name: "Middle of the Road", code: "SSP2"},
+      target: { name: "Climate Target 1.5°C", code: "19"},
       year: 2020
     },
+    regions: [
+      {
+        name: "World",
+        code: "World"
+      },
+      {
+        name: "OECD States",
+        code: "R5.2OECD"
+      },
+      {
+        name: "Asia",
+        code: "R5.2ASIA"
+      },
+      {
+        name: "Latin America",
+        code: "R5.2LAM"
+      },
+      {
+        name: "Middle East & Africa",
+        code: "R5.2MAF"
+      },
+      {
+        name: "Reforming Economies",
+        code: "R5.2REF"
+      },
+    ],
+    societies: [
+      {
+        name: "The Green Road",
+        code: "SSP1"
+      },
+      {
+        name: "Middle of the Road",
+        code: "SSP2"
+      },
+      {
+        name: "Regional Rivalry",
+        code: "SSP3"
+      },
+      {
+        name: "A Road Divided",
+        code: "SSP4"
+      },
+      {
+        name: "Fossil Fueled Development",
+        code: "SSP5"
+      },
+    ],
+    targets: [
+      {
+        name: "Climate Target 2°C",
+        code: "26"
+      },
+      {
+        name: "Climate Target 1.5°C",
+        code: "19"
+      }
+    ],
     general: {
       startyear: total.startyear,
       yearinterval: total.yearinterval,
@@ -54,46 +112,28 @@ export default new Vuex.Store({
       const distinctRegions = [...new Set(scenarios.map(scenario => scenario.regioncode))]
       return distinctRegions
     },
-    societies: (state) => {
-      let societies = state.carriers.total.aggregated.data
-      const distinctSocieties = [...new Set(societies.map(society => {
-        return society.scenario
-      }))]
-      return distinctSocieties.filter(society => {
-        return society.includes('Baseline') // TODO: create variable parameter for getting different RCPs
-      })
-    },
     fossilData: (state) => {
-      return state.carriers.fossil.aggregated.data.filter(s => { // TODO: change to find to remove array creation
-        return s.regioncode === state.selection.region && s.scenario === state.selection.society
+      return state.carriers.fossil.aggregated.data.find(s => {
+        return s.regioncode === state.selection.region.code && s.scenario === (state.selection.society.code + "-Baseline")
       })
     },
     totalData: (state) => {
-      return state.carriers.total.aggregated.data.filter(s => {
-        return s.regioncode === state.selection.region && s.scenario === state.selection.society
+      return state.carriers.total.aggregated.data.find(s => {
+        return s.regioncode === state.selection.region.code && s.scenario === (state.selection.society.code + "-Baseline")
       })
     },
     carriersData: (state) => (society, target) => {
       const arr = state.carriers.grouped.original.map(carrier => {
         carrier.baseline = carrier.data.find(s => {
-          return s.regioncode === state.selection.region && s.scenario === state.selection.society
+          return s.regioncode === state.selection.region.code && s.scenario === (state.selection.society.code + "-Baseline")
         })
         carrier.target = carrier.data.find(s => {
-          return s.regioncode === state.selection.region && s.scenario === state.selection.target
-        })
+          return s.regioncode === state.selection.region.code && s.scenario === (state.selection.society.code + "-" + state.selection.target.code)
+        }) || { values: [0,0,0,0,0,0,0,0] } // TODO: fallback for infeasible scenarios. More elegant?
         return carrier
       })
       return arr
-    }/*,
-    carriersMaxValue: (state) => {
-      const maxBaseline = state.carriers.grouped.selected.map(carrier => {
-        return Math.max(...carrier.baseline[0].values)
-      })
-      const maxTarget = state.carriers.grouped.selected.map(carrier => {
-        return Math.max(...carrier.target[0].values)
-      })
-      return Math.max(...[...maxBaseline, ...maxTarget])
-    }*/,
+    },
     year: (state) => {
       return state.selection.year
     },
@@ -109,35 +149,18 @@ export default new Vuex.Store({
   },
   mutations: {
     setRegion: (state, payload) => {
-      state.selection.region = payload
+      state.selection.region = state.regions.find(region => region.code === payload)
     },
     setSociety: (state, payload) => {
-      state.selection.society = payload
+      state.selection.society = state.societies.find(society => society.code === payload)
     },
     setYear: (state, payload) => {
       state.selection.year = state.general.startyear + (payload * state.general.yearinterval)
-    }/*,
-    setCarriersData: (state, payload) => {
-      let selectedData = state.carriers.grouped.original.map(carrier => {
-        // filter baseline scenario
-        carrier.baseline = carrier.data.filter(s => {
-          return s.regioncode === payload.region && s.scenario === payload.society
-        })
-        // filter target scenario
-        carrier.target = carrier.data.filter(s => {
-          return s.regioncode === payload.region && s.scenario === payload.target
-        })
-        return carrier
-      })
-      state.carriers.grouped.selected = selectedData
-    }*/
+    }
   },
   actions: {
     changeCarriersData: ({ commit }, payload) => {
       commit('setCarriersData', payload)
-    },
-    changeSociety: ({ commit }, payload) => {
-      commit('setSociety', payload)
     }
   }
 })

@@ -9,7 +9,7 @@
         :options="regions"
         :message="'Select a region'"
         :value="selectedRegion"
-        :defaultSelection="selectedRegion"
+        :defaultSelection="selectedRegion.code"
         @input="selectedRegion = $event"
       />
       <RadioSelect
@@ -17,7 +17,7 @@
         :options="societies"
         :message="'Select a future society'"
         :value="selectedSociety"
-        :defaultSelection="selectedSociety"
+        :defaultSelection="selectedSociety.code"
         @input="selectedSociety = $event"
       />
       <RangeSlider
@@ -29,7 +29,7 @@
     </section>
     <section class="testvalues">
         <ul>
-          <li>Selected region: {{ selectedRegion }}</li>
+          <li>Selected region: {{ selectedRegion.name }}</li>
           <li>Selected year: {{ displayedYear }}</li>
           <li>Fossil energy: {{ fossilAmount }} {{ unit }}</li>
           <li>Non-fossil energy: {{ nonfossilAmount }} {{ unit }}</li>
@@ -51,6 +51,7 @@
 import RadioSelect from '@/components/RadioSelect.vue'
 import RangeSlider from '@/components/RangeSlider.vue'
 import TypeCircles from '@/components/TypeCircles.vue'
+import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -66,12 +67,11 @@ export default {
     }
   },
   computed: {
+    ...mapState(['societies', 'regions']),
     ...mapGetters([
       'startyear',
       'yearinterval',
       'unit',
-      'regions',
-      'societies',
       'fossilData',
       'totalData'
     ]),
@@ -79,15 +79,15 @@ export default {
       return this.startyear + (this.yearinterval * this.rangeValue)
     },
     fossilAmount: function () {
-      let fossilAmount = this.fossilData[0].values[this.rangeValue]
+      let fossilAmount = this.fossilData.values[this.rangeValue]
       return fossilAmount
     },
     nonfossilAmount: function () {
-      let nonfossilAmount = this.totalData[0].values[this.rangeValue] - this.fossilData[0].values[this.rangeValue]
+      let nonfossilAmount = this.totalData.values[this.rangeValue] - this.fossilData.values[this.rangeValue]
       return nonfossilAmount
     },
     totalAmount: function () {
-      let totalAmount = this.totalData[0].values[this.rangeValue]
+      let totalAmount = this.totalData.values[this.rangeValue]
       return totalAmount
     },
     selectedRegion: {
@@ -103,7 +103,7 @@ export default {
         return this.$store.state.selection.society // get from store
       },
       set (value) {
-        this.$store.dispatch('changeSociety', value) // commit to store
+        this.$store.commit('setSociety', value) // commit to store
       }
     },
     selectedYear: {

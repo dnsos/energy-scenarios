@@ -7,9 +7,17 @@
         v-model="rangeValue"
         @input="selectedYear = $event"
       />
-      <p>Region: {{ selection.region }}</p>
-      <p>Society: {{ selection.society }}</p>
-      <p>Target: {{ selection.target }}</p>
+      <RadioSelect
+        id="societies"
+        :options="societies"
+        :message="'Select a future society'"
+        :value="selectedSociety.code"
+        :defaultSelection="selectedSociety.code"
+        @input="selectedSociety = $event"
+      />
+      <p>Region: {{ selection.region.name }}</p>
+      <p>Society: {{ selection.society.name }}</p>
+      <p>Target: {{ selection.target.name }}</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, et id provident est laudantium quaerat voluptatum pariatur, corporis iure earum modi nulla labore magnam iste illo, laborum maiores ad ab?</p>
     </section>
     <section class="chapter__content">
@@ -21,13 +29,15 @@
 <script>
 import { mapState } from 'vuex'
 import CarriersCircles from '@/components/CarriersCircles.vue'
+import RadioSelect from '@/components/RadioSelect.vue'
 import RangeSlider from '@/components/RangeSlider.vue'
 
 export default {
   name: 'mix',
   components: {
     CarriersCircles,
-    RangeSlider
+    RangeSlider,
+    RadioSelect
   },
   data: function () {
     return {
@@ -35,9 +45,9 @@ export default {
     }
   },
   computed: {
-    ...mapState(['selection']),
+    ...mapState(['selection', 'societies']),
     carriers: function () {
-      return this.$store.getters.carriersData(this.selection.society, this.selection.target)
+      return this.$store.getters.carriersData(this.selection.society, this.selection.target) // TODO: remove unnessecary args
     },
     carriersMaxValue: function () {
       const maxValues = this.carriers.map(carrier => {
@@ -51,6 +61,14 @@ export default {
       },
       set (value) {
         this.$store.commit('setYear', value)
+      }
+    },
+    selectedSociety: {
+      get () {
+        return this.$store.state.selection.society // get from store
+      },
+      set (value) {
+        this.$store.commit('setSociety', value) // commit to store
       }
     }
   },
