@@ -45,9 +45,6 @@ export default {
     }
   },
   computed: {
-    carriersMaxValue: function () {
-      return 362
-    },
     carrierMaxWidth: function () {
       return this.figureWidth / this.carriers.length
     },

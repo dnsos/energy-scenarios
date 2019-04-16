@@ -34,12 +34,14 @@ export default {
   },
   computed: {
     radius: function () {
-      const scale = d3
+      const maxArea = Math.pow(this.maxRadius, 2) * Math.PI // calculates the maximum available area based on maxRadius
+      
+      const scale = d3 // creates a scale for mapping a value on range between zero and the maximum area
         .scaleLinear()
-        .range([0, this.maxRadius])
+        .range([0, maxArea])
         .domain([0, this.maxValue])
 
-      return scale(this.value)
+      return Math.sqrt(scale(this.value) / Math.PI) // computes radius from value on maxArea scale
     }
   },
   watch: {
