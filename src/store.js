@@ -139,6 +139,21 @@ export default new Vuex.Store({
       })
       return carriersArr
     },
+    carriersMaxValue: (state) => {
+      const maxCarriers = state.carriers.grouped.original.map(carrier => {
+
+        const maxScenarios = carrier.data.filter(s => {
+          return s.regioncode === state.selection.region.code
+        })
+
+        const maxScenario = maxScenarios.map(s => {
+          return Math.max(...s.values)
+        })
+
+        return Math.max(...maxScenario)
+      })
+      return Math.max(...maxCarriers)
+    },
     year: (state) => {
       return state.selection.year
     },

@@ -22,7 +22,7 @@
           <CarriersCircles
             v-show="stages.carriersMix.active"
             :carriers="carriers"
-            :maxValue="carriersMaxValue"
+            :maxValue="maxValue"
             :rangeValue="rangeValue"
           />
         </svg>
@@ -62,7 +62,8 @@ export default {
     ...mapGetters({
         carriers: 'carriersData',
         fossilData: 'fossilData',
-        totalData: 'totalData'
+        totalData: 'totalData',
+        maxValue: 'carriersMaxValue'
     }),
     fossilAmount: function () {
       let fossilAmount = this.fossilData.values[this.rangeValue]
@@ -72,12 +73,12 @@ export default {
       let nonfossilAmount = this.totalData.values[this.rangeValue] - this.fossilData.values[this.rangeValue]
       return nonfossilAmount
     },
-    carriersMaxValue: function () {
+    /*carriersMaxValue: function () { // max of selection
       const maxValues = this.carriers.map(carrier => {
         return Math.max(...carrier.baseline.values, ...carrier.target.values)
       })
       return Math.max(...maxValues)
-    },
+    },*/
     selectedYear: {
       get () {
         return this.$store.state.selection.year
