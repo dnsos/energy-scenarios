@@ -23,16 +23,6 @@ export default new Router({
       path: '/mix',
       name: 'mix',
       component: () => import('./views/Mix.vue')
-    },
-    {
-      path: '/tracks',
-      name: 'tracks',
-      component: () => import('./views/Tracks.vue')
-    },
-    {
-      path: '/carbon-price',
-      name: 'carbon-price',
-      component: () => import('./views/CarbonPrice.vue')
     }
   ]
 })
