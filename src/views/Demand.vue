@@ -19,12 +19,6 @@
         :defaultSelection="selectedSociety.code"
         @input="selectedSociety = $event"
       />
-      <RangeSlider
-        id="years"
-        label="Year"
-        v-model="rangeValue"
-        @input="selectedYear = $event"
-      />
     </section>
     <section class="testvalues">
         <ul>
@@ -48,7 +42,6 @@
 
 <script>
 import RadioSelect from '@/components/RadioSelect.vue'
-import RangeSlider from '@/components/RangeSlider.vue'
 import TypeCircles from '@/components/TypeCircles.vue'
 import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
@@ -57,13 +50,10 @@ export default {
   name: 'demand',
   components: {
     RadioSelect,
-    RangeSlider,
     TypeCircles
   },
   data: function () {
-    return {
-      rangeValue: 0
-    }
+    return {}
   },
   computed: {
     ...mapState(['societies', 'regions']),
@@ -104,21 +94,11 @@ export default {
       set (value) {
         this.$store.commit('setSociety', value) // commit to store
       }
-    },
-    selectedYear: {
-      get () {
-        return this.$store.state.selection.year
-      },
-      set (value) {
-        this.$store.commit('setYear', value) // commits active region to store from :value
-      }
     }
   },
   methods: {
   },
   mounted: function () {
-    // console.log(this.aggregatedByRegion("World"))
-    // this.selected = this.aggregatedByRegion("World")
   }
 }
 </script>

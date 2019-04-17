@@ -14,6 +14,7 @@ import oil from './assets/data/oil.json'
 // import other from './assets/data/other.json'
 import solar from './assets/data/solar.json'
 import wind from './assets/data/wind.json'
+import { stat } from 'fs';
 
 Vue.use(Vuex)
 
@@ -105,12 +106,6 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    regions: (state) => {
-      let scenarios = state.carriers.total.aggregated.data // all possible scenario/region combinations
-      // create set of distinct regions (https://codeburst.io/javascript-array-distinct-5edc93501dc4)
-      const distinctRegions = [...new Set(scenarios.map(scenario => scenario.regioncode))]
-      return distinctRegions
-    },
     fossilData: (state) => {
       return state.carriers.fossil.aggregated.data.find(s => {
         return s.regioncode === state.selection.region.code && s.scenario === (state.selection.society.code + "-Baseline")
@@ -154,7 +149,10 @@ export default new Vuex.Store({
       })
       return Math.max(...maxCarriers)
     },
-    year: (state) => {
+    rangeValue: (state) => {
+      return (state.selection.year - state.general.startyear) / state.general.yearinterval
+    },
+    year: (state) => { // TODO: remove? Already in mapState
       return state.selection.year
     },
     startyear: (state) => {

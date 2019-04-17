@@ -2,12 +2,6 @@
   <article class="chapter">
     <section class="chapter__story">
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse, neque! Temporibus alias suscipit a. A at ipsam aspernatur, saepe cumque, tempora nam explicabo excepturi molestiae vero provident corporis ab dicta.</p>
-      <RangeSlider
-        id="years"
-        label="Year:"
-        v-model="rangeValue"
-        @input="selectedYear = $event"
-      />
     </section>
     <section class="chapter__content">
       <figure>
@@ -35,14 +29,12 @@
 <script>
 import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
-import RangeSlider from '@/components/RangeSlider.vue'
 import TypeCircles from '@/components/TypeCircles.vue'
 import CarriersCircles from '@/components/CarriersCircles.vue'
 
 export default {
   name: 'intro',
   components: {
-    RangeSlider,
     TypeCircles,
     CarriersCircles
   },
@@ -50,10 +42,9 @@ export default {
     return {
       figureWidth: 1095,
       figureHeight: 400,
-      rangeValue: 0,
       stages: {
-        singleSSP: { active: false },
-        carriersMix: { active: true }
+        singleSSP: { active: true },
+        carriersMix: { active: false }
       }
     }
   },
@@ -63,7 +54,8 @@ export default {
         carriers: 'carriersData',
         fossilData: 'fossilData',
         totalData: 'totalData',
-        maxValue: 'carriersMaxValue'
+        maxValue: 'carriersMaxValue',
+        rangeValue: 'rangeValue'
     }),
     fossilAmount: function () {
       let fossilAmount = this.fossilData.values[this.rangeValue]
@@ -78,22 +70,14 @@ export default {
         return Math.max(...carrier.baseline.values, ...carrier.target.values)
       })
       return Math.max(...maxValues)
-    },*/
-    selectedYear: {
-      get () {
-        return this.$store.state.selection.year
-      },
-      set (value) {
-        this.$store.commit('setYear', value)
-      }
-    }
+    }*/
   }
 }
 </script>
 
 <style lang="scss" scoped>
 svg {
-  border: .1rem dashed var(--color-grey-20);
+  /*border: .1rem dashed var(--color-grey-20);*/
   overflow: visible;
 }
 </style>

@@ -8,18 +8,30 @@
       :defaultSelection="selectedTarget.code"
       @input="selectedTarget = $event"
     />
-    <span>{{ selection.year }}</span>
+    <RangeSlider
+      id="years"
+      v-model="rangeValue"
+      @input="selectedYear = $event"
+    />
+    <output>{{ selection.year }}</output>
   </section>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import RadioSelect from '@/components/RadioSelect.vue'
+import RangeSlider from '@/components/RangeSlider.vue'
 
 export default {
   name: 'controls',
   components: {
-    RadioSelect
+    RadioSelect,
+    RangeSlider
+  },
+  data: function () {
+    return {
+      rangeValue: 0
+    }
   },
   computed: {
     ...mapState(['selection', 'targets']),
@@ -29,6 +41,14 @@ export default {
       },
       set (value) {
         this.$store.dispatch('changeTarget', value)
+      }
+    },
+    selectedYear: {
+      get () {
+        return this.$store.state.selection.year
+      },
+      set (value) {
+        this.$store.commit('setYear', value)
       }
     }
   },

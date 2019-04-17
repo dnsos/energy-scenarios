@@ -1,6 +1,6 @@
 <template>
   <fieldset>
-    <label :for="id">{{ label }}</label>
+    <label v-if="label" :for="id">{{ label }}</label>
     <input
       type="range"
       :id="id"
@@ -17,7 +17,16 @@
 <script>
 export default {
   name: 'RangeSlider',
-  props: [ "id", "label" ],
+  props: {
+    id: {
+      type: String,
+      required: true
+    },
+    label: {
+      type: String,
+      required: false
+    },
+  },
   data: function() {
     return {}
   }
