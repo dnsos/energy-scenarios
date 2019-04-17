@@ -1,27 +1,17 @@
 <template>
   <article class="chapter">
     <section class="chapter__story">
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, et id provident est laudantium quaerat voluptatum pariatur, corporis iure earum modi nulla labore magnam iste illo, laborum maiores ad ab?</p>
       <RangeSlider
         id="years"
-        label="Year"
+        label="Year:"
         v-model="rangeValue"
         @input="selectedYear = $event"
       />
-      <RadioSelect
-        id="societies"
-        :options="societies"
-        :message="'Select a future society'"
-        :value="selectedSociety.code"
-        :defaultSelection="selectedSociety.code"
-        @input="selectedSociety = $event"
-      />
-      <p>Region: {{ selection.region.name }}</p>
-      <p>Society: {{ selection.society.name }}</p>
-      <p>Target: {{ selection.target.name }}</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, et id provident est laudantium quaerat voluptatum pariatur, corporis iure earum modi nulla labore magnam iste illo, laborum maiores ad ab?</p>
     </section>
     <section class="chapter__content">
       <CarriersCircles :carriers="carriers" :maxValue="carriersMaxValue" :rangeValue="rangeValue" />
+      <p style="text-align: right;"><span class="indicator">{{ selection.region.name }}</span> in <span class="indicator">{{ selection.society.name }}</span></p>
     </section>
   </article>
 </template>
@@ -46,8 +36,8 @@ export default {
   },
   computed: {
     ...mapState(['selection', 'societies']),
-    carriers: function () {
-      return this.$store.getters.carriersData(this.selection.society, this.selection.target) // TODO: remove unnessecary args
+    carriers: function () { // TODO: create mapGetters
+      return this.$store.getters.carriersData
     },
     carriersMaxValue: function () {
       const maxValues = this.carriers.map(carrier => {
@@ -78,11 +68,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.chapter__content {
-  grid-column: span 9;
-}
-
-.chapter__story {
-  grid-column: span 3;
-}
 </style>

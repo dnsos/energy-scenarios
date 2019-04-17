@@ -1,14 +1,12 @@
 <template>
-  <svg :width="figureWidth" :height="figureHeight">
-    <g>
-      <g transform="translate(400,200) rotate(180)">
-        <EnergyCircle :maxRadius="maxRadius" :value="fossilData" :maxValue="maxValue" />
-      </g>
-      <g transform="translate(400,200)">
-        <EnergyCircle :maxRadius="maxRadius" :value="nonfossilData" :maxValue="maxValue" />
-      </g>
+  <g>
+    <g transform="translate(400,200) rotate(180)">
+      <EnergyCircle :maxRadius="maxRadius" :value="fossilData" :maxValue="maxValue" />
     </g>
-  </svg>
+    <g transform="translate(400,200)">
+      <EnergyCircle :maxRadius="maxRadius" :value="nonfossilData" :maxValue="maxValue" />
+    </g>
+  </g>
 </template>
 
 <script>
@@ -35,9 +33,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-svg {
-  /* TODO: Remove. Only for layouting purposes */
-  border: 1px dashed black;
-  overflow: visible;
-}
 </style>

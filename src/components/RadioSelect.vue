@@ -1,19 +1,22 @@
 <template>
   <fieldset>
     <legend v-if="message">{{ message }}</legend>
-    <div
-      v-for="option in options"
-      :key="option.code"
-    >
-      <input
-        type="radio"
-        :id="option.code"
-        :name="id"
-        :value="option.code"
-        @input="$emit('input', $event.target.value)"
-        v-model="selectedOption"
+    <div class="options__wrapper">
+      <div
+        v-for="option in options"
+        :key="option.code"
+        class="option"
       >
-      <label :for="option.code">{{ option.name }}</label> <!-- TODO: document option.name and option.code somehow -->
+        <input
+          type="radio"
+          :id="option.code"
+          :name="id"
+          :value="option.code"
+          @input="$emit('input', $event.target.value)"
+          v-model="selectedOption"
+        >
+        <label :for="option.code" :class="{ active: selectedOption === option.code }">{{ option.name }}</label>
+      </div>
     </div>
   </fieldset>
 </template>
@@ -32,7 +35,7 @@ export default {
     },
     message: {
       type: String,
-      required: true
+      required: false
     },
     defaultSelection: {
       type: String,
@@ -48,4 +51,31 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.options__wrapper {
+  width: 100%;
+
+  .option {
+    display: inline-block;
+
+    input {
+      display: none;
+    }
+
+    label {
+      padding: .2rem calc(var(--grid-spacing) / 4);
+      background-color: transparent;
+      cursor: pointer;
+      transition: all .1s ease-in;
+    }
+
+    .active {
+      color: white;
+      background-color: var(--color-yellow);
+    }
+  }
+
+  .option:not(:last-child) {
+    margin-right: calc(var(--grid-spacing) / 2);
+  }
+}
 </style>

@@ -28,8 +28,7 @@ export default new Vuex.Store({
         aggregated: {}
       },
       grouped: {
-        original: [coal, gas, oil, biomass, hydro, nuclear, solar, wind],
-        selected: []
+        original: [coal, gas, oil, biomass, hydro, nuclear, solar, wind]
       },
       total: {
         aggregated: total
@@ -122,17 +121,23 @@ export default new Vuex.Store({
         return s.regioncode === state.selection.region.code && s.scenario === (state.selection.society.code + "-Baseline")
       })
     },
-    carriersData: (state) => (society, target) => {
-      const arr = state.carriers.grouped.original.map(carrier => {
+    carriersData: (state) => {
+      const carriersArr = state.carriers.grouped.original.map(carrier => {
+
         carrier.baseline = carrier.data.find(s => {
           return s.regioncode === state.selection.region.code && s.scenario === (state.selection.society.code + "-Baseline")
         })
+        
         carrier.target = carrier.data.find(s => {
-          return s.regioncode === state.selection.region.code && s.scenario === (state.selection.society.code + "-" + state.selection.target.code)
+          let selectedRegion = state.selection.region.code
+          let selectedScenario = state.selection.society.code + "-" + state.selection.target.code
+
+          return s.regioncode === selectedRegion && s.scenario === selectedScenario
         }) || { values: [0,0,0,0,0,0,0,0] } // TODO: fallback for infeasible scenarios. More elegant?
+
         return carrier
       })
-      return arr
+      return carriersArr
     },
     year: (state) => {
       return state.selection.year
@@ -154,6 +159,9 @@ export default new Vuex.Store({
     setSociety: (state, payload) => {
       state.selection.society = state.societies.find(society => society.code === payload)
     },
+    setTarget: (state, payload) => {
+      state.selection.target = state.targets.find(target => target.code === payload)
+    },
     setYear: (state, payload) => {
       state.selection.year = state.general.startyear + (payload * state.general.yearinterval)
     }
@@ -161,6 +169,9 @@ export default new Vuex.Store({
   actions: {
     changeCarriersData: ({ commit }, payload) => {
       commit('setCarriersData', payload)
+    },
+    changeTarget: ({ commit }, payload) => {
+      commit('setTarget', payload)
     }
   }
 })

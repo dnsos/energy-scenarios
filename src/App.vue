@@ -1,15 +1,26 @@
 <template>
   <main id="app">
-    <nav id="nav">
-      <router-link to="/">Intro</router-link> |
-      <router-link to="/demand">Demand</router-link> |
-      <router-link to="/mix">Mix</router-link> |
-      <router-link to="/tracks">Tracks</router-link> |
-      <router-link to="/carbon-price">Integration of a Carbon Price</router-link>
-    </nav>
+    <Controls />
     <router-view/>
+    <nav id="nav">
+      <router-link to="/" exact>Walkthrough</router-link> |
+      <router-link to="/demand" exact>Demand Figure</router-link> |
+      <router-link to="/mix" exact>Mix Figure</router-link>
+    </nav>
   </main>
 </template>
+
+<script>
+import Controls from '@/components/Controls.vue'
+
+export default {
+  name: 'app',
+  components: {
+    Controls
+  }
+}
+</script>
+
 
 <style lang="scss">
 
@@ -20,6 +31,7 @@
   --color-dark-blue: #2f3652;
   --color-yellow: rgb(254, 174, 0);
   --color-grey-76: #3e3e3e;
+  --color-grey-54: #757575;
   --color-grey-20: #cccccc;
   --color-grey-09: #e7e7e7;
   --color-grey-02: #f9f9f9;
@@ -44,6 +56,11 @@ body {
 figure {
   margin: 0;
 }
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
 
 #app {
   min-height: 100vh;
@@ -57,6 +74,8 @@ figure {
     "f f f f f f f f f f f f";
 }
 
+/* CHAPTERS
+----------------------------------------------------- */
 .chapter {
   grid-area: c;
   display: grid;
@@ -65,13 +84,42 @@ figure {
   grid-template-rows: max-content;
 }
 
-nav {
+.chapter__header {
+  grid-column: span 12;
+}
+
+.chapter__story {
+  grid-column: span 3;
+  z-index: 1;
+}
+
+.chapter__content {
+  grid-column: span 9;
+  z-index: 0;
+}
+
+.controls {
   grid-area: h;
+  text-align: right;
+  z-index: 1;
+
+  > * {
+    display: inline-block;
+
+    &:not(:last-child) {
+      margin-right: var(--grid-spacing);
+    }
+  }
+}
+
+nav {
+  grid-area: f;
   a {
-    color: var(--color-grey-76);
-    &.router-link-exact-active {
-      color: var(--color-primary);
-      border-bottom: .1rem solid var(--color-primary);
+    color: var(--color-grey-54);
+    border-bottom: .1rem solid transparent;
+    &.router-link-active {
+      color: var(--color-dark-blue);
+      border-color: var(--color-dark-blue);
     }
   }
 }
@@ -148,5 +196,9 @@ a {
 }
 a:hover {
   color: var(--color-primary);
+}
+
+.indicator {
+  font-style: italic;
 }
 </style>
