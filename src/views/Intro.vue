@@ -1,7 +1,9 @@
 <template>
   <article class="chapter">
     <section class="chapter__story">
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse, neque! Temporibus alias suscipit a. A at ipsam aspernatur, saepe cumque, tempora nam explicabo excepturi molestiae vero provident corporis ab dicta.</p>
+      <p>{{ walkthrough.steps[activeStep].text }}</p>
+      <button v-if="activeStep > 0" @click="activeStep = activeStep - 1">Previous</button>
+      <button v-if="activeStep < walkthrough.steps.length - 1" class="button__next" @click="activeStep = activeStep + 1">Next</button>
     </section>
     <section class="chapter__content">
       <figure>
@@ -40,6 +42,7 @@ export default {
   },
   data: function () {
     return {
+      id: 'test',
       figureWidth: 1095,
       figureHeight: 400,
       stages: {
@@ -49,7 +52,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['selection']),
+    ...mapState(['selection', 'walkthrough']),
     ...mapGetters({
         carriers: 'carriersData',
         fossilData: 'fossilData',
@@ -65,12 +68,14 @@ export default {
       let nonfossilAmount = this.totalData.values[this.rangeValue] - this.fossilData.values[this.rangeValue]
       return nonfossilAmount
     },
-    /*carriersMaxValue: function () { // max of selection
-      const maxValues = this.carriers.map(carrier => {
-        return Math.max(...carrier.baseline.values, ...carrier.target.values)
-      })
-      return Math.max(...maxValues)
-    }*/
+    activeStep: {
+      get () {
+        return this.$store.state.walkthrough.activeStep
+      },
+      set (value) {
+        this.$store.commit('setStep', value)
+      }
+    }
   }
 }
 </script>
@@ -79,6 +84,19 @@ export default {
 svg {
   /*border: .1rem dashed var(--color-grey-20);*/
   overflow: visible;
+}
+
+button {
+  margin-right: .5rem;
+  font-family: var(--font-family-mono);
+  color: var(--color-dark-blue);
+  background-color: transparent;
+  border: .15rem solid var(--color-dark-blue);
+}
+
+.button__next {
+  color: white;
+  background-color: var(--color-dark-blue);
 }
 </style>
 

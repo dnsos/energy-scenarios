@@ -14,7 +14,8 @@ import oil from './assets/data/oil.json'
 // import other from './assets/data/other.json'
 import solar from './assets/data/solar.json'
 import wind from './assets/data/wind.json'
-import { stat } from 'fs';
+
+import walkthrough from './assets/walkthrough.json'
 
 Vue.use(Vuex)
 
@@ -96,6 +97,10 @@ export default new Vuex.Store({
       startyear: total.startyear,
       yearinterval: total.yearinterval,
       unit: total.unit
+    },
+    walkthrough: {
+      steps: walkthrough,
+      activeStep: 0
     }
   },
   getters: {
@@ -170,13 +175,13 @@ export default new Vuex.Store({
     },
     setYear: (state, payload) => {
       state.selection.year = state.general.startyear + (payload * state.general.yearinterval)
+    },
+    setStep: (state, payload) => {
+      state.walkthrough.activeStep = payload
     }
   },
   actions: {
-    changeCarriersData: ({ commit }, payload) => {
-      commit('setCarriersData', payload)
-    },
-    changeTarget: ({ commit }, payload) => {
+    changeTarget: ({ commit }, payload) => { // TODO: make mutation instead of action
       commit('setTarget', payload)
     }
   }

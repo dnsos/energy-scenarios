@@ -14,9 +14,6 @@ export default new Router({
     {
       path: '/demand',
       name: 'demand',
-      // route level code-splitting
-      // this generates a separate chunk (demand.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('./views/Demand.vue')
     },
     {

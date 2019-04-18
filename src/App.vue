@@ -38,6 +38,7 @@ export default {
   --color-grey-02: #f9f9f9;
   --font-size: 16px;
   --font-family: "IBM Plex Sans", Arial, sans-serif;
+  --font-family-mono: "IBM Plex Mono", monospace;
   --grid-spacing: 2.5rem;
 }
 
@@ -91,6 +92,8 @@ fieldset {
 
 .chapter__story {
   grid-column: span 3;
+  padding: var(--grid-spacing);
+  border: .15rem solid var(--color-dark-blue);
   z-index: 1;
 }
 
