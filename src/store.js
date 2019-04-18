@@ -22,18 +22,11 @@ export default new Vuex.Store({
   strict: true, // TODO: disable for production (https://vuex.vuejs.org/guide/strict.html)
   state: {
     carriers: {
-      fossil: {
-        aggregated: fossil
-      },
-      nonfossil: {
-        aggregated: {}
-      },
+      fossil: fossil,
       grouped: {
         original: [coal, gas, oil, biomass, hydro, nuclear, solar, wind]
       },
-      total: {
-        aggregated: total
-      }
+      total: total
     },
     selection: {
       region: { name: "World", code: "World"},
@@ -107,12 +100,12 @@ export default new Vuex.Store({
   },
   getters: {
     fossilData: (state) => {
-      return state.carriers.fossil.aggregated.data.find(s => {
+      return state.carriers.fossil.data.find(s => {
         return s.regioncode === state.selection.region.code && s.scenario === (state.selection.society.code + "-Baseline")
       })
     },
     totalData: (state) => {
-      return state.carriers.total.aggregated.data.find(s => {
+      return state.carriers.total.data.find(s => {
         return s.regioncode === state.selection.region.code && s.scenario === (state.selection.society.code + "-Baseline")
       })
     },

@@ -43,8 +43,8 @@ export default {
       figureWidth: 1095,
       figureHeight: 400,
       stages: {
-        singleSSP: { active: true },
-        carriersMix: { active: false }
+        singleSSP: { active: false },
+        carriersMix: { active: true }
       }
     }
   },

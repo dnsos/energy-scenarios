@@ -23,6 +23,11 @@ export default new Router({
       path: '/mix',
       name: 'mix',
       component: () => import('./views/Mix.vue')
+    },
+    {
+      path: '/matrix-figure',
+      name: 'matrix-figure',
+      component: () => import('./views/MatrixFigure.vue')
     }
   ]
 })

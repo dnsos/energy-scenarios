@@ -5,7 +5,8 @@
     <nav id="nav">
       <router-link to="/" exact>Walkthrough</router-link> |
       <router-link to="/demand" exact>Demand Figure</router-link> |
-      <router-link to="/mix" exact>Mix Figure</router-link>
+      <router-link to="/mix" exact>Mix Figure</router-link> |
+      <router-link to="/matrix-figure" exact>Matrix Figure</router-link>
     </nav>
   </main>
 </template>

@@ -76,9 +76,10 @@ export default {
 
 <style scoped lang="scss">
 circle {
-  stroke: black;
   stroke-width: 2;
-  fill: transparent;
+  stroke: var(--color-violet);
+  fill: var(--color-violet);
+  fill-opacity: .1;
 }
 
 .circle--baseline {
