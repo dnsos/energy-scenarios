@@ -3,46 +3,46 @@
     <TypeCircles
       :width="group.width"
       :height="group.height"
+      :society="matrixData[4].ssp"
       :fossilData="matrixData[4].baseline.fossil.values[rangeValue]"
       :nonfossilData="matrixData[4].baseline.nonfossil.values[rangeValue]"
       :maxValueTest="matrixMaxValue"
-      :class="matrixData[4].ssp"
       :transform="'translate(' + translateValues(1,1) + ')'"
     />
     <TypeCircles
       :width="group.width"
       :height="group.height"
+      :society="matrixData[0].ssp"
       :fossilData="matrixData[0].baseline.fossil.values[rangeValue]"
       :nonfossilData="matrixData[0].baseline.nonfossil.values[rangeValue]"
       :maxValueTest="matrixMaxValue"
-      :class="matrixData[0].ssp"
       :transform="'translate(' + translateValues(1,5) + ')'"
     />
     <TypeCircles
       :width="group.width"
       :height="group.height"
+      :society="matrixData[2].ssp"
       :fossilData="matrixData[2].baseline.fossil.values[rangeValue]"
       :nonfossilData="matrixData[2].baseline.nonfossil.values[rangeValue]"
       :maxValueTest="matrixMaxValue"
-      :class="matrixData[2].ssp"
       :transform="'translate(' + translateValues(5,1) + ')'"
     />
     <TypeCircles
       :width="group.width"
       :height="group.height"
+      :society="matrixData[3].ssp"
       :fossilData="matrixData[3].baseline.fossil.values[rangeValue]"
       :nonfossilData="matrixData[3].baseline.nonfossil.values[rangeValue]"
       :maxValueTest="matrixMaxValue"
-      :class="matrixData[3].ssp"
       :transform="'translate(' + translateValues(5,5) + ')'"
     />
     <TypeCircles
       :width="group.width"
       :height="group.height"
+      :society="matrixData[1].ssp"
       :fossilData="matrixData[1].baseline.fossil.values[rangeValue]"
       :nonfossilData="matrixData[1].baseline.nonfossil.values[rangeValue]"
       :maxValueTest="matrixMaxValue"
-      :class="matrixData[1].ssp"
       :transform="'translate(' + translateValues(3,3) + ')'"
     />
   </g>

@@ -82,7 +82,7 @@ export default {
 
 <style lang="scss" scoped>
 svg {
-  /*border: .1rem dashed var(--color-grey-20);*/
+  /*border: .1rem dashed var(--color-grey-09);*/
   overflow: visible;
 }
 
