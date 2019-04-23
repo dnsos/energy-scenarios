@@ -3,36 +3,46 @@
     <TypeCircles
       :width="group.width"
       :height="group.height"
-      :fossilData="1004.921"
-      :nonfossilData="600"
+      :fossilData="matrixData[4].baseline.fossil.values[rangeValue]"
+      :nonfossilData="matrixData[4].baseline.nonfossil.values[rangeValue]"
+      :maxValueTest="matrixMaxValue"
+      :class="matrixData[4].ssp"
       :transform="'translate(' + translateValues(1,1) + ')'"
     />
     <TypeCircles
       :width="group.width"
       :height="group.height"
-      :fossilData="400"
-      :nonfossilData="900"
+      :fossilData="matrixData[0].baseline.fossil.values[rangeValue]"
+      :nonfossilData="matrixData[0].baseline.nonfossil.values[rangeValue]"
+      :maxValueTest="matrixMaxValue"
+      :class="matrixData[0].ssp"
       :transform="'translate(' + translateValues(1,5) + ')'"
     />
     <TypeCircles
       :width="group.width"
       :height="group.height"
-      :fossilData="800"
-      :nonfossilData="900"
+      :fossilData="matrixData[2].baseline.fossil.values[rangeValue]"
+      :nonfossilData="matrixData[2].baseline.nonfossil.values[rangeValue]"
+      :maxValueTest="matrixMaxValue"
+      :class="matrixData[2].ssp"
       :transform="'translate(' + translateValues(5,1) + ')'"
     />
     <TypeCircles
       :width="group.width"
       :height="group.height"
-      :fossilData="450"
-      :nonfossilData="200"
+      :fossilData="matrixData[3].baseline.fossil.values[rangeValue]"
+      :nonfossilData="matrixData[3].baseline.nonfossil.values[rangeValue]"
+      :maxValueTest="matrixMaxValue"
+      :class="matrixData[3].ssp"
       :transform="'translate(' + translateValues(5,5) + ')'"
     />
     <TypeCircles
       :width="group.width"
       :height="group.height"
-      :fossilData="150"
-      :nonfossilData="600"
+      :fossilData="matrixData[1].baseline.fossil.values[rangeValue]"
+      :nonfossilData="matrixData[1].baseline.nonfossil.values[rangeValue]"
+      :maxValueTest="matrixMaxValue"
+      :class="matrixData[1].ssp"
       :transform="'translate(' + translateValues(3,3) + ')'"
     />
   </g>
@@ -50,15 +60,15 @@ export default {
   },
   props: ['width', 'height'],
   data: function() {
-    return {
-      arrSSP: ['SSP1', 'SSP2', 'SSP3', 'SSP4', 'SSP5'] // only for testing purposes
-    }
+    return {}
   },
   computed: {
     ...mapState(['selection']),
     ...mapGetters([
       'fossilData',
       'totalData',
+      'matrixData', // TODO: create computed properties to tidy up data in template
+      'matrixMaxValue',
       'rangeValue'
     ]),
     group: function () {
@@ -74,12 +84,15 @@ export default {
       const y = (this.group.height / 2) * rowIndex
       return x + ',' + y
     }
+  },
+  mounted: function () {
+    console.log('Max Matrix value:', this.maxMatrixValue)
   }
 }
 </script>
 
 <style scoped lang="scss">
 .matrix__wrapper {
-  fill: turquoise;
+  
 }
 </style>

@@ -114,6 +114,62 @@ export default new Vuex.Store({
         return s.regioncode === state.selection.region.code && s.scenario === (state.selection.society.code + "-Baseline")
       })
     },
+    matrixData: (state) => {
+      const arrSSPs = state.societies.map(society => {
+        const baseline = {
+          total: null,
+          fossil: null,
+          nonfossil: { values: [] }
+        }
+
+        baseline.total = state.carriers.total.data.find(s => {
+          return s.regioncode === state.selection.region.code && s.scenario === (society.code + "-Baseline")
+        })
+
+        baseline.fossil = state.carriers.fossil.data.find(s => {
+          return s.regioncode === state.selection.region.code && s.scenario === (society.code + "-Baseline")
+        })
+
+        baseline.nonfossil.values = baseline.total.values.map((value, index) => {
+          return value - baseline.fossil.values[index]
+        })
+
+        const target = {
+          total: null,
+          fossil: null,
+          nonfossil: { values: [] }
+        }
+
+        target.total = state.carriers.total.data.find(s => {
+          return s.regioncode === state.selection.region.code && s.scenario === (society.code + "-" + state.selection.target.code)
+        }) || { values: [0,0,0,0,0,0,0,0,0] }
+
+        target.fossil = state.carriers.fossil.data.find(s => {
+          return s.regioncode === state.selection.region.code && s.scenario === (society.code + "-" + state.selection.target.code)
+        }) || { values: [0,0,0,0,0,0,0,0,0] }
+
+        target.nonfossil.values = target.total.values.map((value, index) => {
+          return value - target.fossil.values[index]
+        })
+
+        return {
+          ssp: society.name,
+          baseline: baseline,
+          target: target
+        }
+      })
+      return arrSSPs
+    },
+    matrixMaxValue: (state, getters) => {
+      const maxSSPs = getters.matrixData.map(ssp => {
+        const maxBaselineFossil = Math.max(...ssp.baseline.fossil.values)
+        const maxBaselineNonfossil = Math.max(...ssp.baseline.nonfossil.values)
+        const maxTargetFossil = Math.max(...ssp.target.fossil.values)
+        const maxTargetNonfossil = Math.max(...ssp.target.nonfossil.values)
+        return Math.max(maxBaselineFossil, maxBaselineNonfossil, maxTargetFossil, maxTargetNonfossil)
+      })
+      return Math.max(...maxSSPs)
+    },
     carriersData: (state) => {
       const carriersArr = state.carriers.grouped.original.map(carrier => {
 
@@ -126,7 +182,7 @@ export default new Vuex.Store({
           let selectedScenario = state.selection.society.code + "-" + state.selection.target.code
 
           return s.regioncode === selectedRegion && s.scenario === selectedScenario
-        }) || { values: [0,0,0,0,0,0,0,0] } // TODO: fallback for infeasible scenarios. More elegant?
+        }) || { values: [0,0,0,0,0,0,0,0,0] } // TODO: fallback for infeasible scenarios. More elegant?
 
         return carrier
       })

@@ -33,6 +33,6 @@ export default {
 <style lang="scss" scoped>
 svg {
   overflow: visible;
-  border: .1rem dashed var(--color-grey-20);
+  border: .1rem dashed var(--color-grey-09);
 }
 </style>
