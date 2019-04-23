@@ -94,7 +94,7 @@ fieldset {
 .chapter__story {
   grid-column: span 3;
   padding: var(--grid-spacing);
-  border: .15rem solid var(--color-dark-blue);
+  border: .15rem solid transparent;
   z-index: 1;
 }
 

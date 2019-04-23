@@ -86,13 +86,9 @@ export default {
     }
   },
   mounted: function () {
-    console.log('Max Matrix value:', this.maxMatrixValue)
   }
 }
 </script>
 
 <style scoped lang="scss">
-.matrix__wrapper {
-  
-}
 </style>
