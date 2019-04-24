@@ -45,12 +45,12 @@ export default {
     }
   },
   watch: {
-    radius: function (oldValue, newValue) {
-      this.tween(newValue, oldValue) // TODO: works, but why new before old?
+    radius: function (newValue, oldValue) {
+      this.tween(oldValue, newValue)
     }
   },
   mounted: function () {
-    this.tween(0, this.radius) // TODO: why inversed values here?
+    this.tween(0, this.radius)
   },
   methods: {
     tween: function (startValue, endValue) {
@@ -76,7 +76,7 @@ export default {
 
 <style scoped lang="scss">
 circle {
-  stroke-width: 2;
+  stroke-width: 1.5;
   stroke: var(--color-violet);
   fill: var(--color-violet);
   fill-opacity: .1;
