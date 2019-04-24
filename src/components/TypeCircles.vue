@@ -1,19 +1,41 @@
 <template>
   <g
-    @mouseover="isHovered = true"
-    @mouseleave="isHovered = false"
+    @mouseenter="toggleHovered()"
+    @mouseleave="toggleHovered()"
     class="matrix__group"
     :class="{ 'group--active': isHovered}"
   >
-    <rect class="group__background" :x="-(width / 2)" :y="-(height / 2)" :width="width" :height="height"></rect>
+    <rect
+      class="group__background"
+      :x="-(width / 2)"
+      :y="-(height / 2)"
+      :width="width"
+      :height="height"
+    ></rect>
     <g>
-      <!--<EnergyCircle :transform="'translate(' + (-maxRadius * 2) + ',0)'" :maxRadius="maxRadius * 2" :value="fossilData + nonfossilData" :maxValue="maxValue * 2" />-->
+      <circle
+        class="circle__total"
+        :r="radiusTotal"
+        cx="0"
+        cy="0"
+        transform="translate(-30,0)"
+      ></circle>
     </g>
     <g transform="rotate(180)">
-      <EnergyCircle :maxRadius="maxRadius" :value="fossilData" :maxValue="maxValue" />
+      <EnergyCircle
+        class="circle__fossil"
+        :maxRadius="maxRadius"
+        :value="fossilData"
+        :maxValue="maxValue"
+      />
     </g>
     <g>
-      <EnergyCircle :maxRadius="maxRadius" :value="nonfossilData" :maxValue="maxValue" />
+      <EnergyCircle
+        class="circle__nonfossil"
+        :maxRadius="maxRadius"
+        :value="nonfossilData"
+        :maxValue="maxValue"
+      />
     </g>
     <text class="matrix__society" :transform="'translate(0,' + height * 0.4 + ')'">{{ society }}</text>
   </g>
@@ -51,21 +73,25 @@ export default {
     maxValue: {
       type: Number,
       required: true
-    },
-    isHovered: {
-      type: Boolean,
-      required: false,
-      default: false
     }
   },
   data: function() {
-    return {}
+    return {
+      isHovered: false,
+      radiusTotal: null
+    }
   },
   computed: {
     maxRadius: function () {
       return this.width / 4
     }
-  }
+  },
+  methods: {
+    toggleHovered: function () {
+      this.isHovered = !this.isHovered
+    }
+  },
+  mounted: function () {}
 }
 </script>
 
@@ -74,7 +100,6 @@ export default {
   font-size: var(--font-size-small);
   text-anchor: middle;
 }
-
 .group__background {
   fill: transparent;
   transition: all .1s ease-in;
@@ -83,5 +108,12 @@ export default {
   .group__background {
     fill: var(--color-grey-02);
   }
+}
+.circle__total {
+  stroke-width: 1.5;
+  stroke: var(--color-violet);
+  stroke-opacity: .25;
+  fill: var(--color-violet);
+  fill-opacity: .1;
 }
 </style>
