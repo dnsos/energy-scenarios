@@ -4,7 +4,7 @@
       <StoryBox />
     </section>
     <section class="chapter__content">
-      <figure>
+      <figure ref="figureWrapper">
         <svg :width="figureWidth" :height="figureHeight">
           <Matrix v-show="activeStep === 3" :width="figureWidth" :height="figureHeight" />
           <CarriersCircles
@@ -71,6 +71,12 @@ export default {
         this.$store.commit('setStep', value)
       }
     }
+  },
+  mounted: function () {
+    this.figureWidth = this.$refs.figureWrapper.offsetWidth
+    window.addEventListener("resize", () => { // TODO: better way? 'watch'?
+      this.figureWidth = this.$refs.figureWrapper.offsetWidth
+    })
   }
 }
 </script>
