@@ -1,18 +1,25 @@
 <template>
   <section class="story__wrapper">
-    <p>{{ walkthrough.steps[activeStep].text }}</p>
+    <div class="story__content">
+      <transition
+        v-for="(step, index) in walkthrough.steps"
+        :key="index"
+        name="slide-fade">
+        <p v-if="index === activeStep">{{ walkthrough.steps[index].text }}</p>
+      </transition>
+    </div>
     <div class="buttons__wrapper">
       <button
         v-if="activeStep > 0"
         class="button__previous"
         @click="activeStep = activeStep - 1"
-      ><span>Back</span>
+      ><span><span>←</span> Back</span>
       </button>
       <button
         v-if="activeStep < walkthrough.steps.length - 1"
         class="button__next"
         @click="activeStep = activeStep + 1"
-      ><span>Next</span></button>
+      ><span>Next <span>→</span></span></button>
     </div>
   </section>
 </template>
@@ -40,46 +47,66 @@ export default {
 </script>
 
 <style lang="scss">
+/* WRAPPER ELEMENT
+----------------------------------------------- */
 .story__wrapper {
   display: grid;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: minmax(25rem, 1fr) auto;
 }
 
+/* TEXT
+----------------------------------------------- */
+.story__content {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+
+  p {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+
+/* TEXT ANIMATIONS
+----------------------------------------------- */
+.slide-fade-enter-active {
+  transition: all .25s ease-in-out;
+}
+
+/*.slide-fade-leave-active {
+  put transition for leaving elements here
+}*/
+
+.slide-fade-enter, .slide-fade-leave-to {
+  transform: translateY(1rem);
+  opacity: 0;
+}
+
+/* BUTTONS
+----------------------------------------------- */
 .buttons__wrapper {
   text-align: right;
 
   button {
-    margin-right: .5rem;
+    padding: .6rem 1.2rem;
+    margin-right: .6rem;
     font-family: var(--font-family-mono);
     color: var(--color-dark-blue);
     background-color: transparent;
     border: .15rem solid var(--color-dark-blue);
+
+    &:last-child {
+      margin-right: 0;
+    }
+
     &:focus {
       outline: .1rem dotted black;
     }
   }
-  .button__previous {
-    padding: .6rem 1.2rem .6rem 2.4rem;
 
-    span:before {
-      content: "\2190";
-      display: inline-block;
-      position: absolute;
-      transform: translateX(-1.4rem);
-    }
-  }
   .button__next {
-    padding: .6rem 2.4rem .6rem 1.2rem;
     color: white;
     background-color: var(--color-dark-blue);
-
-    span:after {
-      content: "\2192";
-      display: inline-block;
-      position: absolute;
-      transform: translateX(0.4rem);
-      color: white;
-    }
   }
 }
 </style>

@@ -1,12 +1,12 @@
 <template>
   <fieldset>
     <label :for="id">{{ message }}</label>
-    <select :name="id" :id="id">
+    <select :name="id" :id="id" v-model="selectedOption" @change="$emit('select', $event.target.value)">
       <option
         v-for="option in options"
-        :key="option"
-        :value="option">
-        {{ option }}</option>
+        :key="option.code"
+        :value="option.code">
+        {{ option.name }}</option>
     </select>
   </fieldset>
 </template>
@@ -14,9 +14,11 @@
 <script>
 export default {
   name: 'DropDownSelect',
-  props: [ "id", "options", "message" ],
+  props: [ "id", "options", "message", "defaultSelection" ],
   data: function() {
-    return {}
+    return {
+      selectedOption: this.defaultSelection
+    }
   }
 }
 </script>

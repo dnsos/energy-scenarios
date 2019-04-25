@@ -67,14 +67,19 @@ fieldset {
 
 #app {
   min-height: 100vh;
-  padding: var(--grid-spacing);
+  padding: 0;
   display: grid;
   grid-gap: var(--grid-spacing);
   grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto;
   grid-template-areas:
     "h h h h h h h h h h h h"
     "c c c c c c c c c c c c"
     "f f f f f f f f f f f f";
+
+  >* {
+    height: max-content;
+  }
 }
 
 /* CHAPTERS
@@ -84,7 +89,8 @@ fieldset {
   display: grid;
   grid-gap: var(--grid-spacing);
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: max-content;
+  grid-auto-rows: min-content;
+  padding: 0 var(--grid-spacing);
 }
 
 .chapter__header {
@@ -101,22 +107,8 @@ fieldset {
 }
 
 .chapter__content {
-  grid-column: span 9;
+  grid-column: 5 / 13;
   z-index: 0;
-}
-
-.controls {
-  grid-area: h;
-  text-align: right;
-  z-index: 1;
-
-  > * {
-    display: inline-block;
-
-    &:not(:last-child) {
-      margin-right: var(--grid-spacing);
-    }
-  }
 }
 
 nav {

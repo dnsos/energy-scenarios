@@ -40,11 +40,12 @@ label {
 
 input[type=range] {
   -webkit-appearance: none;
-  margin: var(--grid-spacing) 0;
   width: 15rem;
+  margin: 0;
+  vertical-align: middle;
 }
 input[type=range]:focus {
-  outline: none;
+  outline: .1rem dotted black;
 }
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;

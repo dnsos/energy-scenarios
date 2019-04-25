@@ -9,6 +9,8 @@
           <Matrix v-show="activeStep === 3" :width="figureWidth" :height="figureHeight" />
           <CarriersCircles
             v-show="activeStep === 4"
+            :width="figureWidth"
+            :height="figureHeight"
             :carriers="carriers"
             :maxValue="maxValue"
             :rangeValue="rangeValue"
@@ -36,7 +38,7 @@ export default {
   data: function () {
     return {
       id: 'test',
-      figureWidth: 1095,
+      figureWidth: 971,
       figureHeight: 400,
       stages: {
         singleSSP: { active: false },
@@ -75,7 +77,7 @@ export default {
 
 <style lang="scss" scoped>
 svg {
-  border: .1rem dashed transparent;
+  border: .1rem dashed var(--color-grey-09);
   overflow: visible;
 }
 </style>

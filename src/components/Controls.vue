@@ -14,6 +14,13 @@
       @input="selectedYear = $event"
     />
     <output>{{ selection.year }}</output>
+    <DropDown
+      id="regions"
+      :options="regions"
+      :value="selectedRegion"
+      :defaultSelection="selectedRegion.code"
+      @select="selectedRegion = $event"
+    />
   </section>
 </template>
 
@@ -21,12 +28,14 @@
 import { mapState } from 'vuex'
 import RadioSelect from '@/components/RadioSelect.vue'
 import RangeSlider from '@/components/RangeSlider.vue'
+import DropDown from '@/components/DropDownSelect.vue'
 
 export default {
   name: 'controls',
   components: {
     RadioSelect,
-    RangeSlider
+    RangeSlider,
+    DropDown
   },
   data: function () {
     return {
@@ -34,7 +43,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['selection', 'targets']),
+    ...mapState(['selection', 'targets', 'regions']),
     selectedTarget: {
       get () {
         return this.$store.state.selection.target
@@ -50,6 +59,14 @@ export default {
       set (value) {
         this.$store.commit('setYear', value)
       }
+    },
+    selectedRegion: {
+      get () {
+        return this.$store.state.selection.region
+      },
+      set (value) {
+        this.$store.commit('setRegion', value)
+      }
     }
   },
   mounted: function () {
@@ -61,7 +78,10 @@ export default {
 <style lang="scss">
 .controls {
   grid-area: h;
-  text-align: right;
+  padding: calc(var(--grid-spacing) / 2) var(--grid-spacing);
+  text-align: left;
+  box-shadow: 0 2px 4px var(--color-grey-09);
+  z-index: 1;
 
   > * {
     display: inline-block;

@@ -4,7 +4,7 @@
       v-for="(carrier, index) in carriers"
       :key="carrier.variable"
       class="carrier-circle"
-      :transform="'translate(0' + ((carrierMaxWidth * index) + carrierMaxRadius) + ',' + figureHeight / 2 + ')'"
+      :transform="'translate(0' + ((carrierMaxWidth * index) + carrierMaxRadius) + ',' + height / 2 + ')'"
     >
       <EnergyCircle
         class="circle--target"
@@ -33,16 +33,13 @@ export default {
   components: {
     EnergyCircle
   },
-  props: ['carriers', 'maxValue', 'rangeValue'],
+  props: ['width', 'height', 'carriers', 'maxValue', 'rangeValue'],
   data: function() {
-    return {
-      figureWidth: 1095,
-      figureHeight: 400
-    }
+    return {}
   },
   computed: {
     carrierMaxWidth: function () {
-      return this.figureWidth / this.carriers.length
+      return this.width / this.carriers.length
     },
     carrierMaxRadius: function () {
       return this.carrierMaxWidth / 2
