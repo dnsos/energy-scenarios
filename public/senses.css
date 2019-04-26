@@ -1,0 +1,13 @@
+body > *:not(footer) {
+  border-bottom: 1px dashed black;
+}
+
+header, main, footer {
+  padding: 10px;
+}
+
+header, footer {
+  color: white;
+  background-color: #2f3652;
+  z-index: 2;
+}
