@@ -1,13 +1,11 @@
 <template>
   <main id="app">
-    <Controls />
+    <Controls v-if="true" />
     <router-view/>
-    <nav id="nav">
-      <router-link to="/" exact>Walkthrough</router-link> |
-      <router-link to="/demand" exact>Demand Figure</router-link> |
-      <router-link to="/mix" exact>Mix Figure</router-link> |
-      <router-link to="/matrix-figure" exact>Matrix Figure</router-link>
-    </nav>
+    <!--<nav id="nav">
+      <router-link to="/" exact>Intro</router-link> |
+      <router-link :to="'/walkthrough/' + activeStep" exact>Walkthrough</router-link>
+    </nav>-->
   </main>
 </template>
 
@@ -18,6 +16,11 @@ export default {
   name: 'app',
   components: {
     Controls
+  },
+  computed: {
+    activeStep: function () {
+      return this.$store.state.walkthrough.activeStep
+    }
   }
 }
 </script>
@@ -79,6 +82,7 @@ fieldset {
 
   >* {
     height: max-content;
+    padding: calc(var(--grid-spacing) / 2) var(--grid-spacing);
   }
 }
 
@@ -90,7 +94,6 @@ fieldset {
   grid-gap: var(--grid-spacing);
   grid-template-columns: repeat(12, 1fr);
   grid-auto-rows: min-content;
-  padding: 0 var(--grid-spacing);
 }
 
 .chapter__header {
@@ -197,7 +200,27 @@ a:hover {
   color: var(--color-primary);
 }
 
-.indicator {
-  font-style: italic;
+/* BUTTONS
+----------------------------------------------------- */
+button {
+    padding: .6rem 1.2rem;
+    margin-right: .6rem;
+    font-family: var(--font-family-mono);
+    color: var(--color-dark-blue);
+    background-color: transparent;
+    border: .15rem solid var(--color-dark-blue);
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:focus {
+      outline: .1rem dotted black;
+    }
+  }
+  
+.button__primary {
+  color: white;
+  background-color: var(--color-dark-blue);
 }
 </style>

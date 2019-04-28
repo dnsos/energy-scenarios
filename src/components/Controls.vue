@@ -78,7 +78,6 @@ export default {
 <style lang="scss">
 .controls {
   grid-area: h;
-  padding: calc(var(--grid-spacing) / 2) var(--grid-spacing);
   text-align: left;
   box-shadow: 0 2px 4px var(--color-grey-09);
   z-index: 1;
