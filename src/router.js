@@ -12,6 +12,11 @@ export default new Router({
       component: Intro
     },
     {
+      path: '/walkthrough/:step',
+      name: 'walkthrough',
+      component: () => import('./views/Walkthrough.vue')
+    },
+    {
       path: '/demand',
       name: 'demand',
       component: () => import('./views/Demand.vue')
