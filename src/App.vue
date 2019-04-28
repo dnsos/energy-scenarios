@@ -2,12 +2,12 @@
   <main id="app">
     <Controls />
     <router-view/>
-    <nav id="nav">
+    <!--<nav id="nav">
       <router-link to="/" exact>Walkthrough</router-link> |
       <router-link to="/demand" exact>Demand Figure</router-link> |
       <router-link to="/mix" exact>Mix Figure</router-link> |
       <router-link to="/matrix-figure" exact>Matrix Figure</router-link>
-    </nav>
+    </nav>-->
   </main>
 </template>
 
@@ -79,6 +79,7 @@ fieldset {
 
   >* {
     height: max-content;
+    padding: calc(var(--grid-spacing) / 2) var(--grid-spacing);
   }
 }
 
@@ -90,7 +91,6 @@ fieldset {
   grid-gap: var(--grid-spacing);
   grid-template-columns: repeat(12, 1fr);
   grid-auto-rows: min-content;
-  padding: 0 var(--grid-spacing);
 }
 
 .chapter__header {
