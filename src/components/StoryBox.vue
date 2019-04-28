@@ -11,13 +11,12 @@
     <div class="buttons__wrapper">
       <button
         v-if="activeStep > 0"
-        class="button__previous"
         @click="activeStep = activeStep - 1"
       ><span><span>←</span> Back</span>
       </button>
       <button
         v-if="activeStep < walkthrough.steps.length - 1"
-        class="button__next"
+        class="button__primary"
         @click="activeStep = activeStep + 1"
       ><span>Next <span>→</span></span></button>
     </div>
@@ -41,6 +40,11 @@ export default {
       set (value) {
         this.$store.commit('setStep', value)
       }
+    }
+  },
+  watch: {
+    activeStep: function (newVal, oldVal) {
+      this.$router.push({ name: 'walkthrough', params: { step: newVal } })
     }
   }
 }
@@ -86,27 +90,5 @@ export default {
 ----------------------------------------------- */
 .buttons__wrapper {
   text-align: right;
-
-  button {
-    padding: .6rem 1.2rem;
-    margin-right: .6rem;
-    font-family: var(--font-family-mono);
-    color: var(--color-dark-blue);
-    background-color: transparent;
-    border: .15rem solid var(--color-dark-blue);
-
-    &:last-child {
-      margin-right: 0;
-    }
-
-    &:focus {
-      outline: .1rem dotted black;
-    }
-  }
-
-  .button__next {
-    color: white;
-    background-color: var(--color-dark-blue);
-  }
 }
 </style>
