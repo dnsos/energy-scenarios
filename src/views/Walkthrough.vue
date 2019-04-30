@@ -1,14 +1,13 @@
 <template>
-  <article class="chapter">
-    <section class="chapter__story">
+  <article class="chapter grid-12-columns">
+    <section class="chapter__story grid-sidebar">
       <StoryBox />
     </section>
-    <section class="chapter__content">
+    <section class="chapter__content grid-main">
       <figure ref="figureWrapper">
         <svg :width="figureWidth" :height="figureHeight">
-          <Matrix v-show="walkthrough.activeStep === 3" :width="figureWidth" :height="figureHeight" />
+          <Matrix :width="figureWidth" :height="figureHeight" />
           <CarriersCircles
-            v-show="walkthrough.activeStep === 4"
             :width="figureWidth"
             :height="figureHeight"
             :carriers="carriers"

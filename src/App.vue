@@ -88,29 +88,48 @@ fieldset {
 
 /* CHAPTERS
 ----------------------------------------------------- */
-.chapter {
-  grid-area: c;
+.grid-12-columns {
   display: grid;
   grid-gap: var(--grid-spacing);
   grid-template-columns: repeat(12, 1fr);
   grid-auto-rows: min-content;
+
+  .grid-sidebar {
+    grid-column: span 12;
+  }
+  @media (min-width: 750px) {
+    .grid-sidebar {
+      grid-column: span 3;
+    }
+  }
+  .grid-main {
+    grid-column: span 12;
+  }
+  @media (min-width: 750px) {
+    .grid-main {
+      grid-column: 4 / 13;
+    }
+  }
 }
 
-.chapter__header {
-  grid-column: span 12;
+.chapter {
+  grid-area: c;
 }
 
 .chapter__story {
-  grid-column: span 3;
-  height: max-content;
+  height: auto;
   padding: var(--grid-spacing);
-  align-self: end;
   border: .15rem solid var(--color-dark-blue);
   z-index: 1;
 }
+@media (min-width: 750px) {
+    .chapter__story {
+      height: max-content;
+      align-self: end;
+    }
+  }
 
 .chapter__content {
-  grid-column: 5 / 13;
   z-index: 0;
 }
 
@@ -222,5 +241,14 @@ button {
 .button__primary {
   color: white;
   background-color: var(--color-dark-blue);
+}
+
+/* ANIMATIONS/TRANSITIONS
+----------------------------------------------------- */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s; // TODO: store transition time somewhere for all animations to access?
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

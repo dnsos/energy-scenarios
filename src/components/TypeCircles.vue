@@ -12,36 +12,56 @@
       :width="width"
       :height="height"
     ></rect>
-    <g>
+    <!--<g>
       <circle
-        class="circle__total"
+        class="circle circle__total"
         :r="radiusTotal"
         cx="0"
         cy="0"
         transform="translate(-30,0)"
       ></circle>
+    </g>-->
+    <g transform="rotate(180)">
+      <EnergyCircle
+        class="circle circle__fossil circle--target"
+        :maxRadius="maxRadius"
+        :value="values.fossil.target"
+        :maxValue="maxValue"
+      />
     </g>
     <g transform="rotate(180)">
       <EnergyCircle
-        class="circle__fossil"
+        class="circle circle__fossil"
         :maxRadius="maxRadius"
-        :value="fossilData"
+        :value="values.fossil.baseline"
         :maxValue="maxValue"
       />
     </g>
     <g>
       <EnergyCircle
-        class="circle__nonfossil"
+        class="circle circle__nonfossil circle--target"
         :maxRadius="maxRadius"
-        :value="nonfossilData"
+        :value="values.nonfossil.target"
         :maxValue="maxValue"
       />
     </g>
-    <text class="matrix__society" :transform="'translate(0,' + height * 0.4 + ')'">{{ society }}</text>
+    <g>
+      <EnergyCircle
+        class="circle circle__nonfossil"
+        :maxRadius="maxRadius"
+        :value="values.nonfossil.baseline"
+        :maxValue="maxValue"
+      />
+    </g>
+    <transition name="fade">
+      <text v-if="walkthrough.activeStep === 3" class="matrix__society" :transform="'translate(0,' + height * 0.4 + ')'">{{ society.name }}</text>
+    </transition>
   </g>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import EnergyCircle from '@/components/EnergyCircle.vue'
 
 export default {
@@ -62,12 +82,8 @@ export default {
       type: String,
       required: true
     },
-    fossilData: {
-      type: Number,
-      required: true
-    },
-    nonfossilData: {
-      type: Number,
+    data: {
+      type: Object,
       required: true
     },
     maxValue: {
@@ -82,8 +98,22 @@ export default {
     }
   },
   computed: {
+    ...mapState(['walkthrough']),
+    ...mapGetters(['rangeValue']),
     maxRadius: function () {
       return this.width / 4
+    },
+    values: function () {
+      return {
+        fossil: {
+          baseline: this.data.baseline.fossil.values[this.rangeValue],
+          target: this.data.target.fossil.values[this.rangeValue]
+        },
+        nonfossil: {
+          baseline: this.data.baseline.nonfossil.values[this.rangeValue],
+          target: this.data.target.nonfossil.values[this.rangeValue]
+        }
+      }
     }
   },
   methods: {
@@ -91,7 +121,8 @@ export default {
       this.isHovered = !this.isHovered
     }
   },
-  mounted: function () {}
+  mounted: function () {
+  }
 }
 </script>
 
@@ -109,11 +140,16 @@ export default {
     fill: var(--color-grey-02);
   }
 }
-.circle__total {
+.circle {
   stroke-width: 1.5;
+  fill-opacity: .1;
+}
+.circle__total {
   stroke: var(--color-violet);
   stroke-opacity: .25;
   fill: var(--color-violet);
-  fill-opacity: .1;
+}
+.circle--target {
+  fill: var(--color-yellow);
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <article class="chapter">
-    <section class="chapter__story">
+  <article class="chapter grid-12-columns">
+    <section class="chapter__story grid-sidebar">
       <h1>Intro</h1>
       <p>Text explaining what this module is about. Text explaining what this module is about. Text explaining what this module is about. Text explaining what this module is about.</p>
       <button

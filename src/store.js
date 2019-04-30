@@ -153,7 +153,10 @@ export default new Vuex.Store({
         })
 
         return {
-          ssp: society.name,
+          society: {
+            name: society.name,
+            code: society.code
+          },
           baseline: baseline,
           target: target
         }
