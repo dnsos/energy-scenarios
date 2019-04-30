@@ -1,5 +1,5 @@
 <template>
-  <g>
+  <g v-show="walkthrough.activeStep >= 5">
     <g
       v-for="(carrier, index) in carriers"
       :key="carrier.variable"
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import EnergyCircle from '@/components/EnergyCircle.vue'
 
 export default {
@@ -38,6 +39,7 @@ export default {
     return {}
   },
   computed: {
+    ...mapState(['walkthrough']),
     carrierMaxWidth: function () {
       return this.width / this.carriers.length
     },

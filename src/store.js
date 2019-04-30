@@ -32,7 +32,7 @@ export default new Vuex.Store({
     selection: {
       region: { name: "World", code: "World"},
       society: { name: "Middle of the Road", code: "SSP2"},
-      target: { name: "Climate Target 1.5°C", code: "19"},
+      target: { name: "Climate Target 2°C", code: "26"},
       year: 2020
     },
     regions: [
@@ -153,7 +153,10 @@ export default new Vuex.Store({
         })
 
         return {
-          ssp: society.name,
+          society: {
+            name: society.name,
+            code: society.code
+          },
           baseline: baseline,
           target: target
         }
@@ -231,6 +234,9 @@ export default new Vuex.Store({
     },
     setYear: (state, payload) => {
       state.selection.year = state.general.startyear + (payload * state.general.yearinterval)
+    },
+    setYearFromWalkthrough: (state, payload) => {
+      state.selection.year = payload
     },
     setStep: (state, payload) => {
       state.walkthrough.activeStep = payload
