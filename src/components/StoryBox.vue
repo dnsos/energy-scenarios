@@ -9,6 +9,7 @@
       </transition>
     </div>
     <div class="buttons__wrapper">
+      <p>Step: {{ activeStep }}</p>
       <button
         v-if="activeStep > 0"
         @click="activeStep = activeStep - 1"

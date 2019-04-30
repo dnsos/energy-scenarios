@@ -8,12 +8,12 @@
       :defaultSelection="selectedTarget.code"
       @input="selectedTarget = $event"
     />
-    <RangeSlider
+    <!--<RangeSlider
       id="years"
       v-model="rangeValue"
       @input="selectedYear = $event"
-    />
-    <output>{{ selection.year }}</output>
+    />-->
+    <output>Year: {{ selection.year }}</output>
     <DropDown
       id="regions"
       :options="regions"
@@ -79,6 +79,7 @@ export default {
 .controls {
   grid-area: h;
   text-align: left;
+  background-color: white;
   box-shadow: 0 2px 4px var(--color-grey-09);
   z-index: 1;
 

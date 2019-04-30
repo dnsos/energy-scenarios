@@ -24,6 +24,7 @@
     <g transform="rotate(180)">
       <EnergyCircle
         class="circle circle__fossil circle--target"
+        v-if="walkthrough.activeStep >= 4"
         :maxRadius="maxRadius"
         :value="values.fossil.target"
         :maxValue="maxValue"
@@ -32,7 +33,7 @@
     <g transform="rotate(180)">
       <EnergyCircle
         class="circle circle__fossil"
-        :maxRadius="maxRadius"
+        :maxRadius="maxRadius * scale"
         :value="values.fossil.baseline"
         :maxValue="maxValue"
       />
@@ -40,6 +41,7 @@
     <g>
       <EnergyCircle
         class="circle circle__nonfossil circle--target"
+        v-if="walkthrough.activeStep >= 4"
         :maxRadius="maxRadius"
         :value="values.nonfossil.target"
         :maxValue="maxValue"
@@ -48,13 +50,13 @@
     <g>
       <EnergyCircle
         class="circle circle__nonfossil"
-        :maxRadius="maxRadius"
+        :maxRadius="maxRadius * scale"
         :value="values.nonfossil.baseline"
         :maxValue="maxValue"
       />
     </g>
     <transition name="fade">
-      <text v-if="walkthrough.activeStep === 3" class="matrix__society" :transform="'translate(0,' + height * 0.4 + ')'">{{ society.name }}</text>
+      <text v-if="walkthrough.activeStep >= 3" class="matrix__society" :transform="'translate(0,' + height * 0.4 + ')'">{{ society.name }}</text>
     </transition>
   </g>
 </template>
@@ -79,7 +81,7 @@ export default {
       required: true
     },
     society: {
-      type: String,
+      type: Object,
       required: true
     },
     data: {
@@ -94,7 +96,8 @@ export default {
   data: function() {
     return {
       isHovered: false,
-      radiusTotal: null
+      radiusTotal: null,
+      scale: null
     }
   },
   computed: {
@@ -114,6 +117,14 @@ export default {
           target: this.data.target.nonfossil.values[this.rangeValue]
         }
       }
+    },
+    currentStep: function () {
+      return this.$store.state.walkthrough.activeStep // TODO: get this from mapState
+    }
+  },
+  watch: {
+    currentStep: function (newIndex, oldIndex) {
+      this.scale = this.walkthrough.steps[newIndex].scale
     }
   },
   methods: {
@@ -121,7 +132,8 @@ export default {
       this.isHovered = !this.isHovered
     }
   },
-  mounted: function () {
+  created: function () {
+    this.scale = this.walkthrough.steps[this.currentStep].scale
   }
 }
 </script>

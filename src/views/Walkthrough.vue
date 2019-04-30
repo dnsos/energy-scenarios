@@ -6,7 +6,7 @@
     <section class="chapter__content grid-main">
       <figure ref="figureWrapper">
         <svg :width="figureWidth" :height="figureHeight">
-          <Matrix :width="figureWidth" :height="figureHeight" />
+          <Matrix v-if="walkthrough.activeStep < 5" :width="figureWidth" :height="figureHeight" />
           <CarriersCircles
             :width="figureWidth"
             :height="figureHeight"
@@ -56,6 +56,14 @@ export default {
     nonfossilAmount: function () {
       let nonfossilAmount = this.totalData.values[this.rangeValue] - this.fossilData.values[this.rangeValue]
       return nonfossilAmount
+    },
+    currentStep: function () {
+      return this.$store.state.walkthrough.activeStep // TODO: get this from mapState
+    }
+  },
+  watch: {
+    currentStep: function (newIndex, oldIndex) {
+      this.$store.commit('setYearFromWalkthrough', this.walkthrough.steps[newIndex].year)
     }
   },
   mounted: function () {

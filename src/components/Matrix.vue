@@ -2,7 +2,7 @@
   <g class="matrix__wrapper">
     <g class="matrix__circles">
       <TypeCircles
-        v-if="walkthrough.activeStep === 3"
+        v-if="walkthrough.activeStep >= 3"
         :width="group.width"
         :height="group.height"
         :society="matrixData[4].society"
@@ -11,7 +11,7 @@
         :transform="'translate(' + translateValues(1,1) + ')'"
       />
       <TypeCircles
-        v-if="walkthrough.activeStep === 3"
+        v-if="walkthrough.activeStep >= 3"
         :width="group.width"
         :height="group.height"
         :society="matrixData[0].society"
@@ -20,7 +20,7 @@
         :transform="'translate(' + translateValues(1,5) + ')'"
       />
       <TypeCircles
-        v-if="walkthrough.activeStep === 3"
+        v-if="walkthrough.activeStep >= 3"
         :width="group.width"
         :height="group.height"
         :society="matrixData[2].society"
@@ -29,7 +29,7 @@
         :transform="'translate(' + translateValues(5,1) + ')'"
       />
       <TypeCircles
-        v-if="walkthrough.activeStep === 3"
+        v-if="walkthrough.activeStep >= 3"
         :width="group.width"
         :height="group.height"
         :society="matrixData[3].society"
@@ -38,7 +38,7 @@
         :transform="'translate(' + translateValues(5,5) + ')'"
       />
       <TypeCircles
-        v-if="walkthrough.activeStep < 4"
+        v-if="walkthrough.activeStep <= 4"
         :width="group.width"
         :height="group.height"
         :society="matrixData[1].society"

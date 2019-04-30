@@ -1,5 +1,5 @@
 <template>
-  <g v-show="walkthrough.activeStep === 4">
+  <g v-show="walkthrough.activeStep >= 5">
     <g
       v-for="(carrier, index) in carriers"
       :key="carrier.variable"

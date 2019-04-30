@@ -119,7 +119,9 @@ fieldset {
 .chapter__story {
   height: auto;
   padding: var(--grid-spacing);
-  border: .15rem solid var(--color-dark-blue);
+  background-color: white;
+  /*border: .15rem solid var(--color-dark-blue);*/
+  box-shadow: 0 0 4px var(--color-grey-09);
   z-index: 1;
 }
 @media (min-width: 750px) {

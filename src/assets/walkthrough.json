@@ -1,38 +1,65 @@
 [
   {
     "code": "total2020",
+    "name": "...",
+    "year": 2020,
+    "scale": 6,
     "text": "Projected total Primary Energy consumption for next year (2020)."
   },
   {
     "code": "types2020",
+    "name": "...",
+    "year": 2020,
+    "scale": 6,
     "text": "There are fossil (f) and non-fossil (nf) energy carriers. Consumed energy consists of mostly fossil energy carriers."
   },
   {
     "code": "types2100",
+    "name": "...",
+    "year": 2100,
+    "scale": 6,
     "text": "Projected into the future (2100) the energy consumption more than doubles. This assumes no further climate policies. The shares of fossil and non-fossil energy carriers remain nearly the same."
   },
   {
     "code": "ssps",
+    "name": "...",
+    "year": 2100,
+    "scale": 1,
     "text": "Four other futures are possible. In every possible future the total energy consumption and shares of fossil and non-fossil energy carriers varies."
   },
   {
     "code": "ssps+paris-target",
+    "name": "...",
+    "year": 2100,
+    "scale": 1,
     "text": "The Paris Agreement’s climate target is to keep the increase in global average temperature to well below 2°C. In order to achieve these target it needs i.a. a shift in the mix of fossil and non-fossil carriers."
   },
   {
     "code": "ssp2-highlighted",
+    "name": "...",
+    "year": 2100,
+    "scale": 1,
     "text": "In a possible future (SSP 2), in which the climate target 2°C is achieved (through further climate policies), the share of fossil carriers is much lower and the share of non-fossil much higher than in the equivalent future without any further climate policies."
   },
   {
     "code": "mix",
+    "name": "...",
+    "year": 2100,
+    "scale": 1,
     "text": "Fossil and non-fossil energy carreirs can be further subdiveded. This detail view visualizes the differences of energy volumes between a possible future (SSP 2) and its equivalent in which the climate goal 2°C is achieved."
   },
   {
     "code": "mix+ssp1",
+    "name": "...",
+    "year": 2100,
+    "scale": 1,
     "text": "Should a sustainable world (SSP 1) develop, climate targets can be achieved fairly easy. It would need only a modest carbon price to meet the 2°C target. The meeting of climate targets therefore requires less effort and might receive stronger support."
   },
   {
     "code": "detail",
+    "name": "...",
+    "year": 2100,
+    "scale": 1,
     "text": "Let’s take a closer look at the energy carrier Oil and its development over the years. Even in a sustainable world (SSP 1), Oil will continue to be used extensively until 2050."
   }
 ]
