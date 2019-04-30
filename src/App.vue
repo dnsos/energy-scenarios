@@ -71,6 +71,7 @@ fieldset {
 #app {
   min-height: 100vh;
   padding: 0;
+  overflow: hidden;
   display: grid;
   grid-gap: var(--grid-spacing);
   grid-template-columns: repeat(12, 1fr);
