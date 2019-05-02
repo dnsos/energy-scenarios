@@ -21,7 +21,7 @@
         transform="translate(-30,0)"
       ></circle>
     </g>-->
-    <g transform="rotate(180)">
+    <g class="group__fossil--target" transform="rotate(180)">
       <EnergyCircle
         class="circle circle__fossil circle--target"
         v-if="walkthrough.activeStep >= 4"
@@ -30,7 +30,7 @@
         :maxValue="maxValue"
       />
     </g>
-    <g transform="rotate(180)">
+    <g class="group__fossil--baseline" transform="rotate(180)">
       <EnergyCircle
         class="circle circle__fossil"
         :maxRadius="maxRadius * scale"
@@ -38,7 +38,7 @@
         :maxValue="maxValue"
       />
     </g>
-    <g>
+    <g class="group__nonfossil--target">
       <EnergyCircle
         class="circle circle__nonfossil circle--target"
         v-if="walkthrough.activeStep >= 4"
@@ -47,7 +47,7 @@
         :maxValue="maxValue"
       />
     </g>
-    <g>
+    <g class="group__nonfossil--baseline">
       <EnergyCircle
         class="circle circle__nonfossil"
         :maxRadius="maxRadius * scale"
@@ -55,9 +55,22 @@
         :maxValue="maxValue"
       />
     </g>
-    <transition name="fade">
-      <text v-if="walkthrough.activeStep >= 3" class="matrix__society" :transform="'translate(0,' + height * 0.4 + ')'">{{ society.name }}</text>
-    </transition>
+    <g class="group__labels" v-if="walkthrough.activeStep >= 3">
+      <transition name="fade">
+        <text
+          class="matrix__society"
+          :transform="'translate(0,' + height * 0.4 + ')'">
+          {{ society.name }}
+          </text>
+      </transition>
+      <transition name="fade">
+        <text
+          class="matrix__society matrix__society--infeasible"
+          v-if="walkthrough.activeStep === 4 && values.fossil.target === 0"
+          :transform="'translate(0,' + height * 0.5 + ')'"
+        >(Target infeasible)</text>
+      </transition>
+    </g>
   </g>
 </template>
 
@@ -142,6 +155,9 @@ export default {
 .matrix__society {
   font-size: var(--font-size-small);
   text-anchor: middle;
+}
+.matrix__society--infeasible {
+  fill: var(--color-yellow);
 }
 .group__background {
   fill: transparent;
