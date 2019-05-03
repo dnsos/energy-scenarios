@@ -57,6 +57,7 @@ export default {
 .story__wrapper {
   display: grid;
   grid-template-rows: minmax(25rem, 1fr) auto;
+  padding: var(--grid-spacing);
 }
 
 /* TEXT

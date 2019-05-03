@@ -120,7 +120,6 @@ fieldset {
 
 .chapter__story {
   height: auto;
-  padding: var(--grid-spacing);
   background-color: white;
   /*border: .15rem solid var(--color-dark-blue);*/
   box-shadow: 0 0 4px var(--color-grey-09);
