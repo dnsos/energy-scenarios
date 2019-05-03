@@ -3,21 +3,21 @@
     "code": "total2020",
     "name": "...",
     "year": 2020,
-    "scale": 6,
+    "scale": 4,
     "text": "Projected total Primary Energy consumption for next year (2020)."
   },
   {
     "code": "types2020",
     "name": "...",
     "year": 2020,
-    "scale": 6,
+    "scale": 4,
     "text": "There are fossil (f) and non-fossil (nf) energy carriers. Consumed energy consists of mostly fossil energy carriers."
   },
   {
     "code": "types2100",
     "name": "...",
     "year": 2100,
-    "scale": 6,
+    "scale": 4,
     "text": "Projected into the future (2100) the energy consumption more than doubles. This assumes no further climate policies. The shares of fossil and non-fossil energy carriers remain nearly the same."
   },
   {

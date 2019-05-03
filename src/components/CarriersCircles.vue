@@ -1,5 +1,5 @@
 <template>
-  <g v-show="walkthrough.activeStep >= 5">
+  <g class="carriers__wrapper" v-show="walkthrough.activeStep >= 5">
     <g
       v-for="(carrier, index) in carriers"
       :key="carrier.variable"
@@ -8,6 +8,7 @@
     >
       <EnergyCircle
         class="circle--target"
+        v-show="carrier.target.values[rangeValue] > carrier.baseline.values[rangeValue]"
         :maxRadius="carrierMaxRadius"
         :value="carrier.target.values[rangeValue]"
         :maxValue="maxValue"
@@ -17,6 +18,14 @@
         class="circle--baseline"
         :maxRadius="carrierMaxRadius"
         :value="carrier.baseline.values[rangeValue]"
+        :maxValue="maxValue"
+        transform="rotate(-90)"
+      />
+      <EnergyCircle
+        class="circle--target"
+        v-show="carrier.target.values[rangeValue] < carrier.baseline.values[rangeValue]"
+        :maxRadius="carrierMaxRadius"
+        :value="carrier.target.values[rangeValue]"
         :maxValue="maxValue"
         transform="rotate(-90)"
       />

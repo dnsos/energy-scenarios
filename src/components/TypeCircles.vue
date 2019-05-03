@@ -12,52 +12,78 @@
       :width="width"
       :height="height"
     ></rect>
-    <!--<g>
+    <!--<g v-if="walkthrough.activeStep <= 3">
       <circle
         class="circle circle__total"
-        :r="radiusTotal"
-        cx="0"
-        cy="0"
-        transform="translate(-30,0)"
+        :r="(radiusFossilBaseline + radiusNonfossilBaseline) * scale"
+        :cx="-((radiusFossilBaseline * 2) - (radiusFossilBaseline + radiusNonfossilBaseline ) / 2)"
       ></circle>
     </g>-->
-    <g transform="rotate(180)">
+    <g class="group__fossil" transform="rotate(180)">
       <EnergyCircle
-        class="circle circle__fossil circle--target"
-        v-if="walkthrough.activeStep >= 4"
+        class="circle circle__fossil"
+        :class="'circle--target'"
+        v-if="walkthrough.activeStep >= 4 && comparisons.fossil.targetIsHigher"
+        :maxRadius="maxRadius"
+        :value="values.fossil.target"
+        :maxValue="maxValue"
+      />
+      <EnergyCircle
+        class="circle circle__fossil"
+        :class="'circle--baseline'"
+        ref="fossilBaselineCircle"
+        :maxRadius="maxRadius * scale"
+        :value="values.fossil.baseline"
+        :maxValue="maxValue"
+      />
+      <EnergyCircle
+        class="circle circle__fossil"
+        :class="'circle--target'"
+        v-if="walkthrough.activeStep >= 4 && !comparisons.fossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.fossil.target"
         :maxValue="maxValue"
       />
     </g>
-    <g transform="rotate(180)">
-      <EnergyCircle
-        class="circle circle__fossil"
-        :maxRadius="maxRadius * scale"
-        :value="values.fossil.baseline"
-        :maxValue="maxValue"
-      />
-    </g>
-    <g>
+    <g class="group__nonfossil">
       <EnergyCircle
         class="circle circle__nonfossil circle--target"
-        v-if="walkthrough.activeStep >= 4"
+        v-if="walkthrough.activeStep >= 4 && comparisons.nonfossil.targetIsHigher"
+        :maxRadius="maxRadius"
+        :value="values.nonfossil.target"
+        :maxValue="maxValue"
+      />
+      <EnergyCircle
+        class="circle circle__nonfossil circle--baseline"
+        ref="nonfossilBaselineCircle"
+        :maxRadius="maxRadius * scale"
+        :value="values.nonfossil.baseline"
+        :maxValue="maxValue"
+      />
+      <EnergyCircle
+        class="circle circle__nonfossil circle--target"
+        v-if="walkthrough.activeStep >= 4 && !comparisons.nonfossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.nonfossil.target"
         :maxValue="maxValue"
       />
     </g>
-    <g>
-      <EnergyCircle
-        class="circle circle__nonfossil"
-        :maxRadius="maxRadius * scale"
-        :value="values.nonfossil.baseline"
-        :maxValue="maxValue"
-      />
+    <g class="group__labels" v-if="walkthrough.activeStep >= 3">
+      <transition name="fade">
+        <text
+          class="matrix__society"
+          :transform="'translate(0,' + height * 0.4 + ')'">
+          {{ society.name }}
+          </text>
+      </transition>
+      <transition name="fade">
+        <text
+          class="matrix__society matrix__society--infeasible"
+          v-if="walkthrough.activeStep === 4 && values.fossil.target === 0"
+          :transform="'translate(0,' + height * 0.5 + ')'"
+        >(Target infeasible)</text>
+      </transition>
     </g>
-    <transition name="fade">
-      <text v-if="walkthrough.activeStep >= 3" class="matrix__society" :transform="'translate(0,' + height * 0.4 + ')'">{{ society.name }}</text>
-    </transition>
   </g>
 </template>
 
@@ -96,8 +122,9 @@ export default {
   data: function() {
     return {
       isHovered: false,
-      radiusTotal: null,
-      scale: null
+      radiusFossilBaseline: 0,
+      radiusNonfossilBaseline: 0,
+      scale: 1
     }
   },
   computed: {
@@ -118,6 +145,16 @@ export default {
         }
       }
     },
+    comparisons: function () {
+      return {
+        fossil: {
+          targetIsHigher: this.values.fossil.target > this.values.fossil.baseline
+        },
+        nonfossil: {
+          targetIsHigher: this.values.nonfossil.target > this.values.nonfossil.baseline
+        }
+      }
+    },
     currentStep: function () {
       return this.$store.state.walkthrough.activeStep // TODO: get this from mapState
     }
@@ -125,6 +162,8 @@ export default {
   watch: {
     currentStep: function (newIndex, oldIndex) {
       this.scale = this.walkthrough.steps[newIndex].scale
+      this.radiusFossilBaseline = this.$refs.fossilBaselineCircle.radius
+      this.radiusNonfossilBaseline = this.$refs.nonfossilBaselineCircle.radius
     }
   },
   methods: {
@@ -134,6 +173,10 @@ export default {
   },
   created: function () {
     this.scale = this.walkthrough.steps[this.currentStep].scale
+  },
+  mounted: function () {
+    this.radiusFossilBaseline = this.$refs.fossilBaselineCircle.radius
+    this.radiusNonfossilBaseline = this.$refs.nonfossilBaselineCircle.radius
   }
 }
 </script>
@@ -142,6 +185,9 @@ export default {
 .matrix__society {
   font-size: var(--font-size-small);
   text-anchor: middle;
+}
+.matrix__society--infeasible {
+  fill: var(--color-yellow);
 }
 .group__background {
   fill: transparent;
@@ -152,16 +198,10 @@ export default {
     fill: var(--color-grey-02);
   }
 }
-.circle {
-  stroke-width: 1.5;
-  fill-opacity: .1;
-}
 .circle__total {
   stroke: var(--color-violet);
   stroke-opacity: .25;
-  fill: var(--color-violet);
-}
-.circle--target {
-  fill: var(--color-yellow);
+  fill: rgb(255, 0, 0); // TODO: change. red for layouting
+  fill-opacity: .5;
 }
 </style>
