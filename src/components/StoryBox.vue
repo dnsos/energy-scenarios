@@ -28,7 +28,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'story-box',
+  name: 'StoryBox',
   data: function () {
     return {}
   },
