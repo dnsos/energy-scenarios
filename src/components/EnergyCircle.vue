@@ -79,18 +79,16 @@ circle {
   stroke-width: 1.5;
   stroke: var(--color-violet);
   fill: var(--color-violet);
-  fill-opacity: .1;
+  fill-opacity: 1;
 }
 
 .circle--baseline {
   stroke: var(--color-violet);
-  fill: var(--color-violet);
-  fill-opacity: .1;
+  fill: #edecf7;
 }
 
 .circle--target {
   stroke: var(--color-yellow);
-  fill: var(--color-yellow);
-  fill-opacity: .1;
+  fill: #fff7e7;
 }
 </style>
