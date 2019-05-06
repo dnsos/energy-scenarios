@@ -4,7 +4,6 @@
 
 <script>
 import * as d3 from "d3" // TODO: create d3 functionalities asset
-// TODO: import Tween lib and remove script tag in index.html
 
 export default {
   name: 'EnergyCircle',

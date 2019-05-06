@@ -1,7 +1,7 @@
 <template>
   <div class="progress-bar__wrapper">
     <svg width="348.5" height="5">
-      <rect x="0" y="0" :width="progressWidth" height="5" class="progress-bar" />
+      <rect x="0" y="0" :width="tweenedProgressWidth" height="5" class="progress-bar" />
     </svg>
   </div>
 </template>
@@ -14,18 +14,47 @@ export default {
   props: {
     width: {
       type: Number,
-      required: true,
+      required: false,
       default: 348.5
     }
   },
   data: function () {
-    return {}
+    return {
+      tweenedProgressWidth: 0
+    }
   },
   computed: {
     ...mapState(['selection', 'walkthrough']),
     progressWidth: function () {
       return (this.width / this.walkthrough.steps.length) * (this.walkthrough.activeStep + 1)
     }
+  },
+  methods: {
+    tween: function (startValue, endValue) {
+      var vm = this
+      function animate () {
+        if (TWEEN.update()) {
+          requestAnimationFrame(animate)
+        }
+      }
+
+      new TWEEN.Tween({ tweeningValue: startValue })
+        .to({ tweeningValue: endValue }, 200)
+        .onUpdate(function () {
+          vm.tweenedProgressWidth = this.tweeningValue
+        })
+        .start()
+      
+      animate()
+    }
+  },
+  watch: {
+    progressWidth: function (newValue, oldValue) {
+      this.tween(oldValue, newValue)
+    }
+  },
+  mounted: function () {
+    this.tween(0, this.progressWidth)
   }
 }
 </script>
