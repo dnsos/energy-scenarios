@@ -26,8 +26,7 @@ export default {
     return {}
   },
   computed: {},
-  watch: { },
-  mounted: function () {}
+  watch: {}
 }
 </script>
 

@@ -87,6 +87,7 @@ export default {
       }
     }
   },
+  watch: {},
   methods: {
     translateValues: function (columnIndex, rowIndex) {
       const x = (this.group.width / 2) * columnIndex

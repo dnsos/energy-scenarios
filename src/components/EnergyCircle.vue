@@ -46,6 +46,7 @@ export default {
   watch: {
     radius: function (newValue, oldValue) {
       this.tween(oldValue, newValue)
+      this.$emit('update-radius', newValue)
     }
   },
   mounted: function () {
