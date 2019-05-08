@@ -83,7 +83,7 @@ export default {
   },
   mounted: function () {
     this.$store.commit('setStep', Number(this.$route.params.step)) // sets activeStep when entering via specific URL
-
+    
     this.figureWidth = this.$refs.vizWrapper.offsetWidth
     window.addEventListener("resize", () => { // TODO: better way? 'watch'?
       this.figureWidth = this.$refs.vizWrapper.offsetWidth

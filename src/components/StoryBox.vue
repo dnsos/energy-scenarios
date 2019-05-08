@@ -9,11 +9,11 @@
       </transition>
     </div>
     <div class="buttons__wrapper">
-      <!--<button
+      <button
         v-if="activeStep > 0"
         @click="activeStep = activeStep - 1"
       ><span><span>←</span> Back</span>
-      </button>-->
+      </button>
       <button
         v-if="activeStep < walkthrough.steps.length - 1"
         class="button__primary"
@@ -45,10 +45,6 @@ export default {
   watch: {
     activeStep: function (newVal, oldVal) {
       this.$router.push({ name: 'walkthrough', params: { step: newVal } })
-    },
-    '$route' (to, from) {
-      // watches for route changes and commits step to store (necessary to make browser back/forth buttons work)
-      this.$store.commit('setStep', to.params.step) // TODO: buggy when using browser back/forth
     }
   }
 }

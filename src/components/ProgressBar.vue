@@ -1,6 +1,6 @@
 <template>
   <div class="progress-bar__wrapper">
-    <svg width="348.5" height="5">
+    <svg :width="width" height="5">
       <rect x="0" y="0" :width="tweenedProgressWidth" height="5" class="progress-bar" />
     </svg>
   </div>
@@ -14,8 +14,7 @@ export default {
   props: {
     width: {
       type: Number,
-      required: false,
-      default: 348.5
+      required: false
     }
   },
   data: function () {

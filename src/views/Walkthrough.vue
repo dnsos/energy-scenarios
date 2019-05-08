@@ -1,8 +1,8 @@
 <template>
   <article class="chapter grid-12-columns">
-    <section class="chapter__story grid-sidebar">
+    <section class="chapter__story grid-sidebar" ref="sidebar">
       <StoryBox />
-      <ProgressBar />
+      <ProgressBar :width="sidebarWidth" />
     </section>
     <section class="chapter__content grid-main">
       <Viz />
@@ -23,10 +23,16 @@ export default {
     Viz
   },
   data: function () {
-    return {}
+    return {
+      sidebarWidth: 0
+    }
   },
-  computed: {},
-  watch: {}
+  mounted: function () {
+    this.sidebarWidth = this.$refs.sidebar.offsetWidth
+    window.addEventListener("resize", () => { // TODO: better way? 'watch'?
+      this.sidebarWidth = this.$refs.sidebar.offsetWidth
+    })
+  }
 }
 </script>
 
