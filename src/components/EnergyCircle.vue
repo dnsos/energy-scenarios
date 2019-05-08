@@ -1,5 +1,5 @@
 <template>
-  <circle :class="carrierType" :cx="tweeningValue" cy="0" :r="tweeningValue" />
+  <circle :class="carrierType" :cx="tweenedRadius" cy="0" :r="tweenedRadius" />
 </template>
 
 <script>
@@ -28,7 +28,7 @@ export default {
   },
   data: function() {
     return {
-      tweeningValue: 0
+      tweenedRadius: 0
     }
   },
   computed: {
@@ -64,7 +64,7 @@ export default {
       new TWEEN.Tween({ tweeningValue: startValue })
         .to({ tweeningValue: endValue }, 200)
         .onUpdate(function () {
-          vm.tweeningValue = this.tweeningValue
+          vm.tweenedRadius = this.tweeningValue
         })
         .start()
       
