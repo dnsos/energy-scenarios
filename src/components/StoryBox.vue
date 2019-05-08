@@ -9,7 +9,6 @@
       </transition>
     </div>
     <div class="buttons__wrapper">
-      <p>Step: {{ activeStep }}</p>
       <button
         v-if="activeStep > 0"
         @click="activeStep = activeStep - 1"
@@ -19,7 +18,7 @@
         v-if="activeStep < walkthrough.steps.length - 1"
         class="button__primary"
         @click="activeStep = activeStep + 1"
-      ><span>Next <span>→</span></span></button>
+      ><span>→   </span><span>{{ walkthrough.steps[activeStep + 1].name }}</span></button>
     </div>
   </section>
 </template>
@@ -57,6 +56,7 @@ export default {
 .story__wrapper {
   display: grid;
   grid-template-rows: minmax(25rem, 1fr) auto;
+  padding: var(--grid-spacing);
 }
 
 /* TEXT

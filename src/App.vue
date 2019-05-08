@@ -120,7 +120,6 @@ fieldset {
 
 .chapter__story {
   height: auto;
-  padding: var(--grid-spacing);
   background-color: white;
   /*border: .15rem solid var(--color-dark-blue);*/
   box-shadow: 0 0 4px var(--color-grey-09);
@@ -250,7 +249,7 @@ button {
 /* ANIMATIONS/TRANSITIONS
 ----------------------------------------------------- */
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .2s; // TODO: store transition time somewhere for all animations to access?
+  transition: opacity .2s ease-in;
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;

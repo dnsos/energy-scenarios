@@ -12,33 +12,33 @@
       :width="width"
       :height="height"
     ></rect>
-    <!--<g v-if="walkthrough.activeStep <= 3">
-      <circle
-        class="circle circle__total"
-        :r="(radiusFossilBaseline + radiusNonfossilBaseline) * scale"
-        :cx="-((radiusFossilBaseline * 2) - (radiusFossilBaseline + radiusNonfossilBaseline ) / 2)"
-      ></circle>
-    </g>-->
+    <circle
+      class="circle circle__total"
+      :class="{ 'circle__total--focus': walkthrough.activeStep === 0 }"
+      v-show="walkthrough.activeStep <= 2"
+      :r="tweenedTotalRadius"
+      :cx="-(totalRadius - (radii.nonfossil * 2))"
+    ></circle>
     <g class="group__fossil" transform="rotate(180)">
       <EnergyCircle
-        class="circle circle__fossil"
-        :class="'circle--target'"
+        class="circle circle__fossil circle--target"
         v-if="walkthrough.activeStep >= 4 && comparisons.fossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.fossil.target"
         :maxValue="maxValue"
       />
+      <transition name="fade">
+        <EnergyCircle
+          class="circle circle__fossil circle--baseline"
+          v-show="walkthrough.activeStep >= 1"
+          @update-radius="saveFossilRadius"
+          :maxRadius="maxRadius * currentScale"
+          :value="values.fossil.baseline"
+          :maxValue="maxValue"
+        />
+      </transition>
       <EnergyCircle
-        class="circle circle__fossil"
-        :class="'circle--baseline'"
-        ref="fossilBaselineCircle"
-        :maxRadius="maxRadius * scale"
-        :value="values.fossil.baseline"
-        :maxValue="maxValue"
-      />
-      <EnergyCircle
-        class="circle circle__fossil"
-        :class="'circle--target'"
+        class="circle circle__fossil circle--target"
         v-if="walkthrough.activeStep >= 4 && !comparisons.fossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.fossil.target"
@@ -53,13 +53,16 @@
         :value="values.nonfossil.target"
         :maxValue="maxValue"
       />
-      <EnergyCircle
-        class="circle circle__nonfossil circle--baseline"
-        ref="nonfossilBaselineCircle"
-        :maxRadius="maxRadius * scale"
-        :value="values.nonfossil.baseline"
-        :maxValue="maxValue"
-      />
+      <transition name="fade">
+        <EnergyCircle
+          class="circle circle__nonfossil circle--baseline"
+          v-show="walkthrough.activeStep >= 1"
+          @update-radius="saveNonfossilRadius"
+          :maxRadius="maxRadius * currentScale"
+          :value="values.nonfossil.baseline"
+          :maxValue="maxValue"
+        />
+      </transition>
       <EnergyCircle
         class="circle circle__nonfossil circle--target"
         v-if="walkthrough.activeStep >= 4 && !comparisons.nonfossil.targetIsHigher"
@@ -122,9 +125,11 @@ export default {
   data: function() {
     return {
       isHovered: false,
-      radiusFossilBaseline: 0,
-      radiusNonfossilBaseline: 0,
-      scale: 1
+      radii: {
+        fossil: null,
+        nonfossil: null
+      },
+      tweenedTotalRadius: 0
     }
   },
   computed: {
@@ -156,27 +161,50 @@ export default {
       }
     },
     currentStep: function () {
-      return this.$store.state.walkthrough.activeStep // TODO: get this from mapState
-    }
-  },
-  watch: {
-    currentStep: function (newIndex, oldIndex) {
-      this.scale = this.walkthrough.steps[newIndex].scale
-      this.radiusFossilBaseline = this.$refs.fossilBaselineCircle.radius
-      this.radiusNonfossilBaseline = this.$refs.nonfossilBaselineCircle.radius
+      return this.walkthrough.activeStep
+    },
+    currentScale: function () {
+      return this.walkthrough.steps[this.walkthrough.activeStep].scale // TODO: get this from mapState
+    },
+    totalRadius: function () {
+      return this.radii.fossil + this.radii.nonfossil
     }
   },
   methods: {
     toggleHovered: function () {
       this.isHovered = !this.isHovered
+    },
+    saveFossilRadius: function (value) {
+      this.radii.fossil = value 
+    },
+    saveNonfossilRadius: function (value) {
+      this.radii.nonfossil = value 
+    },
+    tween: function (startValue, endValue) {
+      var vm = this
+      function animate () {
+        if (TWEEN.update()) {
+          requestAnimationFrame(animate)
+        }
+      }
+
+      new TWEEN.Tween({ tweeningValue: startValue })
+        .to({ tweeningValue: endValue }, 200)
+        .onUpdate(function () {
+          vm.tweenedTotalRadius = this.tweeningValue
+        })
+        .start()
+      
+      animate()
     }
   },
-  created: function () {
-    this.scale = this.walkthrough.steps[this.currentStep].scale
+  watch: {
+    totalRadius: function (newValue, oldValue) {
+      this.tween(oldValue, newValue)
+    }
   },
   mounted: function () {
-    this.radiusFossilBaseline = this.$refs.fossilBaselineCircle.radius
-    this.radiusNonfossilBaseline = this.$refs.nonfossilBaselineCircle.radius
+    this.tween(0, this.totalRadius)
   }
 }
 </script>
@@ -199,9 +227,18 @@ export default {
   }
 }
 .circle__total {
+  stroke-width: 1.5;
   stroke: var(--color-violet);
-  stroke-opacity: .25;
-  fill: rgb(255, 0, 0); // TODO: change. red for layouting
-  fill-opacity: .5;
+  fill: #edecf7;
+  fill-opacity: 0.25;
+  stroke-opacity: 0.25;
+  transition: opacity .2s ease-in;
+}
+.circle__total--focus {
+  fill-opacity: 1;
+  stroke-opacity: 1;
+}
+.carrier__type {
+  font-family: var(--font-family-mono);
 }
 </style>

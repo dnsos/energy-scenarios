@@ -1,10 +1,9 @@
 <template>
-  <circle :class="carrierType" :cx="tweeningValue" cy="0" :r="tweeningValue" />
+  <circle :class="carrierType" :cx="tweenedRadius" cy="0" :r="tweenedRadius" />
 </template>
 
 <script>
 import * as d3 from "d3" // TODO: create d3 functionalities asset
-// TODO: import Tween lib and remove script tag in index.html
 
 export default {
   name: 'EnergyCircle',
@@ -29,7 +28,7 @@ export default {
   },
   data: function() {
     return {
-      tweeningValue: 0
+      tweenedRadius: 0
     }
   },
   computed: {
@@ -47,6 +46,7 @@ export default {
   watch: {
     radius: function (newValue, oldValue) {
       this.tween(oldValue, newValue)
+      this.$emit('update-radius', newValue)
     }
   },
   mounted: function () {
@@ -64,7 +64,7 @@ export default {
       new TWEEN.Tween({ tweeningValue: startValue })
         .to({ tweeningValue: endValue }, 200)
         .onUpdate(function () {
-          vm.tweeningValue = this.tweeningValue
+          vm.tweenedRadius = this.tweeningValue
         })
         .start()
       

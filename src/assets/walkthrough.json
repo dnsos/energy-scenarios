@@ -8,35 +8,35 @@
   },
   {
     "code": "types2020",
-    "name": "...",
+    "name": "Energy Types",
     "year": 2020,
     "scale": 4,
     "text": "There are fossil (f) and non-fossil (nf) energy carriers. Consumed energy consists of mostly fossil energy carriers."
   },
   {
     "code": "types2100",
-    "name": "...",
+    "name": "Future Energies",
     "year": 2100,
     "scale": 4,
     "text": "Projected into the future (2100) the energy consumption more than doubles. This assumes no further climate policies. The shares of fossil and non-fossil energy carriers remain nearly the same."
   },
   {
     "code": "ssps",
-    "name": "...",
+    "name": "Future Projections",
     "year": 2100,
     "scale": 1,
     "text": "Four other futures are possible. In every possible future the total energy consumption and shares of fossil and non-fossil energy carriers varies."
   },
   {
     "code": "ssps+paris-target",
-    "name": "...",
+    "name": "The Paris Agreement",
     "year": 2100,
     "scale": 1,
     "text": "The Paris Agreement’s climate target is to keep the increase in global average temperature to well below 2°C. In order to achieve these target it needs i.a. a shift in the mix of fossil and non-fossil carriers."
   },
   {
     "code": "ssp2-highlighted",
-    "name": "...",
+    "name": "Our Current Path",
     "year": 2100,
     "scale": 1,
     "text": "In a possible future (SSP 2), in which the climate target 2°C is achieved (through further climate policies), the share of fossil carriers is much lower and the share of non-fossil much higher than in the equivalent future without any further climate policies."
