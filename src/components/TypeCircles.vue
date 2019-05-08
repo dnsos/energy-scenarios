@@ -16,29 +16,29 @@
       class="circle circle__total"
       :class="{ 'circle__total--focus': walkthrough.activeStep === 0 }"
       v-show="walkthrough.activeStep <= 2"
-      :r="totalRadius"
-      :cx="-(totalRadius - (totalCircle.radii.nonfossil * 2))"
+      :r="tweenedTotalRadius"
+      :cx="-(totalRadius - (radii.nonfossil * 2))"
     ></circle>
     <g class="group__fossil" transform="rotate(180)">
       <EnergyCircle
-        class="circle circle__fossil"
-        :class="'circle--target'"
+        class="circle circle__fossil circle--target"
         v-if="walkthrough.activeStep >= 4 && comparisons.fossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.fossil.target"
         :maxValue="maxValue"
       />
+      <transition name="fade">
+        <EnergyCircle
+          class="circle circle__fossil circle--baseline"
+          v-show="walkthrough.activeStep >= 1"
+          @update-radius="saveFossilRadius"
+          :maxRadius="maxRadius * currentScale"
+          :value="values.fossil.baseline"
+          :maxValue="maxValue"
+        />
+      </transition>
       <EnergyCircle
-        class="circle circle__fossil circle--baseline"
-        v-show="walkthrough.activeStep >= 1"
-        @update-radius="saveFossilRadius"
-        :maxRadius="maxRadius * currentScale"
-        :value="values.fossil.baseline"
-        :maxValue="maxValue"
-      />
-      <EnergyCircle
-        class="circle circle__fossil"
-        :class="'circle--target'"
+        class="circle circle__fossil circle--target"
         v-if="walkthrough.activeStep >= 4 && !comparisons.fossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.fossil.target"
@@ -53,14 +53,16 @@
         :value="values.nonfossil.target"
         :maxValue="maxValue"
       />
-      <EnergyCircle
-        class="circle circle__nonfossil circle--baseline"
-        v-show="walkthrough.activeStep >= 1"
-        @update-radius="saveNonfossilRadius"
-        :maxRadius="maxRadius * currentScale"
-        :value="values.nonfossil.baseline"
-        :maxValue="maxValue"
-      />
+      <transition name="fade">
+        <EnergyCircle
+          class="circle circle__nonfossil circle--baseline"
+          v-show="walkthrough.activeStep >= 1"
+          @update-radius="saveNonfossilRadius"
+          :maxRadius="maxRadius * currentScale"
+          :value="values.nonfossil.baseline"
+          :maxValue="maxValue"
+        />
+      </transition>
       <EnergyCircle
         class="circle circle__nonfossil circle--target"
         v-if="walkthrough.activeStep >= 4 && !comparisons.nonfossil.targetIsHigher"
@@ -123,13 +125,12 @@ export default {
   data: function() {
     return {
       isHovered: false,
-      totalCircle: {
-        radii: {
-          fossil: null,
-          nonfossil: null
-        }
-      }
-      }
+      radii: {
+        fossil: null,
+        nonfossil: null
+      },
+      tweenedTotalRadius: 0
+    }
   },
   computed: {
     ...mapState(['walkthrough']),
@@ -166,7 +167,7 @@ export default {
       return this.walkthrough.steps[this.walkthrough.activeStep].scale // TODO: get this from mapState
     },
     totalRadius: function () {
-      return this.totalCircle.radii.fossil + this.totalCircle.radii.nonfossil
+      return this.radii.fossil + this.radii.nonfossil
     }
   },
   methods: {
@@ -174,11 +175,36 @@ export default {
       this.isHovered = !this.isHovered
     },
     saveFossilRadius: function (value) {
-      this.totalCircle.radii.fossil = value 
+      this.radii.fossil = value 
     },
     saveNonfossilRadius: function (value) {
-      this.totalCircle.radii.nonfossil = value 
+      this.radii.nonfossil = value 
+    },
+    tween: function (startValue, endValue) {
+      var vm = this
+      function animate () {
+        if (TWEEN.update()) {
+          requestAnimationFrame(animate)
+        }
+      }
+
+      new TWEEN.Tween({ tweeningValue: startValue })
+        .to({ tweeningValue: endValue }, 200)
+        .onUpdate(function () {
+          vm.tweenedTotalRadius = this.tweeningValue
+        })
+        .start()
+      
+      animate()
     }
+  },
+  watch: {
+    totalRadius: function (newValue, oldValue) {
+      this.tween(oldValue, newValue)
+    }
+  },
+  mounted: function () {
+    this.tween(0, this.totalRadius)
   }
 }
 </script>
@@ -206,9 +232,13 @@ export default {
   fill: #edecf7;
   fill-opacity: 0.25;
   stroke-opacity: 0.25;
+  transition: opacity .2s ease-in;
 }
 .circle__total--focus {
   fill-opacity: 1;
   stroke-opacity: 1;
+}
+.carrier__type {
+  font-family: var(--font-family-mono);
 }
 </style>

@@ -249,7 +249,7 @@ button {
 /* ANIMATIONS/TRANSITIONS
 ----------------------------------------------------- */
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .2s; // TODO: store transition time somewhere for all animations to access?
+  transition: opacity .2s ease-in;
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
