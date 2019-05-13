@@ -27,6 +27,19 @@ export default {
       sidebarWidth: 0
     }
   },
+  computed: {
+    activeStep: function () {
+      return this.$store.state.walkthrough.activeStep
+    }
+  },
+  watch: {
+    activeStep: function (newVal, oldVal) {
+      this.$router.push({ name: 'walkthrough', params: { step: newVal } })
+    },
+    '$route' (to, from) {
+      this.$store.commit('setStep', Number(to.params.step))
+    }
+  },
   mounted: function () {
     this.sidebarWidth = this.$refs.sidebar.offsetWidth
     window.addEventListener("resize", () => { // TODO: better way? 'watch'?
