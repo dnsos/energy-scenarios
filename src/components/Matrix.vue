@@ -6,7 +6,7 @@
         :width="group.width"
         :height="group.height"
         :society="matrixData[4].society"
-        :data="matrixData[4]"
+        :sspData="matrixData[4]"
         :maxValue="matrixMaxValue"
         :transform="'translate(' + translateValues(1,1) + ')'"
       />
@@ -15,7 +15,7 @@
         :width="group.width"
         :height="group.height"
         :society="matrixData[0].society"
-        :data="matrixData[0]"
+        :sspData="matrixData[0]"
         :maxValue="matrixMaxValue"
         :transform="'translate(' + translateValues(1,5) + ')'"
       />
@@ -24,7 +24,7 @@
         :width="group.width"
         :height="group.height"
         :society="matrixData[2].society"
-        :data="matrixData[2]"
+        :sspData="matrixData[2]"
         :maxValue="matrixMaxValue"
         :transform="'translate(' + translateValues(5,1) + ')'"
       />
@@ -33,7 +33,7 @@
         :width="group.width"
         :height="group.height"
         :society="matrixData[3].society"
-        :data="matrixData[3]"
+        :sspData="matrixData[3]"
         :maxValue="matrixMaxValue"
         :transform="'translate(' + translateValues(5,5) + ')'"
       />
@@ -42,7 +42,7 @@
         :width="group.width"
         :height="group.height"
         :society="matrixData[1].society"
-        :data="matrixData[1]"
+        :sspData="matrixData[1]"
         :maxValue="matrixMaxValue"
         :transform="'translate(' + translateValues(3,3) + ')'"
       />
