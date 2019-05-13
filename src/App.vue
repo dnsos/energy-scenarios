@@ -51,7 +51,6 @@ html {
 }
 
 body {
-  max-height: 100vh;
   line-height: 1.6;
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
@@ -70,7 +69,6 @@ fieldset {
 }
 
 #app {
-  min-height: 100vh;
   padding: 0;
   overflow: hidden;
   display: grid;

@@ -1,6 +1,6 @@
 <template>
   <g
-    @mouseenter="toggleHovered()"
+    @mouseenter="toggleHovered(), showValues(sspData)"
     @mouseleave="toggleHovered()"
     class="matrix__group"
     :class="{ 'group--active': isHovered}"
@@ -113,7 +113,7 @@ export default {
       type: Object,
       required: true
     },
-    data: {
+    sspData: {
       type: Object,
       required: true
     },
@@ -141,12 +141,12 @@ export default {
     values: function () {
       return {
         fossil: {
-          baseline: this.data.baseline.fossil.values[this.rangeValue],
-          target: this.data.target.fossil.values[this.rangeValue]
+          baseline: this.sspData.baseline.fossil.values[this.rangeValue],
+          target: this.sspData.target.fossil.values[this.rangeValue]
         },
         nonfossil: {
-          baseline: this.data.baseline.nonfossil.values[this.rangeValue],
-          target: this.data.target.nonfossil.values[this.rangeValue]
+          baseline: this.sspData.baseline.nonfossil.values[this.rangeValue],
+          target: this.sspData.target.nonfossil.values[this.rangeValue]
         }
       }
     },
@@ -196,6 +196,9 @@ export default {
         .start()
       
       animate()
+    },
+    showValues: function (data) {
+      console.log('Hovered:', data)
     }
   },
   watch: {

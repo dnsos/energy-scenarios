@@ -1,5 +1,18 @@
-body > *:not(footer) {
-  border-bottom: 1px dashed black;
+body {
+  display: grid;
+  grid-template-rows: 40px auto 40px;
+}
+
+@media (max-width: 750px) {
+  body {
+    height: auto;
+  }
+}
+
+@media (min-width: 750px) {
+  body {
+    height: 100vh;
+  }
 }
 
 header, main, footer {
@@ -10,4 +23,12 @@ header, footer {
   color: white;
   background-color: #2f3652;
   z-index: 2;
+}
+
+header {
+  top: 0;
+}
+
+footer {
+  bottom: 0;
 }
