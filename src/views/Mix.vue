@@ -18,14 +18,14 @@
 
 <script>
 import { mapState } from 'vuex'
-import CarriersCircles from '@/components/CarriersCircles.vue'
+import CarriersWrapper from '@/components/CarriersWrapper.vue'
 import RadioSelect from '@/components/RadioSelect.vue'
 import RangeSlider from '@/components/RangeSlider.vue'
 
 export default {
   name: 'mix',
   components: {
-    CarriersCircles,
+    CarriersWrapper,
     RangeSlider,
     RadioSelect
   },

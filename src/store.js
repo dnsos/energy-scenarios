@@ -31,9 +31,9 @@ export default new Vuex.Store({
     },
     selection: {
       region: { name: "World", code: "World"},
+      year: 2020,
       society: { name: "Middle of the Road", code: "SSP2"},
-      target: { name: "Climate Target 2°C", code: "26"},
-      year: 2020
+      target: { name: "Climate Target 2°C", code: "26"}
     },
     regions: [
       {
@@ -188,6 +188,30 @@ export default new Vuex.Store({
         }) || { values: [0,0,0,0,0,0,0,0,0] } // TODO: fallback for infeasible scenarios. More elegant?
 
         return carrier
+      })
+      return carriersArr
+    },
+    getCarriersBySSP: (state) => (ssp) => {
+      const carriersArr = state.carriers.grouped.original.map(carrier => {
+        let testCarrier = {}
+
+        // define variable
+        testCarrier.variable = carrier.variable
+
+        // define baseline object
+        testCarrier.baseline = carrier.data.find(s => {
+          return s.regioncode === state.selection.region.code && s.scenario === (ssp + "-Baseline")
+        })
+        
+        // define target object
+        testCarrier.target = carrier.data.find(s => {
+          let selectedRegion = state.selection.region.code
+          let selectedScenario = ssp + "-" + state.selection.target.code
+
+          return s.regioncode === selectedRegion && s.scenario === selectedScenario
+        }) || { values: [0,0,0,0,0,0,0,0,0] } // TODO: fallback for infeasible scenarios. More elegant?
+
+        return testCarrier
       })
       return carriersArr
     },

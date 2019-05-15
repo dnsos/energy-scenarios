@@ -67,12 +67,10 @@
           :width="vizDimensions.width"
           :height="vizDimensions.height"
         />
-        <CarriersCircles
+        <CarriersWrapper
+          v-if="walkthrough.activeStep >= 8"
           :width="vizDimensions.width"
           :height="vizDimensions.height"
-          :carriers="carriers"
-          :maxValue="maxValue"
-          :rangeValue="rangeValue"
         />
       </g>
     </svg>
@@ -83,13 +81,13 @@
 import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
 import Matrix from '@/components/Matrix.vue'
-import CarriersCircles from '@/components/CarriersCircles.vue'
+import CarriersWrapper from '@/components/CarriersWrapper.vue'
 
 export default {
   name: 'Viz',
   components: {
     Matrix,
-    CarriersCircles
+    CarriersWrapper
   },
   props: [],
   data: function() {
@@ -107,7 +105,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['selection', 'walkthrough']),
+    ...mapState(['societies', 'selection', 'walkthrough']),
     ...mapGetters({
         carriers: 'carriersData',
         fossilData: 'fossilData',
