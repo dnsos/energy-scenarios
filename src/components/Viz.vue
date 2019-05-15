@@ -162,7 +162,7 @@ svg {
 
 .axis {
   font-size: var(--font-size-small);
-  font-family: var(--font-family-mono);
+  font-family: var(--font-family);
   fill: var(--color-grey-54);
   .indicator__variable {
     font-weight: 700;

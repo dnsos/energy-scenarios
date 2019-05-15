@@ -1,9 +1,14 @@
 [
   {
     "code": "total2020",
-    "name": "...",
+    "name": "Status quo",
     "year": 2020,
     "scale": 4,
+    "variables": {
+      "SSPs": ["SSP2"],
+      "RCPs": [],
+      "carrier": ""
+    },
     "text": "Projected total Primary Energy consumption for next year (2020)."
   },
   {
@@ -11,20 +16,35 @@
     "name": "Energy Types",
     "year": 2020,
     "scale": 4,
+    "variables": {
+      "SSPs": ["SSP2"],
+      "RCPs": [],
+      "carrier": ""
+    },
     "text": "There are fossil (f) and non-fossil (nf) energy carriers. Consumed energy consists of mostly fossil energy carriers."
   },
   {
     "code": "types2100",
-    "name": "Future Energies",
+    "name": "Future",
     "year": 2100,
     "scale": 4,
+    "variables": {
+      "SSPs": ["SSP2"],
+      "RCPs": [],
+      "carrier": ""
+    },
     "text": "Projected into the future (2100) the energy consumption more than doubles. This assumes no further climate policies. The shares of fossil and non-fossil energy carriers remain nearly the same."
   },
   {
     "code": "ssps",
-    "name": "Future Projections",
+    "name": "Possible Futures",
     "year": 2100,
     "scale": 1,
+    "variables": {
+      "SSPs": ["SSP2"],
+      "RCPs": [],
+      "carrier": ""
+    },
     "text": "Four other futures are possible. In every possible future the total energy consumption and shares of fossil and non-fossil energy carriers varies."
   },
   {
@@ -32,34 +52,83 @@
     "name": "The Paris Agreement",
     "year": 2100,
     "scale": 1,
+    "variables": {
+      "SSPs": ["SSP2"],
+      "RCPs": ["-26"],
+      "carrier": ""
+    },
     "text": "The Paris Agreement’s climate target is to keep the increase in global average temperature to well below 2°C. In order to achieve these target it needs i.a. a shift in the mix of fossil and non-fossil carriers."
   },
   {
     "code": "ssp2-highlighted",
-    "name": "Our Current Path",
+    "name": "Middle of the Road",
     "year": 2100,
     "scale": 1,
+    "variables": {
+      "SSPs": ["SSP2"],
+      "RCPs": ["-26"],
+      "carrier": ""
+    },
     "text": "In the possible “Middle of the Road” future, in which the climate target 2°C is achieved (through further climate policies), the share of fossil carriers is much lower and the share of non-fossil much higher than in the equivalent future without any further climate policies."
   },
   {
     "code": "mix",
-    "name": "...",
+    "name": "Energy Carriers",
     "year": 2100,
     "scale": 1,
-    "text": "Fossil and non-fossil energy carreirs can be further subdiveded. This detail view visualizes the differences of energy volumes between a possible future (SSP 2) and its equivalent in which the climate goal 2°C is achieved."
+    "variables": {
+      "SSPs": ["SSP2"],
+      "RCPs": ["-26"],
+      "carrier": ""
+    },
+    "text": "Let’s take a closer look at the energy carriers. Fossil and non-fossil energy carreirs can be further subdiveded. "
   },
   {
     "code": "mix+ssp1",
-    "name": "...",
+    "name": "Climate Target 2°C",
     "year": 2100,
     "scale": 1,
-    "text": "Should a sustainable world (SSP 1) develop, climate targets can be achieved fairly easy. It would need only a modest carbon price to meet the 2°C target. The meeting of climate targets therefore requires less effort and might receive stronger support."
+    "variables": {
+      "SSPs": ["SSP2"],
+      "RCPs": ["-26"],
+      "carrier": ""
+    },
+    "text": "This detail view visualizes the differences of energy volumes between the possible “Middle of the Road” future and its equivalent in which the climate goal 2°C is achieved."
+  },
+  {
+    "code": "mix",
+    "name": "The Green Road",
+    "year": 2100,
+    "scale": 1,
+    "variables": {
+      "SSPs": ["SSP1", "SSP2"],
+      "RCPs": ["-26"],
+      "carrier": ""
+    },
+    "text": "Should a sustainable world (“The Green Road”) develop, climate targets can be achieved fairly easy. It would need only a modest carbon price to meet the 2°C target. The meeting of climate targets therefore requires less effort and might receive stronger support."
   },
   {
     "code": "detail",
-    "name": "...",
+    "name": "Carrier Oil",
     "year": 2100,
     "scale": 1,
-    "text": "Let’s take a closer look at the energy carrier Oil and its development over the years. Even in a sustainable world (SSP 1), Oil will continue to be used extensively until 2050."
+    "variables": {
+      "SSPs": ["SSP1", "SSP2"],
+      "RCPs": ["-26"],
+      "carrier": "Oil"
+    },
+    "text": "Let’s take a closer look at the energy carrier Oil and its development over the years. Even in a sustainable world (“The Green Road”), Oil will continue to be used extensively until 2050."
+  },
+  {
+    "code": "detail",
+    "name": "Climate Target 1.5°C",
+    "year": 2100,
+    "scale": 1,
+    "variables": {
+      "SSPs": ["SSP1", "SSP2"],
+      "RCPs": ["-19"],
+      "carrier": "Oil"
+    },
+    "text": "lorem ipsum"
   }
 ]
