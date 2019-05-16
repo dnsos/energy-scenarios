@@ -65,7 +65,7 @@ export default {
   line-height: 0;
 
   .progress-bar {
-    fill: var(--color-dark-blue);
+    fill: var(--color-primary-neutral);
   }
 }
 </style>

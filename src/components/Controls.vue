@@ -1,5 +1,5 @@
 <template>
-  <section class="controls">
+  <div class="controls__wrapper">
     <RadioSelect
       id="targets"
       class="control__target"
@@ -21,7 +21,7 @@
       :defaultSelection="selectedRegion.code"
       @select="selectedRegion = $event"
     />
-  </section>
+  </div>
 </template>
 
 <script>
@@ -76,11 +76,11 @@ export default {
 
 
 <style lang="scss">
-.controls {
-  grid-area: h;
+.controls__wrapper {
+  padding: calc(var(--grid-spacing) / 2) var(--grid-spacing);
   text-align: left;
   background-color: white;
-  box-shadow: 0 2px 4px var(--color-grey-09);
+  border-bottom: .1rem solid var(--color-grey-09);
   z-index: 1;
 
   > * {

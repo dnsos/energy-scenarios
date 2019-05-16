@@ -9,27 +9,26 @@ export default new Router({
     {
       path: '/',
       name: 'intro',
-      component: Intro
+      components: {
+        sidebar: null,
+        main: Intro
+      }
     },
     {
       path: '/walkthrough/:step',
       name: 'walkthrough',
-      component: () => import('./views/Walkthrough.vue')
+      components: {
+        sidebar: () => import('./views/Sidebar.vue'),
+        main: () => import('./views/Walkthrough.vue')
+      }
     },
     {
-      path: '/demand',
-      name: 'demand',
-      component: () => import('./views/Demand.vue')
-    },
-    {
-      path: '/mix',
-      name: 'mix',
-      component: () => import('./views/Mix.vue')
-    },
-    {
-      path: '/matrix-figure',
-      name: 'matrix-figure',
-      component: () => import('./views/MatrixFigure.vue')
+      path: '/explorer',
+      name: 'explorer',
+      components: {
+        sidebar: () => import('./views/Sidebar.vue'),
+        main: () => import('./views/Explorer.vue')
+      }
     }
   ]
 })
