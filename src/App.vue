@@ -68,7 +68,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: var(--font-size);
   color: var(--color-grey-76);
-  box-sizing: border-box;
+  * {
+    box-sizing: border-box;
+  }
 }
 
 #app {
@@ -94,6 +96,11 @@ body {
 @media (max-width: 750px) {
   #app {
     height: auto;
+    grid-template-areas:
+    "h-le h-le h-le h-le h-le h-le h-le h-le h-le h-le h-le h-le"
+    "h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri"
+    "sbar sbar sbar sbar sbar sbar sbar sbar sbar sbar sbar sbar"
+    "main main main main main main main main main main main main";
   }
 }
 @media (min-width: 750px) {

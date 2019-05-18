@@ -58,6 +58,9 @@ export default {
   >* {
     padding: var(--grid-spacing) 0 0 var(--grid-spacing);
   }
+  >:last-child {
+    padding-bottom: var(--grid-spacing);
+  }
 
   .headings {
     >* {
