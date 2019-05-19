@@ -8,6 +8,7 @@ export default new Router({
   routes: [
     {
       path: '/',
+      redirect: '/walkthrough/0',
       name: 'intro',
       components: {
         sidebar: null,
