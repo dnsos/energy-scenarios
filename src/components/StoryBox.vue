@@ -52,6 +52,7 @@ export default {
   display: grid;
   grid-template-rows: minmax(25rem, 1fr) auto;
   padding: var(--grid-spacing);
+  background-color: white;
 }
 
 /* TEXT
@@ -86,5 +87,6 @@ export default {
 ----------------------------------------------- */
 .buttons__wrapper {
   text-align: right;
+  transform: translateY(100%);
 }
 </style>

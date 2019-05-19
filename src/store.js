@@ -29,6 +29,9 @@ export default new Vuex.Store({
       },
       total: total
     },
+    mode: {
+      isWalkthrough: null
+    },
     selection: {
       region: { name: "World", code: "World"},
       society: { name: "Middle of the Road", code: "SSP2"},
@@ -223,6 +226,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    toggleMode: (state) => {
+      state.mode.isWalkthrough = !state.mode.isWalkthrough
+    },
     setRegion: (state, payload) => {
       state.selection.region = state.regions.find(region => region.code === payload)
     },
