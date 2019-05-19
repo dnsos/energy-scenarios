@@ -1,5 +1,5 @@
 <template>
-  <figure ref="vizWrapper">
+  <figure class="viz__figure" ref="vizWrapper">
     <svg :width="figure.width" :height="figure.height">
       <defs>
         <marker
@@ -142,14 +142,19 @@ export default {
     this.$store.commit('setStep', Number(this.$route.params.step)) // sets activeStep when entering via specific URL
     
     this.figure.width = this.$refs.vizWrapper.offsetWidth
+    this.figure.height = this.$refs.vizWrapper.offsetHeight
     window.addEventListener("resize", () => { // TODO: better way? 'watch'?
       this.figure.width = this.$refs.vizWrapper.offsetWidth
+      this.figure.height = this.$refs.vizWrapper.offsetHeight
     })
   }
 }
 </script>
 
 <style scoped lang="scss">
+.viz__figure {
+  height: 100%;
+}
 svg {
   /*border: .1rem dashed var(--color-grey-09);*/
   overflow: visible;

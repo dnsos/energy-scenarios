@@ -1,31 +1,19 @@
 <template>
-  <article class="chapter grid-12-columns">
-    <section class="chapter__story grid-sidebar" ref="sidebar">
-      <StoryBox />
-      <ProgressBar :width="sidebarWidth" />
-    </section>
-    <section class="chapter__content grid-main">
-      <Viz />
-    </section>
-  </article>
+  <div class="viz__wrapper">
+    <Viz />
+  </div>
 </template>
 
 <script>
-import StoryBox from '@/components/StoryBox.vue'
-import ProgressBar from '@/components/ProgressBar.vue'
 import Viz from '@/components/Viz.vue'
 
 export default {
   name: 'walkthrough',
   components: {
-    StoryBox,
-    ProgressBar,
     Viz
   },
   data: function () {
-    return {
-      sidebarWidth: 0
-    }
+    return {}
   },
   computed: {
     activeStep: function () {
@@ -41,14 +29,15 @@ export default {
     }
   },
   mounted: function () {
-    this.sidebarWidth = this.$refs.sidebar.offsetWidth
-    window.addEventListener("resize", () => { // TODO: better way? 'watch'?
-      this.sidebarWidth = this.$refs.sidebar.offsetWidth
-    })
+    this.$store.state.mode.isWalkthrough = true
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.viz__wrapper {
+  height: 100%;
+  padding: var(--grid-spacing);
+}
 </style>
 

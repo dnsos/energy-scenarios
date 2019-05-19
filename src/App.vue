@@ -1,20 +1,28 @@
 <template>
-  <main id="app">
-    <Controls v-if="true" />
-    <router-view/>
-    <!--<nav id="nav">
-      <router-link to="/" exact>Intro</router-link> |
-      <router-link :to="'/walkthrough/' + activeStep" exact>Walkthrough</router-link>
-    </nav>-->
-  </main>
+  <div id="app">
+    <header class="grid-area grid-header">
+      <Header />
+    </header>
+    <section class="grid-area grid-controls">
+      <Controls />
+    </section>
+    <section class="grid-area grid-sidebar">
+      <router-view name="sidebar"></router-view>
+    </section>
+    <main class="grid-area grid-main">
+      <router-view name="main"></router-view>
+    </main>
+  </div>
 </template>
 
 <script>
+import Header from '@/components/Header.vue'
 import Controls from '@/components/Controls.vue'
 
 export default {
   name: 'app',
   components: {
+    Header,
     Controls
   },
   computed: {
@@ -31,13 +39,16 @@ export default {
 /* BASICS
 ----------------------------------------------------- */
 :root {
+  --color-primary-neutral: black;
   --color-violet: #4e40b2;
   --color-dark-blue: #2f3652;
   --color-yellow: rgb(254, 174, 0);
   --color-grey-76: #3e3e3e;
   --color-grey-54: #757575;
+  --color-grey-31: #b1b1b1;
   --color-grey-20: #cccccc;
   --color-grey-09: #e7e7e7;
+  --color-grey-04: #f5f5f5;
   --color-grey-02: #f9f9f9;
   --font-size: 16px;
   --font-size-small: 12px;
@@ -57,6 +68,45 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: var(--font-size);
   color: var(--color-grey-76);
+  * {
+    box-sizing: border-box;
+  }
+}
+
+#app {
+  padding: 0;
+  overflow: hidden;
+  display: grid;
+  grid-gap: 0;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: max-content auto;
+  grid-template-areas:
+    "h-le h-le h-le h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri"
+    "sbar sbar sbar main main main main main main main main main";
+
+  >* {
+    height: 100%;
+  }
+
+  .grid-header { grid-area: h-le; z-index: 1; }
+  .grid-controls { grid-area: h-ri; z-index: 1; }
+  .grid-sidebar { grid-area: sbar; z-index: 1; }
+  .grid-main { grid-area: main; z-index: 0; }
+}
+@media (max-width: 750px) {
+  #app {
+    height: auto;
+    grid-template-areas:
+    "h-le h-le h-le h-le h-le h-le h-le h-le h-le h-le h-le h-le"
+    "h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri"
+    "sbar sbar sbar sbar sbar sbar sbar sbar sbar sbar sbar sbar"
+    "main main main main main main main main main main main main";
+  }
+}
+@media (min-width: 750px) {
+  #app {
+    height: 100vh;
+  }
 }
 
 figure {
@@ -66,24 +116,6 @@ fieldset {
   padding: 0;
   margin: 0;
   border: none;
-}
-
-#app {
-  padding: 0;
-  overflow: hidden;
-  display: grid;
-  grid-gap: var(--grid-spacing);
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: auto;
-  grid-template-areas:
-    "h h h h h h h h h h h h"
-    "c c c c c c c c c c c c"
-    "f f f f f f f f f f f f";
-
-  >* {
-    height: max-content;
-    padding: calc(var(--grid-spacing) / 2) var(--grid-spacing);
-  }
 }
 
 /* CHAPTERS
@@ -126,7 +158,6 @@ fieldset {
 @media (min-width: 750px) {
     .chapter__story {
       height: max-content;
-      align-self: end;
     }
   }
 
@@ -157,52 +188,42 @@ h6 {
   display: block;
   margin-top: 0;
   margin-bottom: var(--grid-spacing);
-  font-weight: 700;
 }
 h1 {
   font-size: calc(var(--font-size) * 1.6);
   line-height: 1.2;
+  font-weight: 700;
 }
 h2 {
   font-size: calc(var(--font-size) * 1.4);
   line-height: 1.25;
+  font-weight: 700;
 }
 h3 {
-  font-size: calc(var(--font-size) * 1.2);
+  font-size: calc(var(--font-size) * 1);
   line-height: 1.3;
+  font-weight: 400;
+  color: var(--color-grey-31);
 }
 h4 {
   font-size: var(--font-size);
   line-height: 1.35;
+  font-weight: 400;
+  color: var(--color-grey-31);
 }
 h5 {
   font-size: var(--font-size);
   line-height: 1.5;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--color-grey-31);
 }
 h6 {
-  font-size: var(--font-size);
+  font-size: var(--font-size-small);
   line-height: 1.6;
-}
-
-@media (min-width: 550px) {
-  h1 {
-    font-size: calc(var(--font-size) * 2.6);
-  }
-  h2 {
-    font-size: calc(var(--font-size) * 2.0);
-  }
-  h3 {
-    font-size: calc(var(--font-size) * 1.6);
-  }
-  h4 {
-    font-size: calc(var(--font-size) * 1.4);
-  }
-  h5 {
-    font-size: calc(var(--font-size) * 1.2);
-  }
-  h6 {
-    font-size: var(--font-size);
-  }
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--color-grey-31);
 }
 
 p {
@@ -241,7 +262,7 @@ button {
   
 .button__primary {
   color: white;
-  background-color: var(--color-dark-blue);
+  background-color: var(--color-primary-neutral);
 }
 
 /* ANIMATIONS/TRANSITIONS

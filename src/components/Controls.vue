@@ -1,27 +1,30 @@
 <template>
-  <section class="controls">
-    <RadioSelect
-      id="targets"
-      class="control__target"
-      :options="targets"
-      :value="selectedTarget"
-      :defaultSelection="selectedTarget.code"
-      @input="selectedTarget = $event"
-    />
-    <!--<RangeSlider
-      id="years"
-      v-model="rangeValue"
-      @input="selectedYear = $event"
-    />-->
-    <output>Year: {{ selection.year }}</output>
-    <DropDown
-      id="regions"
-      :options="regions"
-      :value="selectedRegion"
-      :defaultSelection="selectedRegion.code"
-      @select="selectedRegion = $event"
-    />
-  </section>
+  <div class="controls__wrapper">
+    <div class="controls__contents">
+      <RadioSelect
+        id="targets"
+        class="control__target"
+        :options="targets"
+        :value="selectedTarget"
+        :defaultSelection="selectedTarget.code"
+        @input="selectedTarget = $event"
+      />
+      <!--<RangeSlider
+        id="years"
+        v-model="rangeValue"
+        @input="selectedYear = $event"
+      />-->
+      <output>Year: {{ selection.year }}</output>
+      <DropDown
+        id="regions"
+        :options="regions"
+        :value="selectedRegion"
+        :defaultSelection="selectedRegion.code"
+        @select="selectedRegion = $event"
+      />
+    </div>
+    <hr class="controls__border">
+  </div>
 </template>
 
 <script>
@@ -76,12 +79,14 @@ export default {
 
 
 <style lang="scss">
-.controls {
-  grid-area: h;
-  text-align: left;
+.controls__wrapper {
   background-color: white;
-  box-shadow: 0 2px 4px var(--color-grey-09);
   z-index: 1;
+}
+
+.controls__contents {
+  padding: calc(var(--grid-spacing) / 2) var(--grid-spacing);
+  text-align: left;
 
   > * {
     display: inline-block;
@@ -90,5 +95,12 @@ export default {
       margin-right: var(--grid-spacing);
     }
   }
+}
+
+.controls__border {
+  width: calc(100% - calc(var(--grid-spacing) * 2));
+  height: .1rem;
+  margin: 0 auto;
+  color: var(--color-grey-76); // TODO: how to color an hr properly?
 }
 </style>
