@@ -2,11 +2,17 @@
   <fieldset>
     <legend v-if="message">{{ message }}</legend>
     <div class="options__wrapper">
-      <div
+      <label
         v-for="option in options"
         :key="option.code"
         class="option"
+        :class="{ active: selectedOption === option.code }"
+        :for="option.code"
       >
+        <span
+          class="checkmark--custom"
+          :class="{ active: selectedOption === option.code }"
+        ></span>
         <input
           type="radio"
           :id="option.code"
@@ -15,8 +21,9 @@
           @input="$emit('input', $event.target.value)"
           v-model="selectedOption"
         >
-        <label :for="option.code" :class="{ active: selectedOption === option.code }">{{ option.name }}</label>
-      </div>
+        <span class="option-name--custom">{{option.name}}</span>
+        <!--<label :for="option.code" :class="{ active: selectedOption === option.code }">{{ option.name }}</label>-->
+      </label>
     </div>
   </fieldset>
 </template>
@@ -55,22 +62,38 @@ export default {
   width: 100%;
 
   .option {
-    display: inline-block;
+    cursor: pointer;
 
     input {
-      display: none;
+      //display: none;
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
     }
 
-    label {
+    /*label {
       padding: .2rem calc(var(--grid-spacing) / 4);
       background-color: transparent;
       cursor: pointer;
       transition: all .1s ease-in;
+    }*/
+
+    .checkmark--custom {
+      position: absolute;
+      height: 2.2rem;
+      width: 2.2rem;
+      background-color: white;
+      border: .15rem solid var(--color-grey-09);
+      border-radius: 50%;
+    }
+
+    .option-name--custom {
+      padding-left: 3rem;
     }
 
     .active {
-      color: white;
-      background-color: var(--color-yellow);
+      background-color: var(--color-yellow-light);
+      border-color: var(--color-yellow);
     }
   }
 
