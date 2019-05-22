@@ -12,7 +12,7 @@
         ><path class="axis__arrow" d="M0,0 L8,4 0,8" />
         </marker>
       </defs>
-      <g v-if="walkthrough.activeStep === 3 || walkthrough.activeStep === 4">
+      <g v-if="walkthrough.activeStep >= 3 && walkthrough.activeStep <= 5">
         <g
           class="axis axis__x"
           :transform="'translate(' + 0 + ',' + figure.height + ')'"
@@ -63,7 +63,7 @@
       </g>
       <g :transform="'translate(' + margins.left + ',' + margins.top + ')'">
         <Matrix
-          v-if="walkthrough.activeStep < 5"
+          v-if="walkthrough.activeStep <= 5"
           :width="vizDimensions.width"
           :height="vizDimensions.height"
         />
