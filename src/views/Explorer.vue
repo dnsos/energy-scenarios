@@ -24,9 +24,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.viz__wrapper {
-  height: 100%;
-  padding: var(--grid-spacing);
-}
 </style>
 

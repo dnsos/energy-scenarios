@@ -9,11 +9,11 @@
       "RCPs": [],
       "carrier": ""
     },
-    "text": "Projected total Primary Energy consumption for next year (2020)."
+    "text": "Primary Energy is an energy form that has not been subjected to any human engineered conversion process. Therefore it accurately describes the actual energy consumption of the world. The scenario close to what our world looks like today assumes a consumption of xy next year, in 2020. That is x times more than the measured amount in 20xx and x times more than in 19xx."
   },
   {
     "code": "types2020",
-    "name": "Energy Types",
+    "name": "Energy Sources",
     "year": 2020,
     "scale": 4,
     "variables": {
@@ -21,11 +21,11 @@
       "RCPs": [],
       "carrier": ""
     },
-    "text": "There are fossil (f) and non-fossil (nf) energy carriers. Consumed energy consists of mostly fossil energy carriers."
+    "text": "Primary Energy is either from fossil sources (f) like Oil or Coal or from non-fossil sources (nf) that for example include Solar and Biomass but also Nuclear energy. The consumption in 2020 is projected to consist of mostly fossil sources."
   },
   {
     "code": "types2100",
-    "name": "Future",
+    "name": "A Growing Consumption",
     "year": 2100,
     "scale": 4,
     "variables": {
@@ -33,11 +33,11 @@
       "RCPs": [],
       "carrier": ""
     },
-    "text": "Projected into the future (2100) the energy consumption more than doubles. This assumes no further climate policies. The shares of fossil and non-fossil energy carriers remain nearly the same."
+    "text": "Assuming that no further climate policies will be introduced, the energy consumption will have more than doubled by 2100. The ratio between fossil and non-fossil energy sources will remain nearly the same."
   },
   {
     "code": "ssps",
-    "name": "Possible Futures",
+    "name": "Other Possible Futures",
     "year": 2100,
     "scale": 1,
     "variables": {
@@ -45,7 +45,7 @@
       "RCPs": [],
       "carrier": ""
     },
-    "text": "Four other futures are possible. In every possible future the total energy consumption and shares of fossil and non-fossil energy carriers varies."
+    "text": "However, the world might develop in other ways. In each possible future the total energy consumption and the ratios between fossil and non-fossil sources vary."
   },
   {
     "code": "ssps+paris-target",
@@ -57,11 +57,11 @@
       "RCPs": ["-26"],
       "carrier": ""
     },
-    "text": "The Paris Agreement’s climate target is to keep the increase in global average temperature to well below 2°C. In order to achieve these target it needs i.a. a shift in the mix of fossil and non-fossil carriers."
+    "text": "The Paris Agreement proposes the introduction of climate policies for keeping the increase of global average temperature to well below 2°C. The five possible futures vary in their proximities to this target. The circles' different area sizes indicate the expenditure to reaching the target – the bigger the difference, the more effort required."
   },
   {
     "code": "ssp2-highlighted",
-    "name": "Middle of the Road",
+    "name": "A Likely Scenario",
     "year": 2100,
     "scale": 1,
     "variables": {
@@ -69,7 +69,7 @@
       "RCPs": ["-26"],
       "carrier": ""
     },
-    "text": "In the possible “Middle of the Road” future, in which the climate target 2°C is achieved (through further climate policies), the share of fossil carriers is much lower and the share of non-fossil much higher than in the equivalent future without any further climate policies."
+    "text": "Reaching the 2°C target in the “Middle of the Road” future requires a shift in energy sources: the share of fossil sources needs to decrease, while the share of non-fossil sources needs to increase."
   },
   {
     "code": "mix",
@@ -81,7 +81,7 @@
       "RCPs": ["-26"],
       "carrier": ""
     },
-    "text": "Let’s take a closer look at the energy carriers. Fossil and non-fossil energy carreirs can be further subdiveded. "
+    "text": "Fossil and non-fossil sources each consist of a range of energy carriers. They can be further subdivided and then looked at in detail."
   },
   {
     "code": "mix+ssp1",

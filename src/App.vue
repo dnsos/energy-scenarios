@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-cloak>
     <header class="grid-area grid-header">
       <Header />
     </header>
@@ -41,8 +41,10 @@ export default {
 :root {
   --color-primary-neutral: black;
   --color-violet: #4e40b2;
+  --color-violet-light: #edecf7;
   --color-dark-blue: #2f3652;
   --color-yellow: rgb(254, 174, 0);
+  --color-yellow-light: #fff7e7;
   --color-grey-76: #3e3e3e;
   --color-grey-54: #757575;
   --color-grey-31: #b1b1b1;
@@ -84,8 +86,9 @@ body {
     "h-le h-le h-le h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri"
     "sbar sbar sbar main main main main main main main main main";
 
-  >* {
+  > .grid-area {
     height: 100%;
+    max-height: max-content;
   }
 
   .grid-header { grid-area: h-le; z-index: 1; }
@@ -98,8 +101,8 @@ body {
     height: auto;
     grid-template-areas:
     "h-le h-le h-le h-le h-le h-le h-le h-le h-le h-le h-le h-le"
-    "h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri"
     "sbar sbar sbar sbar sbar sbar sbar sbar sbar sbar sbar sbar"
+    "h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri"
     "main main main main main main main main main main main main";
   }
 }
@@ -116,6 +119,11 @@ fieldset {
   padding: 0;
   margin: 0;
   border: none;
+}
+
+.viz__wrapper {
+  height: 100%;
+  padding: var(--grid-spacing);
 }
 
 /* CHAPTERS
@@ -191,36 +199,30 @@ h6 {
 }
 h1 {
   font-size: calc(var(--font-size) * 1.6);
-  line-height: 1.2;
   font-weight: 700;
 }
 h2 {
   font-size: calc(var(--font-size) * 1.4);
-  line-height: 1.25;
   font-weight: 700;
 }
 h3 {
   font-size: calc(var(--font-size) * 1);
-  line-height: 1.3;
   font-weight: 400;
   color: var(--color-grey-31);
 }
 h4 {
   font-size: var(--font-size);
-  line-height: 1.35;
   font-weight: 400;
   color: var(--color-grey-31);
 }
 h5 {
   font-size: var(--font-size);
-  line-height: 1.5;
   font-weight: 400;
   text-transform: uppercase;
   color: var(--color-grey-31);
 }
 h6 {
   font-size: var(--font-size-small);
-  line-height: 1.6;
   font-weight: 400;
   text-transform: uppercase;
   color: var(--color-grey-31);

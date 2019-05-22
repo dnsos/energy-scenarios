@@ -29,15 +29,11 @@ export default {
     }
   },
   mounted: function () {
-    this.$store.state.mode.isWalkthrough = true
+    this.$store.commit('setWalkthroughToTrue')
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.viz__wrapper {
-  height: 100%;
-  padding: var(--grid-spacing);
-}
 </style>
 

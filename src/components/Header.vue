@@ -1,6 +1,8 @@
 <template>
   <div class="header__wrapper">
-    <h1 class="heading__senses">SENSES Toolkit</h1>
+    <div>
+      <h1 class="heading__senses">SENSES Toolkit</h1>
+    </div>
     <hgroup>
       <h6 class="active">Learn</h6>
       <h6>Explore</h6>
@@ -21,15 +23,12 @@ export default {
 
 <style lang="scss">
 .header__wrapper {
+  height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: calc(var(--grid-spacing) / 2) var(--grid-spacing);
   color: white;
   background-color: var(--color-primary-neutral);
-
-  >* {
-    display: inline-block;
-  }
 
   .heading__senses {
     font-size: var(--font-size);

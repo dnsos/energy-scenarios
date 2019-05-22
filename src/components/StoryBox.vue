@@ -17,8 +17,11 @@
       <button
         v-if="activeStep < walkthrough.steps.length - 1"
         class="button__primary"
+        :class="{ 'button--active': buttonIsHovered}"
         @click="activeStep = activeStep + 1"
-      ><span>→   </span><span>{{ walkthrough.steps[activeStep + 1].name }}</span></button>
+        @mouseenter="toggleButtonHover()"
+        @mouseleave="toggleButtonHover()"
+      ><span class="arrow--next">→   </span><span>{{ walkthrough.steps[activeStep + 1].name }}</span></button>
     </div>
   </section>
 </template>
@@ -29,7 +32,9 @@ import { mapState } from 'vuex'
 export default {
   name: 'StoryBox',
   data: function () {
-    return {}
+    return {
+      buttonIsHovered: false
+    }
   },
   computed: {
     ...mapState(['selection', 'walkthrough']),
@@ -41,6 +46,11 @@ export default {
         this.$store.commit('setStep', value)
       }
     }
+  },
+  methods: {
+    toggleButtonHover: function () {
+      this.buttonIsHovered = !this.buttonIsHovered
+    }
   }
 }
 </script>
@@ -50,7 +60,7 @@ export default {
 ----------------------------------------------- */
 .story__wrapper {
   display: grid;
-  grid-template-rows: minmax(25rem, 1fr) auto;
+  grid-template-rows: 25rem auto;
   padding: var(--grid-spacing);
   background-color: white;
 }
@@ -88,5 +98,21 @@ export default {
 .buttons__wrapper {
   text-align: right;
   transform: translateY(100%);
+
+  button {
+    border: none;
+  }
+
+  .arrow--next {
+    display: inline-block;
+    margin-right: calc(var(--grid-spacing) / 2);
+    transition: transform .2s ease-in-out;
+  }
+
+  .button--active {
+    .arrow--next {
+      transform: translateX(.5rem);
+    }
+  }
 }
 </style>

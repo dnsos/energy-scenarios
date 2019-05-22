@@ -12,7 +12,7 @@
         ><path class="axis__arrow" d="M0,0 L8,4 0,8" />
         </marker>
       </defs>
-      <g v-if="walkthrough.activeStep === 3 || walkthrough.activeStep === 4">
+      <g v-if="walkthrough.activeStep >= 3 && walkthrough.activeStep <= 5">
         <g
           class="axis axis__x"
           :transform="'translate(' + 0 + ',' + figure.height + ')'"
@@ -63,7 +63,7 @@
       </g>
       <g :transform="'translate(' + margins.left + ',' + margins.top + ')'">
         <Matrix
-          v-if="walkthrough.activeStep < 5"
+          v-if="walkthrough.activeStep <= 5"
           :width="vizDimensions.width"
           :height="vizDimensions.height"
         />
@@ -142,10 +142,10 @@ export default {
     this.$store.commit('setStep', Number(this.$route.params.step)) // sets activeStep when entering via specific URL
     
     this.figure.width = this.$refs.vizWrapper.offsetWidth
-    this.figure.height = this.$refs.vizWrapper.offsetHeight
+    this.figure.height = this.$refs.vizWrapper.offsetWidth / 2
     window.addEventListener("resize", () => { // TODO: better way? 'watch'?
       this.figure.width = this.$refs.vizWrapper.offsetWidth
-      this.figure.height = this.$refs.vizWrapper.offsetHeight
+      this.figure.height = this.$refs.vizWrapper.offsetWidth / 2
     })
   }
 }
@@ -154,6 +154,9 @@ export default {
 <style scoped lang="scss">
 .viz__figure {
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 svg {
   /*border: .1rem dashed var(--color-grey-09);*/

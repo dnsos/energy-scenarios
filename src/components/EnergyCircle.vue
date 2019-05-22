@@ -84,11 +84,11 @@ circle {
 
 .circle--baseline {
   stroke: var(--color-violet);
-  fill: #edecf7;
+  fill: var(--color-violet-light);
 }
 
 .circle--target {
   stroke: var(--color-yellow);
-  fill: #fff7e7;
+  fill: var(--color-yellow-light);
 }
 </style>

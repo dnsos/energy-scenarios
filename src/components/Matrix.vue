@@ -38,7 +38,7 @@
         :transform="'translate(' + translateValues(5,5) + ')'"
       />
       <TypeCircles
-        v-if="walkthrough.activeStep <= 4"
+        v-if="walkthrough.activeStep <= 5"
         :width="group.width"
         :height="group.height"
         :society="matrixData[1].society"
