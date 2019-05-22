@@ -15,11 +15,11 @@
         :defaultSelection="selectedTarget.code"
         @input="selectedTarget = $event"
       />
-      <!--<RangeSlider
+      <RangeSlider
         id="years"
         v-model="rangeValue"
         @input="selectedYear = $event"
-      />-->
+      />
       <output>Year: {{ selection.year }}</output>
       <DropDown
         id="regions"

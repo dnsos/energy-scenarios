@@ -252,6 +252,9 @@ export default new Vuex.Store({
     },
     setStep: (state, payload) => {
       state.walkthrough.activeStep = payload
+    },
+    setWalkthroughToTrue: (state) => {
+      state.mode.isWalkthrough = true
     }
   },
   actions: {

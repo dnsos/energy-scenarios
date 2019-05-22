@@ -29,7 +29,7 @@ export default {
     }
   },
   mounted: function () {
-    this.$store.state.mode.isWalkthrough = true
+    this.$store.commit('setWalkthroughToTrue')
   }
 }
 </script>
