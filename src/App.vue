@@ -121,9 +121,6 @@ fieldset {
 .viz__wrapper {
   height: 100%;
   padding: var(--grid-spacing);
-  //display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /* CHAPTERS

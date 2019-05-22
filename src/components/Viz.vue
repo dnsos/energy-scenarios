@@ -154,6 +154,9 @@ export default {
 <style scoped lang="scss">
 .viz__figure {
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 svg {
   /*border: .1rem dashed var(--color-grey-09);*/
