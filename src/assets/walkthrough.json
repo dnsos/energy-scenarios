@@ -9,7 +9,7 @@
       "RCPs": [],
       "carrier": ""
     },
-    "text": "Projected total Primary Energy consumption for next year (2020)."
+    "text": "Primary Energy is ... Therefore it accurately describes the actual energy needed. The scenario close to what our world looks like today, assumes a consumption of xy next year, 2020. That is x times more than the measured amount in 20xx and x times more than in 19xx."
   },
   {
     "code": "types2020",
@@ -21,7 +21,7 @@
       "RCPs": [],
       "carrier": ""
     },
-    "text": "There are fossil (f) and non-fossil (nf) energy carriers. Consumed energy consists of mostly fossil energy carriers."
+    "text": "Primary Energy [originates] either from fossil carriers (f) like Oil or Coal or from non-fossil carriers (nf) that e.g. include Solar and Biomass but also Nuclear energy. The consumption in 2020 is projected to consist of mostly fossil carriers."
   },
   {
     "code": "types2100",

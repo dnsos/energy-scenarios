@@ -21,6 +21,7 @@ export default {
 
 <style lang="scss">
 .header__wrapper {
+  height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: calc(var(--grid-spacing) / 2) var(--grid-spacing);

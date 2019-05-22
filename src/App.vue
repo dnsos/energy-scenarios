@@ -98,8 +98,8 @@ body {
     height: auto;
     grid-template-areas:
     "h-le h-le h-le h-le h-le h-le h-le h-le h-le h-le h-le h-le"
-    "h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri"
     "sbar sbar sbar sbar sbar sbar sbar sbar sbar sbar sbar sbar"
+    "h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri"
     "main main main main main main main main main main main main";
   }
 }
@@ -116,6 +116,14 @@ fieldset {
   padding: 0;
   margin: 0;
   border: none;
+}
+
+.viz__wrapper {
+  height: 100%;
+  padding: var(--grid-spacing);
+  //display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* CHAPTERS
