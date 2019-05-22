@@ -1,5 +1,5 @@
 <template>
-  <fieldset>
+  <fieldset :class="'control__' + id">
     <legend v-if="message">{{ message }}</legend>
     <div class="options__wrapper">
       <label
@@ -22,7 +22,6 @@
           v-model="selectedOption"
         >
         <span class="option-name--custom">{{option.name}}</span>
-        <!--<label :for="option.code" :class="{ active: selectedOption === option.code }">{{ option.name }}</label>-->
       </label>
     </div>
   </fieldset>
@@ -99,6 +98,22 @@ export default {
 
   .option:not(:last-child) {
     margin-right: calc(var(--grid-spacing) / 2);
+  }
+}
+
+.control__baseline {
+  .option, .option input {
+    cursor: default;
+  }
+  .options__wrapper .option .checkmark--custom {
+    background-color: var(--color-violet-light);
+    border-color: var(--color-violet);
+  }
+}
+
+.control__targets {
+  .option:not(.active) {
+    color: var(--color-grey-09);
   }
 }
 </style>

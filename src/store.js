@@ -86,6 +86,12 @@ export default new Vuex.Store({
         code: "SSP5"
       },
     ],
+    baseline: [
+      {
+        name: "No Climate Policies",
+        code: "baseline"
+      }
+    ],
     targets: [
       {
         name: "Climate Target 2°C",

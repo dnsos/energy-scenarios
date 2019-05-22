@@ -2,8 +2,14 @@
   <div class="controls__wrapper">
     <div class="controls__contents">
       <RadioSelect
-        id="targets"
-        class="control__target"
+        :id="'baseline'"
+        :options="baseline"
+        :value="baseline.code"
+        :defaultSelection="baseline.code"
+      />
+      <RadioSelect
+        :id="'targets'"
+        :type="target"
         :options="targets"
         :value="selectedTarget"
         :defaultSelection="selectedTarget.code"
@@ -46,7 +52,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['selection', 'targets', 'regions']),
+    ...mapState(['selection', 'baseline', 'targets', 'regions']),
     selectedTarget: {
       get () {
         return this.$store.state.selection.target
