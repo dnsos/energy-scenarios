@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-cloak>
     <header class="grid-area grid-header">
       <Header />
     </header>
@@ -86,8 +86,9 @@ body {
     "h-le h-le h-le h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri"
     "sbar sbar sbar main main main main main main main main main";
 
-  >* {
+  > .grid-area {
     height: 100%;
+    max-height: max-content;
   }
 
   .grid-header { grid-area: h-le; z-index: 1; }
