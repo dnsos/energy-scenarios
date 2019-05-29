@@ -82,9 +82,6 @@ body {
   grid-gap: 0;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: max-content auto;
-  grid-template-areas:
-    "h-le h-le h-le h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri"
-    "sbar sbar sbar main main main main main main main main main";
 
   > .grid-area {
     height: 100%;
@@ -96,7 +93,7 @@ body {
   .grid-sidebar { grid-area: sbar; z-index: 1; }
   .grid-main { grid-area: main; z-index: 0; }
 }
-@media (max-width: 750px) {
+@media (max-width: 850px) {
   #app {
     height: auto;
     grid-template-areas:
@@ -106,9 +103,19 @@ body {
     "main main main main main main main main main main main main";
   }
 }
-@media (min-width: 750px) {
+@media (min-width: 850px) {
   #app {
     height: 100vh;
+    grid-template-areas:
+    "h-le h-le h-le h-le h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri"
+    "sbar sbar sbar sbar main main main main main main main main";
+  }
+}
+@media (min-width: 1250px) {
+  #app {
+    grid-template-areas:
+    "h-le h-le h-le h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri h-ri"
+    "sbar sbar sbar main main main main main main main main main";
   }
 }
 
@@ -209,11 +216,11 @@ h6 {
   margin-bottom: var(--grid-spacing);
 }
 h1 {
-  font-size: calc(var(--font-size) * 1.6);
+  font-size: calc(var(--font-size) * 1.2);
   font-weight: 700;
 }
 h2 {
-  font-size: calc(var(--font-size) * 1.4);
+  font-size: calc(var(--font-size) * 1.2);
   font-weight: 700;
 }
 h3 {
@@ -237,6 +244,10 @@ h6 {
   font-weight: 400;
   text-transform: uppercase;
   color: var(--color-grey-31);
+}
+@media (min-width: 1000px) {
+  h1 { font-size: calc(var(--font-size) * 1.6); }
+  h2 { font-size: calc(var(--font-size) * 1.4); }
 }
 
 p {
