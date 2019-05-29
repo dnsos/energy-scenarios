@@ -61,6 +61,7 @@ export default {
   width: 100%;
 
   .option {
+    display: inline-block;
     cursor: pointer;
 
     input {

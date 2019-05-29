@@ -128,6 +128,12 @@ fieldset {
 
 /* CHAPTERS
 ----------------------------------------------------- */
+.grid-2-columns {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: var(--grid-spacing);
+}
+
 .grid-12-columns {
   display: grid;
   grid-gap: var(--grid-spacing);
