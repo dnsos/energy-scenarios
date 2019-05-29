@@ -17,6 +17,7 @@
             :maxRadius="carrierMaxRadius * currentScale"
             :value="carrier.target.values[rangeValue]"
             :maxValue="maxValue"
+            :tweeningDuration="tweeningDuration"
             transform="rotate(-90)"
           />
           <EnergyCircle
@@ -24,6 +25,7 @@
             :maxRadius="carrierMaxRadius * currentScale"
             :value="carrier.baseline.values[rangeValue]"
             :maxValue="maxValue"
+            :tweeningDuration="tweeningDuration"
             transform="rotate(-90)"
           />
           <EnergyCircle
@@ -32,6 +34,7 @@
             :maxRadius="carrierMaxRadius * currentScale"
             :value="carrier.target.values[rangeValue]"
             :maxValue="maxValue"
+            :tweeningDuration="tweeningDuration"
             transform="rotate(-90)"
           />
           <text :dy="-((carrierMaxRadius * 2) * 1)">{{ carrier.variable }}</text>
@@ -52,7 +55,9 @@ export default {
   },
   props: ['width', 'height', 'carriers', 'maxValue', 'rangeValue'],
   data: function() {
-    return {}
+    return {
+      tweeningDuration: 200
+    }
   },
   computed: {
     ...mapState(['walkthrough']),

@@ -24,6 +24,11 @@ export default {
     maxValue: {
       type: Number,
       required: true
+    },
+    tweeningDuration: {
+      type: Number,
+      required: false,
+      default: 200
     }
   },
   data: function() {
@@ -62,7 +67,7 @@ export default {
       }
 
       new TWEEN.Tween({ tweeningValue: startValue })
-        .to({ tweeningValue: endValue }, 200)
+        .to({ tweeningValue: endValue }, vm.tweeningDuration)
         .onUpdate(function () {
           vm.tweenedRadius = this.tweeningValue
         })

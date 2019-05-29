@@ -1,6 +1,6 @@
 <template>
   <g
-    @mouseenter="toggleHovered(), showValues(sspData)"
+    @mouseenter="toggleHovered()"
     @mouseleave="toggleHovered()"
     class="matrix__group"
     :class="{ 'group--active': isHovered}"
@@ -26,8 +26,9 @@
         :maxRadius="maxRadius"
         :value="values.fossil.target"
         :maxValue="maxValue"
+        :tweeningDuration="tweeningDuration"
       />
-      <transition name="fade">
+      <transition name="fade-slowly">
         <EnergyCircle
           class="circle circle__fossil circle--baseline"
           v-show="walkthrough.activeStep >= 1"
@@ -35,6 +36,7 @@
           :maxRadius="maxRadius * currentScale"
           :value="values.fossil.baseline"
           :maxValue="maxValue"
+          :tweeningDuration="tweeningDuration"
         />
       </transition>
       <EnergyCircle
@@ -43,6 +45,7 @@
         :maxRadius="maxRadius"
         :value="values.fossil.target"
         :maxValue="maxValue"
+        :tweeningDuration="tweeningDuration"
       />
     </g>
     <g class="group__nonfossil">
@@ -52,8 +55,9 @@
         :maxRadius="maxRadius"
         :value="values.nonfossil.target"
         :maxValue="maxValue"
+        :tweeningDuration="tweeningDuration"
       />
-      <transition name="fade">
+      <transition name="fade-slowly">
         <EnergyCircle
           class="circle circle__nonfossil circle--baseline"
           v-show="walkthrough.activeStep >= 1"
@@ -61,6 +65,7 @@
           :maxRadius="maxRadius * currentScale"
           :value="values.nonfossil.baseline"
           :maxValue="maxValue"
+          :tweeningDuration="tweeningDuration"
         />
       </transition>
       <EnergyCircle
@@ -69,8 +74,16 @@
         :maxRadius="maxRadius"
         :value="values.nonfossil.target"
         :maxValue="maxValue"
+        :tweeningDuration="tweeningDuration"
       />
     </g>
+    <MatrixTooltip
+      v-show="isHovered"
+      :fossilBaseline="100"
+      :fossilTarget="200"
+      :nonfossilBaseline="300"
+      :nonfossilTarget="400"
+    />
     <g class="group__labels" v-if="walkthrough.activeStep >= 3">
       <transition name="fade">
         <text
@@ -94,11 +107,13 @@
 import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
 import EnergyCircle from '@/components/EnergyCircle.vue'
+import MatrixTooltip from '@/components/MatrixTooltip.vue'
 
 export default {
   name: 'TypeCircles',
   components: {
-    EnergyCircle
+    EnergyCircle,
+    MatrixTooltip
   },
   props: {
     width: {
@@ -129,6 +144,7 @@ export default {
         fossil: null,
         nonfossil: null
       },
+      tweeningDuration: 500,
       tweenedTotalRadius: 0
     }
   },
@@ -189,7 +205,7 @@ export default {
       }
 
       new TWEEN.Tween({ tweeningValue: startValue })
-        .to({ tweeningValue: endValue }, 200)
+        .to({ tweeningValue: endValue }, vm.tweeningDuration)
         .onUpdate(function () {
           vm.tweenedTotalRadius = this.tweeningValue
         })
@@ -235,7 +251,7 @@ export default {
   fill: #edecf7;
   fill-opacity: 0.25;
   stroke-opacity: 0.25;
-  transition: opacity .2s ease-in;
+  transition: opacity 1s ease-in;
 }
 .circle__total--focus {
   fill-opacity: 1;

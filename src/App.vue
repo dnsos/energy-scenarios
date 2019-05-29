@@ -281,4 +281,12 @@ button {
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }
+
+.fade-slowly-enter-active, .fade-slowly-leave-active {
+  transition: opacity 1s ease-in;
+  transition-delay: .2s;
+}
+.fade-slowly-enter, .fade-slowly-leave {
+  opacity: 0;
+}
 </style>
