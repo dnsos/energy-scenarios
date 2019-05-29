@@ -26,7 +26,7 @@
             v-model="rangeValue"
             @input="selectedYear = $event"
           />
-          <output>&nbsp;Year: {{ selection.year }}</output>
+          <output>&nbsp;Year {{ selection.year }}</output>
         </div>
         <DropDown
           id="regions"
@@ -95,6 +95,7 @@ export default {
 
 <style lang="scss">
 .controls__wrapper {
+  font-size: var(--font-size-small);
   background-color: white;
   z-index: 1;
 }

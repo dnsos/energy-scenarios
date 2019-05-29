@@ -80,15 +80,15 @@ export default {
 
     .checkmark--custom {
       position: absolute;
-      height: 2.2rem;
-      width: 2.2rem;
+      height: 1.5rem;
+      width: 1.5rem;
       background-color: white;
       border: .15rem solid var(--color-grey-09);
       border-radius: 50%;
     }
 
     .option-name--custom {
-      padding-left: 3rem;
+      padding-left: 2rem;
     }
 
     .active {

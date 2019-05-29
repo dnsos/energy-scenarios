@@ -54,13 +54,13 @@ input[type=range]::-webkit-slider-runnable-track {
   background: var(--color-dark-blue);
 }
 input[type=range]::-webkit-slider-thumb {
-  height: 1.2rem;
-  width: 1.2rem;
+  height: .8rem;
+  width: .8rem;
   border-radius: 50%;
-  background: var(--color-dark-blue);
+  background: black;
   cursor: pointer;
   -webkit-appearance: none;
-  margin-top: -0.6rem;
+  margin-top: -0.35rem;
 }
 input[type=range]:focus::-webkit-slider-runnable-track {
   background: var(--color-dark-blue);
@@ -72,10 +72,10 @@ input[type=range]::-moz-range-track {
   background: var(--color-dark-blue);
 }
 input[type=range]::-moz-range-thumb {
-  height: 1.2rem;
-  width: 1.2rem;
+  height: .8rem;
+  width: .8rem;
   border-radius: 50%;
-  background: var(--color-dark-blue);
+  background: black;
   cursor: pointer;
 }
 input[type=range]::-ms-track {
@@ -95,10 +95,10 @@ input[type=range]::-ms-fill-upper {
   border-radius: 50%;
 }
 input[type=range]::-ms-thumb {
-  height: 1.2rem;
-  width: 1.2rem;
+  height: .8rem;
+  width: .8rem;
   border-radius: 50%;
-  background: var(--color-dark-blue);
+  background: black;
   cursor: pointer;
 }
 input[type=range]:focus::-ms-fill-lower {
