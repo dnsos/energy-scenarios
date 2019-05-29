@@ -75,12 +75,8 @@ export default {
     }
   },
   watch: {
-    activeStep: function (newVal, oldVal) {
-      console.log("Active carrier:", this.walkthrough.steps[this.activeStep].variables.carrier)
-    }
   },
   mounted: function () {
-    console.log("Carriers:", this.carriers)
   }
 }
 </script>

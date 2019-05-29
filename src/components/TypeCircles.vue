@@ -77,13 +77,12 @@
         :tweeningDuration="tweeningDuration"
       />
     </g>
-    <MatrixTooltip
-      v-show="isHovered"
-      :fossilBaseline="100"
-      :fossilTarget="200"
-      :nonfossilBaseline="300"
-      :nonfossilTarget="400"
-    />
+    <transition name="fade">
+      <MatrixTooltip
+        v-if="isHovered"
+        :sspData="sspData"
+      />
+    </transition>
     <g class="group__labels" v-if="walkthrough.activeStep >= 3">
       <transition name="fade">
         <text
@@ -212,9 +211,6 @@ export default {
         .start()
       
       animate()
-    },
-    showValues: function (data) {
-      console.log('Hovered:', data)
     }
   },
   watch: {
