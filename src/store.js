@@ -151,11 +151,11 @@ export default new Vuex.Store({
 
         target.total = state.carriers.total.data.find(s => {
           return s.regioncode === state.selection.region.code && s.scenario === (society.code + "-" + state.selection.target.code)
-        }) || { values: [null,null,null,null,null,null,null,null,null] }
+        }) || { values: [0,0,0,0,0,0,0,0,0] }
 
         target.fossil = state.carriers.fossil.data.find(s => {
           return s.regioncode === state.selection.region.code && s.scenario === (society.code + "-" + state.selection.target.code)
-        }) || { values: [null,null,null,null,null,null,null,null,null] }
+        }) || { values: [0,0,0,0,0,0,0,0,0] }
 
         target.nonfossil.values = target.total.values.map((value, index) => {
           return value - target.fossil.values[index]

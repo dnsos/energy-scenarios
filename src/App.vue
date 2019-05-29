@@ -126,6 +126,11 @@ fieldset {
   padding: var(--grid-spacing);
 }
 
+.tooltip__line {
+  stroke: var(--color-grey-76);
+  stroke-width: 0.75;
+}
+
 /* CHAPTERS
 ----------------------------------------------------- */
 .grid-2-columns {

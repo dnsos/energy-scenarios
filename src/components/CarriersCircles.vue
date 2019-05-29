@@ -5,19 +5,27 @@
       :key="carrier.variable"
       class="carrier-circle"
       :transform="'translate(0' + ((carrierMaxWidth * index) + carrierMaxRadius) + ',' + height / 2 + ')'"
+      @mouseenter="setHovered(carrier.variable)"
+      @mouseleave="hoveredCarrier = null"
     >
       <transition name="fade">
         <g
           v-if="carrier.variable == walkthrough.steps[activeStep].variables.carrier
-              || walkthrough.steps[activeStep].variables.carrier == '' "
+          || walkthrough.steps[activeStep].variables.carrier == '' "
         >
+          <transition name="fade">
+            <CarrierTooltip
+              v-if="hoveredCarrier === carrier.variable"
+              :baselineValue="carrier.baseline.values[rangeValue]"
+              :targetValue="carrier.target.values[rangeValue]"
+            />
+          </transition>
           <EnergyCircle
             class="circle--target"
             v-show="carrier.target.values[rangeValue] > carrier.baseline.values[rangeValue]"
             :maxRadius="carrierMaxRadius * currentScale"
             :value="carrier.target.values[rangeValue]"
             :maxValue="maxValue"
-            :tweeningDuration="tweeningDuration"
             transform="rotate(-90)"
           />
           <EnergyCircle
@@ -25,7 +33,6 @@
             :maxRadius="carrierMaxRadius * currentScale"
             :value="carrier.baseline.values[rangeValue]"
             :maxValue="maxValue"
-            :tweeningDuration="tweeningDuration"
             transform="rotate(-90)"
           />
           <EnergyCircle
@@ -34,7 +41,6 @@
             :maxRadius="carrierMaxRadius * currentScale"
             :value="carrier.target.values[rangeValue]"
             :maxValue="maxValue"
-            :tweeningDuration="tweeningDuration"
             transform="rotate(-90)"
           />
           <text :dy="-((carrierMaxRadius * 2) * 1)">{{ carrier.variable }}</text>
@@ -47,15 +53,18 @@
 <script>
 import { mapState } from 'vuex'
 import EnergyCircle from '@/components/EnergyCircle.vue'
+import CarrierTooltip from '@/components/CarrierTooltip.vue'
 
 export default {
   name: 'CarriersCircles',
   components: {
-    EnergyCircle
+    EnergyCircle,
+    CarrierTooltip
   },
   props: ['width', 'height', 'carriers', 'maxValue', 'rangeValue'],
   data: function() {
     return {
+      hoveredCarrier: null,
       tweeningDuration: 200
     }
   },
@@ -74,7 +83,10 @@ export default {
       return this.carrierMaxWidth / 2
     }
   },
-  watch: {
+  methods: {
+    setHovered: function (carrier) {
+      this.hoveredCarrier = carrier
+    }
   },
   mounted: function () {
   }
