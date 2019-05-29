@@ -50,6 +50,7 @@ export default {
     }
   },
   mounted: function () {
+    this.$emit('update-radius', this.radius)
     this.tween(0, this.radius, 400)
   },
   methods: {

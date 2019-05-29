@@ -77,6 +77,12 @@
         :tweeningDuration="tweeningDuration"
       />
     </g>
+    <transition name="fade-slowly">
+      <g v-if="walkthrough.activeStep >= 1">
+        <text class="type-indicator" :x="-radii.fossil">f</text>
+        <text class="type-indicator" :x="radii.nonfossil">nf</text>
+      </g>
+    </transition>
     <transition name="fade">
       <MatrixTooltip
         v-if="isHovered"
@@ -253,7 +259,8 @@ export default {
   fill-opacity: 1;
   stroke-opacity: 1;
 }
-.carrier__type {
-  font-family: var(--font-family-mono);
+.type-indicator {
+  font-size: var(--font-size-small);
+  text-anchor: middle;
 }
 </style>
