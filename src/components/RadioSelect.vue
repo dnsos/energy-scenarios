@@ -83,7 +83,7 @@ export default {
       height: 1.5rem;
       width: 1.5rem;
       background-color: white;
-      border: .15rem solid var(--color-grey-09);
+      border: .15rem solid var(--color-grey-31);
       border-radius: 50%;
     }
 
@@ -114,7 +114,7 @@ export default {
 
 .control__targets {
   .option:not(.active) {
-    color: var(--color-grey-09);
+    color: var(--color-grey-31);
   }
 }
 </style>

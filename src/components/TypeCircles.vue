@@ -5,13 +5,14 @@
     class="matrix__group"
     :class="{ 'group--active': isHovered}"
   >
-    <rect
+    <!--<rect
       class="group__background"
+      v-if="walkthrough.activeStep >= 3"
       :x="-(width / 2)"
       :y="-(height / 2)"
       :width="width"
       :height="height"
-    ></rect>
+    ></rect>-->
     <circle
       class="circle circle__total"
       :class="{ 'circle__total--focus': walkthrough.activeStep === 0 }"
@@ -85,7 +86,7 @@
     </transition>
     <transition name="fade">
       <MatrixTooltip
-        v-if="isHovered"
+        v-if="isHovered && walkthrough.activeStep >= 3"
         :sspData="sspData"
       />
     </transition>

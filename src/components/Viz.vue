@@ -164,20 +164,20 @@ svg {
 }
 
 .axis__arrow {
-    stroke: var(--color-grey-54);
+    stroke: var(--color-grey-31);
     fill: none;
   }
 
 .axis {
   font-size: var(--font-size-small);
   font-family: var(--font-family);
-  fill: var(--color-grey-54);
+  fill: var(--color-grey-31);
   .indicator__variable {
     font-weight: 700;
     text-anchor: middle;
   }
   .axis__line {
-    stroke: var(--color-grey-54);
+    stroke: var(--color-grey-31);
   }
 }
 .axis__x {
