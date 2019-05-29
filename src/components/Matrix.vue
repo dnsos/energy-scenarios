@@ -47,13 +47,6 @@
         :transform="'translate(' + translateValues(3,3) + ')'"
       />
     </g>
-    <!--<g class="matrix__axes">
-      <g class="axis__y" transform="rotate(-90)">
-        <text x="0" y="0">Highly fossil-fueled</text>
-        <text x="0" y="0">Not fossil-fueled</text>
-      </g>
-      <g class="axis__x"></g>
-    </g>-->
   </g>
 </template>
 

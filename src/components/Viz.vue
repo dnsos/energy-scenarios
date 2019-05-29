@@ -173,7 +173,7 @@ svg {
   font-family: var(--font-family);
   fill: var(--color-grey-31);
   .indicator__variable {
-    font-weight: 700;
+    font-weight: 500;
     text-anchor: middle;
   }
   .axis__line {

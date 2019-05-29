@@ -38,7 +38,7 @@
         />
       </div>
     </div>
-    <hr class="controls__border">
+    <div class="controls__border"></div>
   </div>
 </template>
 
@@ -96,6 +96,7 @@ export default {
 <style lang="scss">
 .controls__wrapper {
   font-size: var(--font-size-small);
+  font-weight: 500;
   background-color: white;
   z-index: 1;
 }
@@ -125,6 +126,6 @@ export default {
   width: calc(100% - calc(var(--grid-spacing) * 2));
   height: .1rem;
   margin: 0 auto;
-  color: var(--color-grey-76); // TODO: how to color an hr properly?
+  background-color: var(--color-grey-31);
 }
 </style>
