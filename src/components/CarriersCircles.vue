@@ -5,12 +5,21 @@
       :key="carrier.variable"
       class="carrier-circle"
       :transform="'translate(0' + ((carrierMaxWidth * index) + carrierMaxRadius) + ',' + height / 2 + ')'"
+      @mouseenter="setHovered(carrier.variable)"
+      @mouseleave="hoveredCarrier = null"
     >
       <transition name="fade">
         <g
           v-if="carrier.variable == walkthrough.steps[activeStep].variables.carrier
-              || walkthrough.steps[activeStep].variables.carrier == '' "
+          || walkthrough.steps[activeStep].variables.carrier == '' "
         >
+          <transition name="fade">
+            <CarrierTooltip
+              v-if="hoveredCarrier === carrier.variable"
+              :baselineValue="carrier.baseline.values[rangeValue]"
+              :targetValue="carrier.target.values[rangeValue]"
+            />
+          </transition>
           <EnergyCircle
             class="circle--target"
             v-show="carrier.target.values[rangeValue] > carrier.baseline.values[rangeValue]"
@@ -44,15 +53,20 @@
 <script>
 import { mapState } from 'vuex'
 import EnergyCircle from '@/components/EnergyCircle.vue'
+import CarrierTooltip from '@/components/CarrierTooltip.vue'
 
 export default {
   name: 'CarriersCircles',
   components: {
-    EnergyCircle
+    EnergyCircle,
+    CarrierTooltip
   },
   props: ['width', 'height', 'carriers', 'maxValue', 'rangeValue'],
   data: function() {
-    return {}
+    return {
+      hoveredCarrier: null,
+      tweeningDuration: 200
+    }
   },
   computed: {
     ...mapState(['walkthrough']),
@@ -69,13 +83,12 @@ export default {
       return this.carrierMaxWidth / 2
     }
   },
-  watch: {
-    activeStep: function (newVal, oldVal) {
-      console.log("Active carrier:", this.walkthrough.steps[this.activeStep].variables.carrier)
+  methods: {
+    setHovered: function (carrier) {
+      this.hoveredCarrier = carrier
     }
   },
   mounted: function () {
-    console.log("Carriers:", this.carriers)
   }
 }
 </script>

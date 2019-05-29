@@ -1,17 +1,18 @@
 <template>
   <g
-    @mouseenter="toggleHovered(), showValues(sspData)"
+    @mouseenter="toggleHovered()"
     @mouseleave="toggleHovered()"
     class="matrix__group"
     :class="{ 'group--active': isHovered}"
   >
-    <rect
+    <!--<rect
       class="group__background"
+      v-if="walkthrough.activeStep >= 3"
       :x="-(width / 2)"
       :y="-(height / 2)"
       :width="width"
       :height="height"
-    ></rect>
+    ></rect>-->
     <circle
       class="circle circle__total"
       :class="{ 'circle__total--focus': walkthrough.activeStep === 0 }"
@@ -26,8 +27,9 @@
         :maxRadius="maxRadius"
         :value="values.fossil.target"
         :maxValue="maxValue"
+        :tweeningDuration="tweeningDuration"
       />
-      <transition name="fade">
+      <transition name="fade-slowly">
         <EnergyCircle
           class="circle circle__fossil circle--baseline"
           v-show="walkthrough.activeStep >= 1"
@@ -35,6 +37,7 @@
           :maxRadius="maxRadius * currentScale"
           :value="values.fossil.baseline"
           :maxValue="maxValue"
+          :tweeningDuration="tweeningDuration"
         />
       </transition>
       <EnergyCircle
@@ -43,6 +46,7 @@
         :maxRadius="maxRadius"
         :value="values.fossil.target"
         :maxValue="maxValue"
+        :tweeningDuration="tweeningDuration"
       />
     </g>
     <g class="group__nonfossil">
@@ -52,8 +56,9 @@
         :maxRadius="maxRadius"
         :value="values.nonfossil.target"
         :maxValue="maxValue"
+        :tweeningDuration="tweeningDuration"
       />
-      <transition name="fade">
+      <transition name="fade-slowly">
         <EnergyCircle
           class="circle circle__nonfossil circle--baseline"
           v-show="walkthrough.activeStep >= 1"
@@ -61,6 +66,7 @@
           :maxRadius="maxRadius * currentScale"
           :value="values.nonfossil.baseline"
           :maxValue="maxValue"
+          :tweeningDuration="tweeningDuration"
         />
       </transition>
       <EnergyCircle
@@ -69,8 +75,21 @@
         :maxRadius="maxRadius"
         :value="values.nonfossil.target"
         :maxValue="maxValue"
+        :tweeningDuration="tweeningDuration"
       />
     </g>
+    <transition name="fade-slowly">
+      <g v-if="walkthrough.activeStep >= 1">
+        <text class="type-indicator" :x="-radii.fossil">f</text>
+        <text class="type-indicator" :x="radii.nonfossil">nf</text>
+      </g>
+    </transition>
+    <transition name="fade">
+      <MatrixTooltip
+        v-if="isHovered && walkthrough.activeStep >= 3"
+        :sspData="sspData"
+      />
+    </transition>
     <g class="group__labels" v-if="walkthrough.activeStep >= 3">
       <transition name="fade">
         <text
@@ -94,11 +113,13 @@
 import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
 import EnergyCircle from '@/components/EnergyCircle.vue'
+import MatrixTooltip from '@/components/MatrixTooltip.vue'
 
 export default {
   name: 'TypeCircles',
   components: {
-    EnergyCircle
+    EnergyCircle,
+    MatrixTooltip
   },
   props: {
     width: {
@@ -129,6 +150,7 @@ export default {
         fossil: null,
         nonfossil: null
       },
+      tweeningDuration: 500,
       tweenedTotalRadius: 0
     }
   },
@@ -189,16 +211,13 @@ export default {
       }
 
       new TWEEN.Tween({ tweeningValue: startValue })
-        .to({ tweeningValue: endValue }, 200)
+        .to({ tweeningValue: endValue }, vm.tweeningDuration)
         .onUpdate(function () {
           vm.tweenedTotalRadius = this.tweeningValue
         })
         .start()
       
       animate()
-    },
-    showValues: function (data) {
-      console.log('Hovered:', data)
     }
   },
   watch: {
@@ -235,13 +254,14 @@ export default {
   fill: #edecf7;
   fill-opacity: 0.25;
   stroke-opacity: 0.25;
-  transition: opacity .2s ease-in;
+  transition: opacity 1s ease-in;
 }
 .circle__total--focus {
   fill-opacity: 1;
   stroke-opacity: 1;
 }
-.carrier__type {
-  font-family: var(--font-family-mono);
+.type-indicator {
+  font-size: var(--font-size-small);
+  text-anchor: middle;
 }
 </style>

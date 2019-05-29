@@ -1,33 +1,42 @@
 <template>
   <div class="controls__wrapper">
-    <div class="controls__contents">
-      <RadioSelect
-        :id="'baseline'"
-        :options="baseline"
-        :value="baseline.code"
-        :defaultSelection="baseline.code"
-      />
-      <RadioSelect
-        :id="'targets'"
-        :type="target"
-        :options="targets"
-        :value="selectedTarget"
-        :defaultSelection="selectedTarget.code"
-        @input="selectedTarget = $event"
-      />
-      <RangeSlider
-        id="years"
-        v-model="rangeValue"
-        @input="selectedYear = $event"
-      />
-      <output>Year: {{ selection.year }}</output>
-      <DropDown
-        id="regions"
-        :options="regions"
-        :value="selectedRegion"
-        :defaultSelection="selectedRegion.code"
-        @select="selectedRegion = $event"
-      />
+    <div class="controls__contents grid-2-columns">
+      <div class="controls__contents--left">
+        <RadioSelect
+          :id="'baseline'"
+          class="control"
+          :options="baseline"
+          :value="baseline.code"
+          :defaultSelection="baseline.code"
+        />
+        <RadioSelect
+          :id="'targets'"
+          class="control"
+          :type="target"
+          :options="targets"
+          :value="selectedTarget"
+          :defaultSelection="selectedTarget.code"
+          @input="selectedTarget = $event"
+        />
+      </div>
+      <div class="controls__contents--right">
+        <div class="control">
+          <RangeSlider
+            id="years"
+            v-model="rangeValue"
+            @input="selectedYear = $event"
+          />
+          <output>&nbsp;Year {{ selection.year }}</output>
+        </div>
+        <DropDown
+          id="regions"
+          class="control"
+          :options="regions"
+          :value="selectedRegion"
+          :defaultSelection="selectedRegion.code"
+          @select="selectedRegion = $event"
+        />
+      </div>
     </div>
     <hr class="controls__border">
   </div>
@@ -86,19 +95,28 @@ export default {
 
 <style lang="scss">
 .controls__wrapper {
+  font-size: var(--font-size-small);
   background-color: white;
   z-index: 1;
+}
+
+.controls__contents--left, .controls__contents--right {
+  display: inline-block;
+  > *:not(:last-child) {
+    margin-right: calc(var(--grid-spacing) / 2);
+  }
+}
+.controls__contents--right {
+  text-align: right;
 }
 
 .controls__contents {
   padding: calc(var(--grid-spacing) / 2) var(--grid-spacing);
   text-align: left;
-
-  > * {
+  .control {
     display: inline-block;
-
-    &:not(:last-child) {
-      margin-right: var(--grid-spacing);
+    > * {
+      display: inline-block;
     }
   }
 }

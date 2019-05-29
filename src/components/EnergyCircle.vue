@@ -45,15 +45,16 @@ export default {
   },
   watch: {
     radius: function (newValue, oldValue) {
-      this.tween(oldValue, newValue)
+      this.tween(oldValue, newValue, 400)
       this.$emit('update-radius', newValue)
     }
   },
   mounted: function () {
-    this.tween(0, this.radius)
+    this.$emit('update-radius', this.radius)
+    this.tween(0, this.radius, 400)
   },
   methods: {
-    tween: function (startValue, endValue) {
+    tween: function (startValue, endValue, tweeningDuration) {
       var vm = this
       function animate () {
         if (TWEEN.update()) {
@@ -62,7 +63,7 @@ export default {
       }
 
       new TWEEN.Tween({ tweeningValue: startValue })
-        .to({ tweeningValue: endValue }, 200)
+        .to({ tweeningValue: endValue }, tweeningDuration)
         .onUpdate(function () {
           vm.tweenedRadius = this.tweeningValue
         })

@@ -60,9 +60,14 @@ export default {
 ----------------------------------------------- */
 .story__wrapper {
   display: grid;
-  grid-template-rows: 25rem auto;
+  grid-template-rows: auto auto;
   padding: var(--grid-spacing);
   background-color: white;
+}
+@media (min-width: 850px) {
+  .story__wrapper {
+    grid-template-rows: 25rem auto;
+  }  
 }
 
 /* TEXT

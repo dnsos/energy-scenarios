@@ -69,7 +69,7 @@ export default {
   }
 
   .sidebar__content {
-
+    
   }
 }
 </style>

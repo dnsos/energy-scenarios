@@ -61,6 +61,7 @@ export default {
   width: 100%;
 
   .option {
+    display: inline-block;
     cursor: pointer;
 
     input {
@@ -79,15 +80,15 @@ export default {
 
     .checkmark--custom {
       position: absolute;
-      height: 2.2rem;
-      width: 2.2rem;
+      height: 1.5rem;
+      width: 1.5rem;
       background-color: white;
-      border: .15rem solid var(--color-grey-09);
+      border: .15rem solid var(--color-grey-31);
       border-radius: 50%;
     }
 
     .option-name--custom {
-      padding-left: 3rem;
+      padding-left: 2rem;
     }
 
     .active {
@@ -113,7 +114,7 @@ export default {
 
 .control__targets {
   .option:not(.active) {
-    color: var(--color-grey-09);
+    color: var(--color-grey-31);
   }
 }
 </style>
