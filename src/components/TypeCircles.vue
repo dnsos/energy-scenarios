@@ -94,7 +94,7 @@
       <transition name="fade">
         <text
           class="matrix__society"
-          :transform="'translate(0,' + height * 0.4 + ')'">
+          :transform="'translate(0,' + height * .55 + ')'">
           {{ society.name }}
           </text>
       </transition>
@@ -234,6 +234,7 @@ export default {
 <style scoped lang="scss">
 .matrix__society {
   font-size: var(--font-size-small);
+  font-weight: 500;
   text-anchor: middle;
 }
 .matrix__society--infeasible {

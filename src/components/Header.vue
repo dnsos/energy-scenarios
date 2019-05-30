@@ -1,7 +1,8 @@
 <template>
   <div class="header__wrapper">
-    <div>
-      <h1 class="heading__senses">SENSES Toolkit</h1>
+    <div class="title__wrapper">
+      <img class="title__logo" src="../assets/img/senses_logo.svg" />
+      <h1 class="title__text">SENSES Toolkit</h1>
     </div>
     <hgroup>
       <h6 class="active">Learn</h6>
@@ -30,10 +31,20 @@ export default {
   color: white;
   background-color: var(--color-primary-neutral);
 
-  .heading__senses {
-    font-size: var(--font-size);
-    font-weight: 400;
-    margin-bottom: 0;
+  .title__wrapper {
+    .title__logo {
+      display: inline-block;
+      width: 2rem;
+      height: auto;
+    }
+    .title__text {
+      display: inline-block;
+      font-size: var(--font-size);
+      font-weight: 400;
+      padding-left: calc(var(--grid-spacing) / 4);
+      margin-bottom: 0;
+      color: white;
+    }
   }
 
   hgroup {

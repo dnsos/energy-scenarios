@@ -134,7 +134,7 @@ fieldset {
 }
 
 .tooltip__line {
-  stroke: var(--color-grey-76);
+  stroke: var(--color-grey-31);
   stroke-width: 0.75;
 }
 
@@ -212,6 +212,7 @@ h4,
 h5,
 h6 {
   display: block;
+  color: var(--color-primary-neutral);
   margin-top: 0;
   margin-bottom: var(--grid-spacing);
 }
@@ -258,7 +259,7 @@ p {
 a {
   color: inherit;
   text-decoration: none;
-  border-bottom: .1rem solid var(--color-grey-76);
+  border-bottom: none;
   transition: color 0.1s;
 }
 a:hover {
