@@ -102,7 +102,7 @@
         <text
           class="matrix__society matrix__society--infeasible"
           v-if="walkthrough.activeStep >= 4 && values.fossil.target === 0"
-          :transform="'translate(0,' + height * 0.5 + ')'"
+          :transform="'translate(0,' + height * 0.65 + ')'"
         >(Target infeasible)</text>
       </transition>
     </g>

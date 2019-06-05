@@ -13,13 +13,6 @@
           v-if="carrier.variable == walkthrough.steps[activeStep].variables.carrier
           || walkthrough.steps[activeStep].variables.carrier == '' "
         >
-          <transition name="fade">
-            <CarrierTooltip
-              v-if="hoveredCarrier === carrier.variable"
-              :baselineValue="carrier.baseline.values[rangeValue]"
-              :targetValue="carrier.target.values[rangeValue]"
-            />
-          </transition>
           <EnergyCircle
             class="circle--target"
             v-show="carrier.target.values[rangeValue] > carrier.baseline.values[rangeValue]"
@@ -43,6 +36,13 @@
             :maxValue="maxValue"
             transform="rotate(-90)"
           />
+          <transition name="fade">
+            <CarrierTooltip
+              v-if="hoveredCarrier === carrier.variable"
+              :baselineValue="carrier.baseline.values[rangeValue]"
+              :targetValue="carrier.target.values[rangeValue]"
+            />
+          </transition>
           <text :dy="-((carrierMaxRadius * 2) * 1)">{{ carrier.variable }}</text>
         </g>
       </transition>
