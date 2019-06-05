@@ -2,11 +2,11 @@
   <g class="group__tooltip">
     <g transform="translate(0,-5)">
       <text class="tooltip">
-        <tspan class="value__baseline" x="70" dy="-15">{{ Math.round(baselineValue) }}</tspan>
-        <tspan class="value__target" x="70" y="0">{{ Math.round(targetValue) }}</tspan>
+        <tspan class="value__baseline" x="90" dy="-15">{{ Math.round(baselineValue) }} EJ/yr</tspan>
+        <tspan class="value__target" x="90" y="0">{{ Math.round(targetValue) }} EJ/yr</tspan>
       </text>
     </g>
-    <line class="tooltip__line" x1="0" y1="0" x2="70" y2="0" />
+    <line class="tooltip__line" x1="0" y1="0" x2="90" y2="0" />
   </g>
 </template>
 

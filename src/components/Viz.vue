@@ -29,10 +29,10 @@
           <text
             class="indicator indicator__low"
             :transform="'translate(' + figure.width * 0.04 + ',0)'">Low</text>
-          <rect :transform="'translate(' + (figure.width / 2 - 45) + ',-5)'" width="90" height="10" fill="white" />
+          <rect :transform="'translate(' + (figure.width / 2 - 85) + ',-5)'" width="170" height="10" fill="white" />
           <text
             class="indicator indicator__variable"
-            :transform="'translate(' + figure.width * 0.5 + ',0)'">Inequality</text>
+            :transform="'translate(' + figure.width * 0.5 + ',0)'">Challenges for Adaptation</text>
           <text
             class="indicator indicator__high"
             :transform="'translate(' + figure.width * 0.96 + ',0)'">High</text>
@@ -51,10 +51,10 @@
             <text
               class="indicator indicator__high"
               :transform="'translate(0,' + figure.height * 0.04 + ')rotate(-90)'">High</text>
-            <rect :transform="'translate(-5,' + (figure.height / 2 - 60) + ')'" width="10" height="120" fill="white" />
+            <rect :transform="'translate(-5,' + (figure.height / 2 - 80) + ')'" width="10" height="160" fill="white" />
             <text
               class="indicator indicator__variable"
-              :transform="'translate(0,' + figure.height * 0.5 + ') rotate(-90)'">Fossil fuel use</text>
+              :transform="'translate(0,' + figure.height * 0.5 + ') rotate(-90)'">Challenges for Mitigation</text>
             <text
               class="indicator indicator__low"
               :transform="'translate(0,' + figure.height * 0.96 + ') rotate(-90)'">Low</text>
