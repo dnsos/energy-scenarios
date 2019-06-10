@@ -5,21 +5,11 @@
     class="matrix__group"
     :class="{ 'group--active': isHovered}"
   >
-    <!--<rect
-      class="group__background"
-      v-if="walkthrough.activeStep >= 3"
-      :x="-(width / 2)"
-      :y="-(height / 2)"
-      :width="width"
-      :height="height"
-    ></rect>-->
-    <circle
-      class="circle circle__total"
-      :class="{ 'circle__total--focus': walkthrough.activeStep === 0 }"
-      v-show="walkthrough.activeStep <= 2"
-      :r="tweenedTotalRadius"
-      :cx="-(totalRadius - (radii.nonfossil * 2))"
-    ></circle>
+    <GeneralCircles
+      :radiusTotal="totalRadius"
+      :xOffset="-(totalRadius - (radii.nonfossil * 2))"
+      :value="values.fossil.baseline + values.nonfossil.baseline"
+    />
     <g class="group__fossil" transform="rotate(180)">
       <EnergyCircle
         class="circle circle__fossil circle--target"
@@ -79,7 +69,7 @@
       />
     </g>
     <transition name="fade-slowly">
-      <g v-if="walkthrough.activeStep >= 1">
+      <g v-if="walkthrough.activeStep >= 1" class="type-indicators">
         <text class="type-indicator" :x="-radii.fossil">f</text>
         <text class="type-indicator" :x="radii.nonfossil">nf</text>
       </g>
@@ -94,16 +84,17 @@
       <transition name="fade">
         <text
           class="matrix__society"
-          :transform="'translate(0,' + height * .55 + ')'">
-          {{ society.name }}
+          :transform="'translate(0,' + height * 0.5 + ')'">
+          <tspan x="0" y="0" class="bgtest">{{ society.name }}</tspan>
+          <tspan x="0" y="0">{{ society.name }}</tspan>
+          <tspan
+            class="matrix__society--infeasible"
+            v-if="walkthrough.activeStep >= 4 && values.fossil.target === 0"
+            x="0"
+            y="0"
+            dy="12"
+          >(Target infeasible)</tspan>
           </text>
-      </transition>
-      <transition name="fade">
-        <text
-          class="matrix__society matrix__society--infeasible"
-          v-if="walkthrough.activeStep >= 4 && values.fossil.target === 0"
-          :transform="'translate(0,' + height * 0.65 + ')'"
-        >(Target infeasible)</text>
       </transition>
     </g>
   </g>
@@ -113,12 +104,14 @@
 import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
 import EnergyCircle from '@/components/EnergyCircle.vue'
+import GeneralCircles from '@/components/GeneralCircles.vue'
 import MatrixTooltip from '@/components/MatrixTooltip.vue'
 
 export default {
   name: 'TypeCircles',
   components: {
     EnergyCircle,
+    GeneralCircles,
     MatrixTooltip
   },
   props: {
@@ -149,9 +142,7 @@ export default {
       radii: {
         fossil: null,
         nonfossil: null
-      },
-      tweeningDuration: 500,
-      tweenedTotalRadius: 0
+      }
     }
   },
   computed: {
@@ -201,32 +192,7 @@ export default {
     },
     saveNonfossilRadius: function (value) {
       this.radii.nonfossil = value 
-    },
-    tween: function (startValue, endValue) {
-      var vm = this
-      function animate () {
-        if (TWEEN.update()) {
-          requestAnimationFrame(animate)
-        }
-      }
-
-      new TWEEN.Tween({ tweeningValue: startValue })
-        .to({ tweeningValue: endValue }, vm.tweeningDuration)
-        .onUpdate(function () {
-          vm.tweenedTotalRadius = this.tweeningValue
-        })
-        .start()
-      
-      animate()
     }
-  },
-  watch: {
-    totalRadius: function (newValue, oldValue) {
-      this.tween(oldValue, newValue)
-    }
-  },
-  mounted: function () {
-    this.tween(0, this.totalRadius)
   }
 }
 </script>
@@ -236,9 +202,9 @@ export default {
   font-size: var(--font-size-small);
   font-weight: 500;
   text-anchor: middle;
-}
-.matrix__society--infeasible {
-  fill: var(--color-yellow);
+  .matrix__society--infeasible {
+    fill: var(--color-yellow);
+  }
 }
 .group__background {
   fill: transparent;
@@ -249,20 +215,11 @@ export default {
     fill: var(--color-grey-02);
   }
 }
-.circle__total {
-  stroke-width: 1.5;
-  stroke: var(--color-violet);
-  fill: #edecf7;
-  fill-opacity: 0.25;
-  stroke-opacity: 0.25;
-  transition: opacity 1s ease-in;
-}
-.circle__total--focus {
-  fill-opacity: 1;
-  stroke-opacity: 1;
-}
-.type-indicator {
-  font-size: var(--font-size-small);
-  text-anchor: middle;
+.type-indicators {
+  dominant-baseline: middle;
+  .type-indicator {
+    font-size: var(--font-size-small);
+    text-anchor: middle;
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <g class="carriers__wrapper" v-if="walkthrough.activeStep >= 8">
+  <g class="carriers__wrapper" v-if="walkthrough.activeStep >= 7">
     <g
       v-for="(carrier, index) in carriers"
       :key="carrier.variable"
