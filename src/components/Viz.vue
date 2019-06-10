@@ -71,7 +71,7 @@
           :width="vizDimensions.width"
           :height="vizDimensions.height"
           :carriers="carriers"
-          :maxValue="maxValue"
+          :maxValue="carriersMaxValueAbs"
           :rangeValue="rangeValue"
         />
       </g>
@@ -113,6 +113,7 @@ export default {
         fossilData: 'fossilData',
         totalData: 'totalData',
         maxValue: 'carriersMaxValue',
+        carriersMaxValueAbs: 'carriersMaxValueAbs',
         rangeValue: 'rangeValue'
     }),
     fossilAmount: function () {

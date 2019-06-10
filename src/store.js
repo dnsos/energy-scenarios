@@ -144,18 +144,27 @@ export default new Vuex.Store({
         })
 
         const target = {
+          feasible: null,
           total: null,
           fossil: null,
           nonfossil: { values: [] }
         }
 
+        if (state.carriers.total.data.find(s => {
+          return s.regioncode === state.selection.region.code && s.scenario === (society.code + "-" + state.selection.target.code)
+        })) {
+          target.feasible = true
+        } else {
+          target.feasible = false
+        }
+
         target.total = state.carriers.total.data.find(s => {
           return s.regioncode === state.selection.region.code && s.scenario === (society.code + "-" + state.selection.target.code)
-        }) || { values: [0,0,0,0,0,0,0,0,0] }
+        }) || { values: [null,null,null,null,null,null,null,null,null] }
 
         target.fossil = state.carriers.fossil.data.find(s => {
           return s.regioncode === state.selection.region.code && s.scenario === (society.code + "-" + state.selection.target.code)
-        }) || { values: [0,0,0,0,0,0,0,0,0] }
+        }) || { values: [null,null,null,null,null,null,null,null,null] }
 
         target.nonfossil.values = target.total.values.map((value, index) => {
           return value - target.fossil.values[index]
@@ -202,15 +211,29 @@ export default new Vuex.Store({
     },
     carriersMaxValue: (state) => {
       const maxCarriers = state.carriers.grouped.original.map(carrier => {
-
+        /* filters all scenarios that equal the current selection */
         const maxScenarios = carrier.data.filter(s => {
           return s.regioncode === state.selection.region.code
         })
-
         const maxScenario = maxScenarios.map(s => {
           return Math.max(...s.values)
         })
-
+        return Math.max(...maxScenario)
+      })
+      return Math.max(...maxCarriers)
+    },
+    carriersMaxValueAbs: (state) => {
+      const maxCarriers = state.carriers.grouped.original.map(carrier => {
+        /* filters all scenarios that include the possible futures (baseline, 19, 26),
+           also includes all SSPs */
+        const maxScenarios = carrier.data.filter(s => {
+          return s.scenario.includes('Baseline')
+          || s.scenario.includes('19')
+          || s.scenario.includes('26')
+        })
+        const maxScenario = maxScenarios.map(s => {
+          return Math.max(...s.values)
+        })
         return Math.max(...maxScenario)
       })
       return Math.max(...maxCarriers)

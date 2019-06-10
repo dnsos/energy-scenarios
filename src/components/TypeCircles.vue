@@ -89,7 +89,7 @@
           <tspan x="0" y="0">{{ society.name }}</tspan>
           <tspan
             class="matrix__society--infeasible"
-            v-if="walkthrough.activeStep >= 4 && values.fossil.target === 0"
+            v-if="walkthrough.activeStep >= 4 && values.fossil.target === null"
             x="0"
             y="0"
             dy="12"
