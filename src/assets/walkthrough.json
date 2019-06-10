@@ -9,7 +9,7 @@
       "RCPs": [],
       "carrier": ""
     },
-    "text": "Primary Energy is an energy form that has not been subjected to any human engineered conversion process. Therefore it accurately describes the actual energy consumption of the world. The scenario close to what our world looks like today assumes a consumption of xy next year, in 2020. That is x times more than the measured amount in 20xx and x times more than in 19xx."
+    "text": "Primary Energy is an energy form that has not been subjected to any human engineered conversion process. Therefore it accurately describes the actual energy consumption of the world. The scenario close to what our world looks like today assumes a consumption of about 580 EJ next year, in 2020. That is x times more than the measured amount in 20xx and x times more than in 19xx."
   },
   {
     "code": "types2020",
@@ -118,17 +118,5 @@
       "carrier": "Oil"
     },
     "text": "Let’s take a closer look at the energy carrier Oil and its development over the years. Even in a sustainable world (“The Green Road”), Oil will continue to be used extensively until 2050."
-  },
-  {
-    "code": "detail",
-    "name": "Climate Target 1.5°C",
-    "year": 2100,
-    "scale": 1,
-    "variables": {
-      "SSPs": ["SSP1", "SSP2"],
-      "RCPs": ["-19"],
-      "carrier": "Oil"
-    },
-    "text": "lorem ipsum"
   }
 ]
