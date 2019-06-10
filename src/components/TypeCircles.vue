@@ -79,7 +79,7 @@
       />
     </g>
     <transition name="fade-slowly">
-      <g v-if="walkthrough.activeStep >= 1">
+      <g v-if="walkthrough.activeStep >= 1" class="type-indicators">
         <text class="type-indicator" :x="-radii.fossil">f</text>
         <text class="type-indicator" :x="radii.nonfossil">nf</text>
       </g>
@@ -261,8 +261,11 @@ export default {
   fill-opacity: 1;
   stroke-opacity: 1;
 }
-.type-indicator {
-  font-size: var(--font-size-small);
-  text-anchor: middle;
+.type-indicators {
+  dominant-baseline: middle;
+  .type-indicator {
+    font-size: var(--font-size-small);
+    text-anchor: middle;
+  }
 }
 </style>
