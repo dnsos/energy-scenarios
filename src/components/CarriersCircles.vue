@@ -1,51 +1,79 @@
 <template>
   <g class="carriers__wrapper" v-if="walkthrough.activeStep >= 7">
-    <g
-      v-for="(carrier, index) in carriers"
-      :key="carrier.variable"
-      class="carrier-circle"
-      :transform="'translate(0' + ((carrierMaxWidth * index) + carrierMaxRadius) + ',' + height / 2 + ')'"
-      @mouseenter="setHovered(carrier.variable)"
-      @mouseleave="hoveredCarrier = null"
+    <g v-for="(society, index) in societies"
+      :key="society.code"
+      class="society__group"
+      :transform="'translate(0,' +  ((height/5*walkthrough.steps[activeStep].variables.SSPs.length) + (index * carrierMaxWidth)) + ')'"
     >
-      <transition name="fade">
-        <g
-          v-if="carrier.variable == walkthrough.steps[activeStep].variables.carrier
-          || walkthrough.steps[activeStep].variables.carrier == '' "
-        >
-          <EnergyCircle
-            class="circle--target"
-            v-show="carrier.target.values[rangeValue] > carrier.baseline.values[rangeValue]"
-            :maxRadius="carrierMaxRadius * currentScale"
-            :value="carrier.target.values[rangeValue]"
-            :maxValue="maxValue"
-            transform="rotate(-90)"
-          />
-          <EnergyCircle
-            class="circle--baseline"
-            :maxRadius="carrierMaxRadius * currentScale"
-            :value="carrier.baseline.values[rangeValue]"
-            :maxValue="maxValue"
-            transform="rotate(-90)"
-          />
-          <EnergyCircle
-            class="circle--target"
-            v-show="carrier.target.values[rangeValue] < carrier.baseline.values[rangeValue]"
-            :maxRadius="carrierMaxRadius * currentScale"
-            :value="carrier.target.values[rangeValue]"
-            :maxValue="maxValue"
-            transform="rotate(-90)"
-          />
-          <transition name="fade">
-            <CarrierTooltip
-              v-if="hoveredCarrier === carrier.variable"
-              :baselineValue="carrier.baseline.values[rangeValue]"
-              :targetValue="carrier.target.values[rangeValue]"
+    <g v-if="walkthrough.steps[activeStep].variables.SSPs.includes(society.code)">
+      <g
+        v-for="(carrier, index) in society.carriers"
+        :key="carrier.name"
+        class="carrier-circle"
+        :transform="'translate(' + ((carrierMaxWidth * index) + carrierMaxRadius) + ',0)'"
+        @mouseenter="setHovered(carrier.name)"
+        @mouseleave="hoveredCarrier = null"
+      >
+
+        <transition name="fade">
+          <g
+            v-if="carrier.name == walkthrough.steps[activeStep].variables.carrier
+            || walkthrough.steps[activeStep].variables.carrier == '' "
+          >
+            <EnergyCircle
+              class="circle--target"
+              v-show="carrier[currentTargetCode].values[rangeValue] > carrier.baseline.values[rangeValue]"
+              :maxRadius="carrierMaxRadius * currentScale"
+              :value="carrier[currentTargetCode].values[rangeValue]"
+              :maxValue="maxValue"
+              transform="rotate(-90)"
             />
-          </transition>
-          <text :dy="-((carrierMaxRadius * 2) * 1)">{{ carrier.variable }}</text>
-        </g>
-      </transition>
+            <EnergyCircle
+              class="circle--baseline"
+              :maxRadius="carrierMaxRadius * currentScale"
+              :value="carrier.baseline.values[rangeValue]"
+              :maxValue="maxValue"
+              transform="rotate(-90)"
+            />
+            <EnergyCircle
+              class="circle--target"
+              v-show="carrier[currentTargetCode].values[rangeValue] < carrier.baseline.values[rangeValue]"
+              :maxRadius="carrierMaxRadius * currentScale"
+              :value="carrier[currentTargetCode].values[rangeValue]"
+              :maxValue="maxValue"
+              transform="rotate(-90)"
+            />
+            <transition name="fade">
+              <CarrierTooltip
+                v-if="hoveredCarrier === carrier.name"
+                :baselineValue="carrier.baseline.values[rangeValue]"
+                :targetValue="carrier[currentTargetCode].values[rangeValue]"
+              />
+            </transition>
+          </g>
+        </transition>
+      </g>
+    </g>
+    </g>
+    <g
+      v-for="(society, index) in societies"
+      :key="society.code"
+      class="society__name"
+      :transform="'translate(0,' +  ((height/5*walkthrough.steps[activeStep].variables.SSPs.length) + (index * carrierMaxWidth)) + ')'"
+    >
+      <g v-if="walkthrough.steps[activeStep].variables.SSPs.includes(society.code)">
+        <text dy="20">{{ society.name }}</text>
+        <line x1="0" y1="6" :x2="society.carriers.length * carrierMaxWidth" y2="6" class="society__divider" />
+      </g>
+    </g>
+    <g class="carriers__names">
+      <text
+        v-for="(carrier, index) in societies[0].carriers"
+        :key="carrier.name"
+        class="carrier__name"
+        :class="'carrier__' + carrier.name"
+        :transform="'translate(' + ((carrierMaxWidth * index) + carrierMaxRadius) + ',-50)'"
+      >{{ carrier.name }}</text>
     </g>
   </g>
 </template>
@@ -61,7 +89,7 @@ export default {
     EnergyCircle,
     CarrierTooltip
   },
-  props: ['width', 'height', 'carriers', 'maxValue', 'rangeValue'],
+  props: ['width', 'height', 'societies', 'maxValue', 'rangeValue'],
   data: function() {
     return {
       hoveredCarrier: null,
@@ -69,7 +97,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['walkthrough']),
+    ...mapState(['selection', 'walkthrough']),
     activeStep: function () {
       return this.$store.state.walkthrough.activeStep
     },
@@ -77,10 +105,13 @@ export default {
       return this.walkthrough.steps[this.walkthrough.activeStep].scale
     },
     carrierMaxWidth: function () {
-      return this.width / this.carriers.length
+      return this.width / this.societies[0].carriers.length // TODO: more elegantly?
     },
     carrierMaxRadius: function () {
       return this.carrierMaxWidth / 2
+    },
+    currentTargetCode: function () {
+      return 'target' + this.selection.target.code
     }
   },
   methods: {
@@ -88,17 +119,24 @@ export default {
       this.hoveredCarrier = carrier
     }
   },
-  mounted: function () {
-  }
+  mounted: function () {}
 }
 </script>
 
 <style scoped lang="scss">
 text {
     font-size: calc(var(--font-size) - 4px);
+    font-weight: 500;
     text-anchor: middle;
   }
 .carrier-circle {
   transform: rotate(90);
+}
+.society__name text {
+  text-anchor: start;
+}
+.society__divider {
+  stroke: var(--color-grey-09);
+  stroke-width: .75;
 }
 </style>
