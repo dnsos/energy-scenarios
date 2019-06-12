@@ -191,6 +191,49 @@ export default new Vuex.Store({
       })
       return Math.max(...maxSSPs)
     },
+    carriersDataNew: (state) => {
+      const carriersData = state.societies.map(society => {
+        
+        // object for society
+        const societyObj = {
+          name: society.name,
+          code: society.code,
+          carriers: null
+        }
+
+        // fallback object for infeasible scenarios
+        const infeasibleScenario = {
+          status: 'infeasible',
+          values: [null,null,null,null,null,null,null,null,null]
+        }
+
+        // for each society loop through carriers and find respective scenario (or add fallback scenario)
+        const carriers = state.carriers.grouped.original.map(carrier => {
+          const baseline = carrier.data.find(s => {
+            return s.regioncode === state.selection.region.code && s.scenario === society.code + '-Baseline'
+          })
+          const target19 = carrier.data.find(s => {
+            return s.regioncode === state.selection.region.code && s.scenario === society.code + '-19'
+          }) || infeasibleScenario
+          const target26 = carrier.data.find(s => {
+            return s.regioncode === state.selection.region.code && s.scenario === society.code + '-26'
+          }) || infeasibleScenario
+
+          return {
+            name: carrier.variable,
+            baseline: baseline,
+            target19: target19,
+            target26: target26
+          }
+        })
+
+        // add list of carriers and their filtered scenarios to society object
+        societyObj.carriers = carriers
+
+        return societyObj
+      })
+      return carriersData
+    },
     carriersData: (state) => {
       const carriersArr = state.carriers.grouped.original.map(carrier => {
 
