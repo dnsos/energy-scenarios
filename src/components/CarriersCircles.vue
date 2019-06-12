@@ -72,7 +72,7 @@
         :key="carrier.name"
         class="carrier__name"
         :class="'carrier__' + carrier.name"
-        :transform="'translate(' + ((carrierMaxWidth * index) + carrierMaxRadius) + ',-50)'"
+        :transform="'translate(' + ((carrierMaxWidth * index) + carrierMaxRadius) + ',' + (height/5*walkthrough.steps[activeStep].variables.SSPs.length) + ')'"
       >{{ carrier.name }}</text>
     </g>
   </g>
