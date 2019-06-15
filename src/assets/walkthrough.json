@@ -101,7 +101,7 @@
     "year": 2100,
     "scale": 1,
     "variables": {
-      "SSPs": ["SSP1", "SSP2", "SSP3", "SSP4", "SSP5"],
+      "SSPs": ["SSP1", "SSP2"],
       "RCPs": ["-26"],
       "carriers": ["Coal", "Gas", "Oil", "Biomass", "Hydro", "Nuclear", "Solar", "Wind"]
     },
