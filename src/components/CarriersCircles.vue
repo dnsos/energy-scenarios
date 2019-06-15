@@ -1,9 +1,9 @@
 <template>
   <g class="carriers__wrapper" v-if="walkthrough.activeStep >= 7">
     <g v-for="(society, index) in societies"
-      :key="society.code"
+      :key="'circles__' + society.code"
       class="society__group"
-      :transform="'translate(0,' +  ((height/5*walkthrough.steps[activeStep].variables.SSPs.length) + (index * carrierMaxWidth)) + ')'"
+      :transform="'translate(0,' +  (index * carrierMaxWidth) + ')'"
     >
     <g v-if="walkthrough.steps[activeStep].variables.SSPs.includes(society.code)">
       <g
@@ -17,8 +17,7 @@
 
         <transition name="fade">
           <g
-            v-if="carrier.name == walkthrough.steps[activeStep].variables.carrier
-            || walkthrough.steps[activeStep].variables.carrier == '' "
+            v-if="walkthrough.steps[activeStep].variables.carriers.includes(carrier.name)"
           >
             <EnergyCircle
               class="circle--target"
@@ -57,36 +56,35 @@
     </g>
     <g
       v-for="(society, index) in societies"
-      :key="society.code"
+      :key="'name__' + society.code"
       class="society__name"
-      :transform="'translate(0,' +  ((height/5*walkthrough.steps[activeStep].variables.SSPs.length) + (index * carrierMaxWidth)) + ')'"
+      :transform="'translate(0,' +  (index * carrierMaxWidth) + ')'"
     >
       <g v-if="walkthrough.steps[activeStep].variables.SSPs.includes(society.code)">
         <text dy="20">{{ society.name }}</text>
         <line x1="0" y1="6" :x2="society.carriers.length * carrierMaxWidth" y2="6" class="society__divider" />
       </g>
     </g>
-    <g class="carriers__names">
-      <text
-        v-for="(carrier, index) in societies[0].carriers"
-        :key="carrier.name"
-        class="carrier__name"
-        :class="'carrier__' + carrier.name"
-        :transform="'translate(' + ((carrierMaxWidth * index) + carrierMaxRadius) + ',' + (height/5*walkthrough.steps[activeStep].variables.SSPs.length) + ')'"
-      >{{ carrier.name }}</text>
-    </g>
+    <CarriersNames
+      :width="width"
+      :height="height"
+      :societies="societies"
+      :carrierMaxWidth="carrierMaxWidth"
+    />
   </g>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import EnergyCircle from '@/components/EnergyCircle.vue'
+import CarriersNames from '@/components/carriermix/CarriersNames.vue'
 import CarrierTooltip from '@/components/CarrierTooltip.vue'
 
 export default {
   name: 'CarriersCircles',
   components: {
     EnergyCircle,
+    CarriersNames,
     CarrierTooltip
   },
   props: ['width', 'height', 'societies', 'maxValue', 'rangeValue'],
