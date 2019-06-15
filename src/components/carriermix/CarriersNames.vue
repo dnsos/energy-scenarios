@@ -7,7 +7,7 @@
       <transition name="fade">
         <g
           v-show="activeCarriers.includes(carrier.name)"
-          :transform="'translate(' + ((carrierMaxWidth * index) + carrierMaxWidth/2) + ',' + 0 + ')'"
+          :transform="'translate(' + ((carrierMaxWidth * index) + carrierMaxWidth/2) + ',' + marginTop + ')'"
         >
           <rect
             class="carrier__bg"
@@ -48,6 +48,10 @@ export default {
     carrierMaxWidth: {
       type: Number,
       required: true
+    },
+    marginTop: {
+      type: Number,
+      required: false
     },
     selectedCarriers: {
       type: Array,

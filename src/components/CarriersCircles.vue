@@ -74,6 +74,7 @@
       :height="height"
       :societies="societies"
       :carrierMaxWidth="carrierMaxWidth"
+      :marginTop="currentMarginTop"
     />
   </g>
 </template>
@@ -118,6 +119,9 @@ export default {
     },
     currentTargetCode: function () {
       return 'target' + this.selection.target.code
+    },
+    currentMarginTop: function () {
+      return (this.height - (this.activeSSPs.length * this.carrierMaxWidth)) - (this.activeSSPs.length * this.carrierMaxWidth) + this.carrierMaxWidth
     }
   },
   methods: {
@@ -126,6 +130,7 @@ export default {
     },
     yTransform: function (code) {
       // TODO: what did I do here again?
+      // TODO: where to include currentScale?
       const remainingHeight = this.height - (this.activeSSPs.length * this.carrierMaxWidth)
       const marginTop = (remainingHeight / 2) + (this.activeSSPs.length * this.carrierMaxWidth) / this.activeSSPs.length - (this.carrierMaxWidth / 2)
       return marginTop + (this.activeSSPs.indexOf(code) * this.carrierMaxWidth)
