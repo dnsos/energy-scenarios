@@ -101,7 +101,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['selection', 'walkthrough']),
+    ...mapState(['selection', 'walkthrough', 'mode']),
     activeStep: function () {
       return this.walkthrough.activeStep
     },
