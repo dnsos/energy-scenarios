@@ -70,7 +70,7 @@
         <CarriersCircles
           :width="vizDimensions.width"
           :height="vizDimensions.height"
-          :carriers="carriers"
+          :societies="carriersNew"
           :maxValue="carriersMaxValueAbs"
           :rangeValue="rangeValue"
         />
@@ -110,6 +110,7 @@ export default {
     ...mapState(['selection', 'walkthrough']),
     ...mapGetters({
         carriers: 'carriersData',
+        carriersNew: 'carriersDataNew',
         fossilData: 'fossilData',
         totalData: 'totalData',
         maxValue: 'carriersMaxValue',

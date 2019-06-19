@@ -17,7 +17,6 @@
         :maxRadius="maxRadius"
         :value="values.fossil.target"
         :maxValue="maxValue"
-        :tweeningDuration="tweeningDuration"
       />
       <transition name="fade-slowly">
         <EnergyCircle
@@ -27,7 +26,6 @@
           :maxRadius="maxRadius * currentScale"
           :value="values.fossil.baseline"
           :maxValue="maxValue"
-          :tweeningDuration="tweeningDuration"
         />
       </transition>
       <EnergyCircle
@@ -36,7 +34,6 @@
         :maxRadius="maxRadius"
         :value="values.fossil.target"
         :maxValue="maxValue"
-        :tweeningDuration="tweeningDuration"
       />
     </g>
     <g class="group__nonfossil">
@@ -46,7 +43,6 @@
         :maxRadius="maxRadius"
         :value="values.nonfossil.target"
         :maxValue="maxValue"
-        :tweeningDuration="tweeningDuration"
       />
       <transition name="fade-slowly">
         <EnergyCircle
@@ -56,7 +52,6 @@
           :maxRadius="maxRadius * currentScale"
           :value="values.nonfossil.baseline"
           :maxValue="maxValue"
-          :tweeningDuration="tweeningDuration"
         />
       </transition>
       <EnergyCircle
@@ -65,7 +60,6 @@
         :maxRadius="maxRadius"
         :value="values.nonfossil.target"
         :maxValue="maxValue"
-        :tweeningDuration="tweeningDuration"
       />
     </g>
     <transition name="fade-slowly">
