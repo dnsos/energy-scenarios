@@ -63,7 +63,7 @@
       </g>
       <g :transform="'translate(' + margins.left + ',' + margins.top + ')'">
         <Matrix
-          v-if="walkthrough.activeStep <= 5"
+          v-if="atWalkthroughStep([0,1,2,3,4,5])"
           :width="vizDimensions.width"
           :height="vizDimensions.height"
         />
@@ -107,7 +107,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['selection', 'walkthrough']),
+    ...mapState(['selection', 'walkthrough', 'mode']),
     ...mapGetters({
         carriers: 'carriersData',
         carriersNew: 'carriersDataNew',
