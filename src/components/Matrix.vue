@@ -3,6 +3,7 @@
     <g class="matrix__circles">
       <TypeCircles
         v-if="atWalkthroughStep([3,4,5,6,7,8,9])"
+        :class="{ 'group--inactive': atWalkthroughStep([5]) }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[4].society"
@@ -12,6 +13,7 @@
       />
       <TypeCircles
         v-if="atWalkthroughStep([3,4,5,6,7,8,9])"
+        :class="{ 'group--inactive': atWalkthroughStep([5]) }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[0].society"
@@ -21,6 +23,7 @@
       />
       <TypeCircles
         v-if="atWalkthroughStep([3,4,5,6,7,8,9])"
+        :class="{ 'group--inactive': atWalkthroughStep([5]) }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[2].society"
@@ -30,6 +33,7 @@
       />
       <TypeCircles
         v-if="atWalkthroughStep([3,4,5,6,7,8,9])"
+        :class="{ 'group--inactive': atWalkthroughStep([5]) }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[3].society"
@@ -94,4 +98,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.group--inactive {
+  opacity: .2;
+}
 </style>

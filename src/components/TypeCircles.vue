@@ -4,7 +4,7 @@
     @mouseleave="toggleHovered()"
     @click="selectSSP(sspData)"
     class="matrix__group"
-    :class="{ 'group--active': isHovered}"
+    :class="{ 'group--active': isHovered }"
   >
     <GeneralCircles
       :radiusTotal="totalRadius"
@@ -71,7 +71,7 @@
     </transition>
     <transition name="fade">
       <MatrixTooltip
-        v-if="isHovered && atWalkthroughStep([3,4,5,6,7,8,9])"
+        v-if="isHovered || !isHovered && atWalkthroughStep([5])"
         :sspData="sspData"
       />
     </transition>
