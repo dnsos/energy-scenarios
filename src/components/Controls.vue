@@ -3,6 +3,7 @@
     <div class="controls__contents grid-2-columns">
       <div class="controls__contents--left">
         <RadioSelect
+          v-if="atWalkthroughStep([3,4,5,6,7,8,9])"
           :id="'baseline'"
           class="control"
           :options="baseline"
@@ -10,9 +11,9 @@
           :defaultSelection="baseline.code"
         />
         <RadioSelect
+          v-if="atWalkthroughStep([4,5,6,7,8,9])"
           :id="'targets'"
           class="control"
-          :type="target"
           :options="targets"
           :value="selectedTarget"
           :defaultSelection="selectedTarget.code"
@@ -22,6 +23,7 @@
       <div class="controls__contents--right">
         <div class="control">
           <RangeSlider
+            v-if="atWalkthroughStep([])"
             id="years"
             v-model="rangeValue"
             @input="selectedYear = $event"
@@ -61,7 +63,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['selection', 'baseline', 'targets', 'regions']),
+    ...mapState(['selection', 'baseline', 'targets', 'regions', 'walkthrough', 'mode']),
     selectedTarget: {
       get () {
         return this.$store.state.selection.target
@@ -86,6 +88,21 @@ export default {
         this.$store.commit('setRegion', value)
       }
     }
+  },
+  methods: {
+    /*atWalkthroughStep: function (args) {
+      const vm = this
+      if (!vm.mode.isWalkthrough) {
+        console.log('Exploration mode')
+        return true
+      } else if (args.includes(vm.walkthrough.activeStep)) {
+        console.log('Visible at step', vm.walkthrough.activeStep)
+        return true
+      } else {
+        console.log('Not visible at step', vm.walkthrough.activeStep)
+        return false
+      }
+    }*/
   },
   mounted: function () {
   }
