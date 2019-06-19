@@ -30,13 +30,17 @@ export default new Vuex.Store({
       total: total
     },
     mode: {
-      isWalkthrough: null
+      isWalkthrough: true
     },
     selection: {
       region: { name: "World", code: "World"},
       society: { name: "Middle of the Road", code: "SSP2"},
       target: { name: "Climate Target 2°C", code: "26"},
-      year: 2020
+      year: 2020,
+      explorer: {
+        SSP: null,
+        carrier: null
+      }
     },
     regions: [
       {
@@ -321,6 +325,12 @@ export default new Vuex.Store({
     },
     setWalkthroughToTrue: (state) => {
       state.mode.isWalkthrough = true
+    },
+    setExplorerSociety: (state, payload) => {
+      state.selection.explorer.SSP = payload
+    },
+    setYearFromExplorer: (state, payload) => {
+      state.selection.year = payload
     }
   },
   actions: {

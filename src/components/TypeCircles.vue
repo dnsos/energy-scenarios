@@ -2,6 +2,7 @@
   <g
     @mouseenter="toggleHovered()"
     @mouseleave="toggleHovered()"
+    @click="selectSSP(sspData)"
     class="matrix__group"
     :class="{ 'group--active': isHovered}"
   >
@@ -13,7 +14,7 @@
     <g class="group__fossil" transform="rotate(180)">
       <EnergyCircle
         class="circle circle__fossil circle--target"
-        v-if="walkthrough.activeStep >= 4 && comparisons.fossil.targetIsHigher"
+        v-if="atWalkthroughStep([4,5,6,7,8,9]) && comparisons.fossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.fossil.target"
         :maxValue="maxValue"
@@ -21,7 +22,7 @@
       <transition name="fade-slowly">
         <EnergyCircle
           class="circle circle__fossil circle--baseline"
-          v-show="walkthrough.activeStep >= 1"
+          v-show="atWalkthroughStep([1,2,3,4,5,6,7,8,9])"
           @update-radius="saveFossilRadius"
           :maxRadius="maxRadius * currentScale"
           :value="values.fossil.baseline"
@@ -30,7 +31,7 @@
       </transition>
       <EnergyCircle
         class="circle circle__fossil circle--target"
-        v-if="walkthrough.activeStep >= 4 && !comparisons.fossil.targetIsHigher"
+        v-if="atWalkthroughStep([4,5,6,7,8,9]) && !comparisons.fossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.fossil.target"
         :maxValue="maxValue"
@@ -39,7 +40,7 @@
     <g class="group__nonfossil">
       <EnergyCircle
         class="circle circle__nonfossil circle--target"
-        v-if="walkthrough.activeStep >= 4 && comparisons.nonfossil.targetIsHigher"
+        v-if="atWalkthroughStep([4,5,6,7,8,9]) && comparisons.nonfossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.nonfossil.target"
         :maxValue="maxValue"
@@ -47,7 +48,7 @@
       <transition name="fade-slowly">
         <EnergyCircle
           class="circle circle__nonfossil circle--baseline"
-          v-show="walkthrough.activeStep >= 1"
+          v-show="atWalkthroughStep([1,2,3,4,5,6,7,8,9])"
           @update-radius="saveNonfossilRadius"
           :maxRadius="maxRadius * currentScale"
           :value="values.nonfossil.baseline"
@@ -56,25 +57,25 @@
       </transition>
       <EnergyCircle
         class="circle circle__nonfossil circle--target"
-        v-if="walkthrough.activeStep >= 4 && !comparisons.nonfossil.targetIsHigher"
+        v-if="atWalkthroughStep([4,5,6,7,8,9]) && !comparisons.nonfossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.nonfossil.target"
         :maxValue="maxValue"
       />
     </g>
     <transition name="fade-slowly">
-      <g v-if="walkthrough.activeStep >= 1" class="type-indicators">
+      <g v-if="atWalkthroughStep([1,2,3,4,5,6,7,8,9])" class="type-indicators">
         <text class="type-indicator" :x="-radii.fossil">f</text>
         <text class="type-indicator" :x="radii.nonfossil">nf</text>
       </g>
     </transition>
     <transition name="fade">
       <MatrixTooltip
-        v-if="isHovered && walkthrough.activeStep >= 3"
+        v-if="isHovered && atWalkthroughStep([3,4,5,6,7,8,9])"
         :sspData="sspData"
       />
     </transition>
-    <g class="group__labels" v-if="walkthrough.activeStep >= 3">
+    <g class="group__labels" v-if="atWalkthroughStep([3,4,5,6,7,8,9])">
       <transition name="fade">
         <text
           class="matrix__society"
@@ -83,7 +84,7 @@
           <tspan x="0" y="0">{{ society.name }}</tspan>
           <tspan
             class="matrix__society--infeasible"
-            v-if="walkthrough.activeStep >= 4 && values.fossil.target === null"
+            v-if="atWalkthroughStep([4,5,6,7,8,9]) && values.fossil.target === null"
             x="0"
             y="0"
             dy="12"
@@ -140,7 +141,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['walkthrough']),
+    ...mapState(['walkthrough', 'selection', 'mode']),
     ...mapGetters(['rangeValue']),
     maxRadius: function () {
       return this.width / 4
@@ -171,7 +172,11 @@ export default {
       return this.walkthrough.activeStep
     },
     currentScale: function () {
-      return this.walkthrough.steps[this.walkthrough.activeStep].scale // TODO: get this from mapState
+      if (this.mode.isWalkthrough) {
+       return this.walkthrough.steps[this.walkthrough.activeStep].scale // TODO: get this from mapState  
+      } else {
+        return 1
+      }
     },
     totalRadius: function () {
       return this.radii.fossil + this.radii.nonfossil
@@ -186,7 +191,18 @@ export default {
     },
     saveNonfossilRadius: function (value) {
       this.radii.nonfossil = value 
+    },
+    selectSSP: function (SSP) {
+      // change SSP only in exploration mode
+      if (!this.mode.isWalkthrough) {
+        this.$store.commit('setExplorerSociety', SSP.society.code)  
+      } else {
+        return
+      }
     }
+  },
+  mounted: function () {
+    console.log('Walkthrough?', this.mode.isWalkthrough)
   }
 }
 </script>

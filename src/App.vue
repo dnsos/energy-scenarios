@@ -40,10 +40,10 @@ export default {
 ----------------------------------------------------- */
 :root {
   --color-primary-neutral: black;
-  --color-violet: #4e40b2;
+  --color-violet: #B035C9;
   --color-violet-light: #edecf7;
   --color-dark-blue: #2f3652;
-  --color-yellow: rgb(254, 174, 0);
+  --color-yellow: #FFC740;
   --color-yellow-light: #fff7e7;
   --color-grey-76: #3e3e3e;
   --color-grey-54: #757575;
@@ -55,8 +55,9 @@ export default {
   --font-size: 16px;
   --font-size-small: 12px;
   --font-family: "IBM Plex Sans", Arial, sans-serif;
+  --font-family-serif: "IBM Plex Serif", serif;
   --font-family-mono: "IBM Plex Mono", monospace;
-  --grid-spacing: 2.5rem;
+  --grid-spacing: 2rem;
 }
 
 html {
@@ -69,6 +70,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: var(--font-size);
+  font-weight: 500;
   color: var(--color-grey-76);
   * {
     box-sizing: border-box;
@@ -217,12 +219,14 @@ h6 {
   margin-bottom: var(--grid-spacing);
 }
 h1 {
-  font-size: calc(var(--font-size) * 1.2);
-  font-weight: 700;
+  font-family: var(--font-family-serif);
+  font-size: 3.2rem;
+  font-weight: 600;
+  line-height: 1.3;
 }
 h2 {
-  font-size: calc(var(--font-size) * 1.2);
-  font-weight: 700;
+  font-size: 2.4rem;
+  font-weight: 600;
 }
 h3 {
   font-size: calc(var(--font-size) * 1);
@@ -247,8 +251,8 @@ h6 {
   color: var(--color-grey-31);
 }
 @media (min-width: 1000px) {
-  h1 { font-size: calc(var(--font-size) * 1.6); }
-  h2 { font-size: calc(var(--font-size) * 1.4); }
+  h1 { font-size: 3.2rem; }
+  h2 { font-size: 2.4rem; }
 }
 
 p {

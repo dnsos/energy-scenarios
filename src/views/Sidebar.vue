@@ -12,7 +12,7 @@
       <StoryBox />
     </div>
     <div class="sidebar__modeswitch">
-      <router-link v-if="isWalkthrough" to="/explorer">→  Skip guided tour and explore</router-link>
+      <router-link v-if="isWalkthrough" :to="'/explorer'">→  Skip guided tour and explore</router-link>
       <router-link v-else :to="'/walkthrough/' + 0" >→  Take the guided tour</router-link>
     </div>
   </div>
@@ -66,10 +66,6 @@ export default {
     >* {
       margin-bottom: calc(var(--grid-spacing) / 4);
     }
-  }
-
-  .sidebar__content {
-    
   }
 }
 </style>

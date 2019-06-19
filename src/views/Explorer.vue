@@ -19,6 +19,7 @@ export default {
   watch: {},
   mounted: function () {
     this.$store.commit('toggleMode')
+    this.$store.commit('setYearFromExplorer', 2050)
   }
 }
 </script>
