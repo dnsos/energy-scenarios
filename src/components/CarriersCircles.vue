@@ -1,5 +1,8 @@
 <template>
-  <g class="carriers__wrapper" v-if="walkthrough.activeStep >= 7">
+  <g
+    v-if="atWalkthroughStep([7,8,9])"
+    class="carriers__wrapper"
+  >
     <g class="society__groups">
       <g v-for="(society) in societies"
         :key="'circles__' + society.code"

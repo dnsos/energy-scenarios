@@ -24,12 +24,18 @@ export default new Router({
       }
     },
     {
-      path: '/explorer',
+      path: '/explorer/',
       name: 'explorer',
       components: {
         sidebar: () => import('./views/Sidebar.vue'),
         main: () => import('./views/Explorer.vue')
-      }
+      },
+      children: [
+        {
+          path: 'ssp',
+          component: () => import('./components/CarriersCircles.vue')
+        }
+      ]
     }
   ]
 })

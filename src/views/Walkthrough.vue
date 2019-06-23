@@ -25,11 +25,17 @@ export default {
       this.$router.push({ name: 'walkthrough', params: { step: newVal } })
     },
     '$route' (to, from) {
-      this.$store.commit('setStep', Number(to.params.step))
+      // the following seems to be redundant because setStep is called in StoryBox.vue
+      //this.$store.commit('setStep', Number(to.params.step))
     }
   },
   mounted: function () {
-    this.$store.commit('setWalkthroughToTrue')
+    // only toggle specifically to 'walkthrough' if current state is not 'walkthrough'
+    if (this.$store.state.mode.isWalkthrough != true) {
+      this.$store.commit('toggleMode', 'walkthrough')
+      // specify start year for beginning of walkthrough
+      this.$store.dispatch('changeYear', 2020)
+    }
   }
 }
 </script>

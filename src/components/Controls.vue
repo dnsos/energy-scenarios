@@ -7,8 +7,8 @@
           :id="'baseline'"
           class="control"
           :options="baseline"
-          :value="baseline.code"
-          :defaultSelection="baseline.code"
+          :value="baseline[0].code"
+          :defaultSelection="baseline[0].code"
         />
         <RadioSelect
           v-if="atWalkthroughStep([4,5,6,7,8,9])"
@@ -23,7 +23,7 @@
       <div class="controls__contents--right">
         <div class="control">
           <RangeSlider
-            v-if="atWalkthroughStep([])"
+            v-if="atWalkthroughStep([0,1,2,3,4,5,6,7,8,9])"
             id="years"
             v-model="rangeValue"
             @input="selectedYear = $event"
@@ -63,7 +63,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['selection', 'baseline', 'targets', 'regions', 'walkthrough', 'mode']),
+    ...mapState(['selection', 'general', 'baseline', 'targets', 'regions', 'walkthrough', 'mode']),
     selectedTarget: {
       get () {
         return this.$store.state.selection.target
@@ -77,7 +77,7 @@ export default {
         return this.$store.state.selection.year
       },
       set (value) {
-        this.$store.commit('setYear', value)
+        this.$store.dispatch('changeYear', this.general.startyear + (value * this.general.yearinterval))
       }
     },
     selectedRegion: {
@@ -85,27 +85,12 @@ export default {
         return this.$store.state.selection.region
       },
       set (value) {
-        this.$store.commit('setRegion', value)
+        this.$store.dispatch('changeRegion', value)
       }
     }
   },
-  methods: {
-    /*atWalkthroughStep: function (args) {
-      const vm = this
-      if (!vm.mode.isWalkthrough) {
-        console.log('Exploration mode')
-        return true
-      } else if (args.includes(vm.walkthrough.activeStep)) {
-        console.log('Visible at step', vm.walkthrough.activeStep)
-        return true
-      } else {
-        console.log('Not visible at step', vm.walkthrough.activeStep)
-        return false
-      }
-    }*/
-  },
-  mounted: function () {
-  }
+  methods: {},
+  mounted: function () {}
 }
 </script>
 

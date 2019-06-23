@@ -39,6 +39,7 @@ export default {
     }
     .title__text {
       display: inline-block;
+      font-family: var(--font-family);
       font-size: var(--font-size);
       font-weight: 400;
       padding-left: calc(var(--grid-spacing) / 4);

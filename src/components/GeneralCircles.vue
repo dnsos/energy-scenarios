@@ -49,7 +49,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['walkthrough']),
+    ...mapState(['walkthrough', 'mode']),
   },
   methods: {
     tween: function (startValue, endValue) {

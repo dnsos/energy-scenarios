@@ -2,7 +2,8 @@
   <g class="matrix__wrapper">
     <g class="matrix__circles">
       <TypeCircles
-        v-if="walkthrough.activeStep >= 3"
+        v-if="atWalkthroughStep([3,4,5,6,7,8,9])"
+        :class="{ 'group--inactive': atWalkthroughStep([5]) && matrixData[4].society.code != selection.society.code }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[4].society"
@@ -11,7 +12,8 @@
         :transform="'translate(' + translateValues(1,1) + ')'"
       />
       <TypeCircles
-        v-if="walkthrough.activeStep >= 3"
+        v-if="atWalkthroughStep([3,4,5,6,7,8,9])"
+        :class="{ 'group--inactive': atWalkthroughStep([5]) && matrixData[0].society.code != selection.society.code }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[0].society"
@@ -20,7 +22,8 @@
         :transform="'translate(' + translateValues(1,5) + ')'"
       />
       <TypeCircles
-        v-if="walkthrough.activeStep >= 3"
+        v-if="atWalkthroughStep([3,4,5,6,7,8,9])"
+        :class="{ 'group--inactive': atWalkthroughStep([5]) && matrixData[2].society.code != selection.society.code }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[2].society"
@@ -29,7 +32,8 @@
         :transform="'translate(' + translateValues(5,1) + ')'"
       />
       <TypeCircles
-        v-if="walkthrough.activeStep >= 3"
+        v-if="atWalkthroughStep([3,4,5,6,7,8,9])"
+        :class="{ 'group--inactive': atWalkthroughStep([5]) && matrixData[3].society.code != selection.society.code }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[3].society"
@@ -38,7 +42,8 @@
         :transform="'translate(' + translateValues(5,5) + ')'"
       />
       <TypeCircles
-        v-if="walkthrough.activeStep <= 5"
+        v-if="atWalkthroughStep([0,1,2,3,4,5])"
+        :class="{ 'group--inactive': atWalkthroughStep([5]) && matrixData[1].society.code != selection.society.code }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[1].society"
@@ -65,11 +70,9 @@ export default {
     return {}
   },
   computed: {
-    ...mapState(['selection', 'walkthrough']),
+    ...mapState(['selection', 'walkthrough', 'mode']),
     ...mapGetters([
-      'fossilData',
-      'totalData',
-      'matrixData', // TODO: create computed properties to tidy up data in template
+      'matrixData', // TODO: replace with new matrix data architecture
       'matrixMaxValue',
       'rangeValue'
     ]),
@@ -94,4 +97,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.group--inactive {
+  opacity: .2;
+}
 </style>
