@@ -117,6 +117,7 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    // TODO: remove unused getters: fossilData, totalData?
     fossilData: (state) => {
       return state.carriers.fossil.data.find(s => {
         return s.regioncode === state.selection.region.code && s.scenario === (state.selection.society.code + "-Baseline")
@@ -185,13 +186,95 @@ export default new Vuex.Store({
       })
       return arrSSPs
     },
+    matrixDataNew: (state) => {
+      const SSPs = state.societies.map(society => {
+        const REGIONS = state.regions.map(region => {
+
+          // initialise object for region
+          const REGION = {
+            region: region
+          }
+
+          // initialise object for region's baseline
+          const baseline = {
+            total: null,
+            fossil: null,
+            nonfossil: { values: [] }
+          }
+  
+          baseline.total = state.carriers.total.data.find(s => {
+            return s.regioncode === region.code && s.scenario === (society.code + "-Baseline")
+          })
+  
+          baseline.fossil = state.carriers.fossil.data.find(s => {
+            return s.regioncode === region.code && s.scenario === (society.code + "-Baseline")
+          })
+  
+          baseline.nonfossil.values = baseline.total.values.map((value, index) => {
+            return value - baseline.fossil.values[index]
+          })
+
+          const TARGETS = state.targets.map(target => {
+
+            // initialise object for region's target
+            const targetObj = {
+              ...target,
+              feasible: null,
+              total: null,
+              fossil: null,
+              nonfossil: { values: [] }
+            }
+
+            if (state.carriers.total.data.find(s => {
+              return s.regioncode === region.code && s.scenario === (society.code + "-" + target.code)
+            })) {
+              targetObj.feasible = true
+            } else {
+              targetObj.feasible = false
+            }
+    
+            targetObj.total = state.carriers.total.data.find(s => {
+              return s.regioncode === region.code && s.scenario === (society.code + "-" + target.code)
+            }) || { values: [null,null,null,null,null,null,null,null,null] }
+    
+            targetObj.fossil = state.carriers.fossil.data.find(s => {
+              return s.regioncode === state.selection.region.code && s.scenario === (society.code + "-" + target.code)
+            }) || { values: [null,null,null,null,null,null,null,null,null] }
+    
+            targetObj.nonfossil.values = targetObj.total.values.map((value, index) => {
+              return value - targetObj.fossil.values[index]
+            })
+
+            return targetObj
+
+          })
+
+          // save filtered/calculated data to this region's object
+          REGION.society = {
+            name: society.name,
+            code: society.code
+          }
+          REGION.baseline = baseline
+          REGION.targets = TARGETS
+  
+          return REGION
+        })
+        return REGIONS
+      })
+      return SSPs
+    },
     matrixMaxValue: (state, getters) => {
-      const maxSSPs = getters.matrixData.map(ssp => {
-        const maxBaselineFossil = Math.max(...ssp.baseline.fossil.values)
-        const maxBaselineNonfossil = Math.max(...ssp.baseline.nonfossil.values)
-        const maxTargetFossil = Math.max(...ssp.target.fossil.values)
-        const maxTargetNonfossil = Math.max(...ssp.target.nonfossil.values)
-        return Math.max(maxBaselineFossil, maxBaselineNonfossil, maxTargetFossil, maxTargetNonfossil)
+      const maxSSPs = getters.matrixDataNew.map(ssp => {
+        const maxRegion = ssp.map(region => {
+          const maxBaselineFossil = Math.max(...region.baseline.fossil.values)
+          const maxBaselineNonfossil = Math.max(...region.baseline.nonfossil.values)
+          const maxTarget19Fossil = Math.max(...region.targets[1].fossil.values)
+          const maxTarget19Nonfossil = Math.max(...region.targets[1].nonfossil.values)
+          const maxTarget26Fossil = Math.max(...region.targets[0].fossil.values)
+          const maxTarget26Nonfossil = Math.max(...region.targets[0].nonfossil.values)
+          return Math.max(maxBaselineFossil, maxBaselineNonfossil, maxTarget19Fossil, maxTarget19Nonfossil, maxTarget26Fossil, maxTarget26Nonfossil)
+        })
+        return Math.max(...maxRegion)
       })
       return Math.max(...maxSSPs)
     },
@@ -238,24 +321,6 @@ export default new Vuex.Store({
       })
       return carriersData
     },
-    carriersData: (state) => {
-      const carriersArr = state.carriers.grouped.original.map(carrier => {
-
-        carrier.baseline = carrier.data.find(s => {
-          return s.regioncode === state.selection.region.code && s.scenario === (state.selection.society.code + "-Baseline")
-        })
-        
-        carrier.target = carrier.data.find(s => {
-          let selectedRegion = state.selection.region.code
-          let selectedScenario = state.selection.society.code + "-" + state.selection.target.code
-
-          return s.regioncode === selectedRegion && s.scenario === selectedScenario
-        }) || { values: [0,0,0,0,0,0,0,0,0] } // TODO: fallback for infeasible scenarios. More elegant?
-
-        return carrier
-      })
-      return carriersArr
-    },
     carriersMaxValue: (state) => {
       const maxCarriers = state.carriers.grouped.original.map(carrier => {
         /* filters all scenarios that equal the current selection */
@@ -288,9 +353,7 @@ export default new Vuex.Store({
     rangeValue: (state) => {
       return (state.selection.year - state.general.startyear) / state.general.yearinterval
     },
-    year: (state) => { // TODO: remove? Already in mapState
-      return state.selection.year
-    },
+    // TODO: the following can be acessed via mapState. Remove from getters?
     startyear: (state) => {
       return state.general.startyear
     },
@@ -302,8 +365,14 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    toggleMode: (state) => {
-      state.mode.isWalkthrough = !state.mode.isWalkthrough
+    toggleMode: (state, payload) => {
+      if (payload === 'explorer') {
+        state.mode.isWalkthrough = false
+      } else if (payload === 'walkthrough') {
+        state.mode.isWalkthrough = true
+      } else {
+        state.mode.isWalkthrough = !state.mode.isWalkthrough
+      }
     },
     setRegion: (state, payload) => {
       state.selection.region = state.regions.find(region => region.code === payload)
@@ -315,27 +384,24 @@ export default new Vuex.Store({
       state.selection.target = state.targets.find(target => target.code === payload)
     },
     setYear: (state, payload) => {
-      state.selection.year = state.general.startyear + (payload * state.general.yearinterval)
-    },
-    setYearFromWalkthrough: (state, payload) => {
       state.selection.year = payload
     },
     setStep: (state, payload) => {
       state.walkthrough.activeStep = payload
     },
-    setWalkthroughToTrue: (state) => {
-      state.mode.isWalkthrough = true
-    },
     setExplorerSociety: (state, payload) => {
       state.selection.explorer.SSP = payload
-    },
-    setYearFromExplorer: (state, payload) => {
-      state.selection.year = payload
     }
   },
   actions: {
-    changeTarget: ({ commit }, payload) => { // TODO: make mutation instead of action
+    changeTarget: ({ commit }, payload) => {
       commit('setTarget', payload)
+    },
+    changeRegion: ({ commit }, payload) => {
+      commit('setRegion', payload)
+    },
+    changeYear: ({ commit }, payload) => {
+      commit('setYear', payload)
     }
   }
 })

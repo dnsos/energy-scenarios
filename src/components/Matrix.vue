@@ -3,7 +3,7 @@
     <g class="matrix__circles">
       <TypeCircles
         v-if="atWalkthroughStep([3,4,5,6,7,8,9])"
-        :class="{ 'group--inactive': atWalkthroughStep([5]) }"
+        :class="{ 'group--inactive': atWalkthroughStep([5]) && matrixData[4].society.code != selection.society.code }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[4].society"
@@ -13,7 +13,7 @@
       />
       <TypeCircles
         v-if="atWalkthroughStep([3,4,5,6,7,8,9])"
-        :class="{ 'group--inactive': atWalkthroughStep([5]) }"
+        :class="{ 'group--inactive': atWalkthroughStep([5]) && matrixData[0].society.code != selection.society.code }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[0].society"
@@ -23,7 +23,7 @@
       />
       <TypeCircles
         v-if="atWalkthroughStep([3,4,5,6,7,8,9])"
-        :class="{ 'group--inactive': atWalkthroughStep([5]) }"
+        :class="{ 'group--inactive': atWalkthroughStep([5]) && matrixData[2].society.code != selection.society.code }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[2].society"
@@ -33,7 +33,7 @@
       />
       <TypeCircles
         v-if="atWalkthroughStep([3,4,5,6,7,8,9])"
-        :class="{ 'group--inactive': atWalkthroughStep([5]) }"
+        :class="{ 'group--inactive': atWalkthroughStep([5]) && matrixData[3].society.code != selection.society.code }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[3].society"
@@ -43,6 +43,7 @@
       />
       <TypeCircles
         v-if="atWalkthroughStep([0,1,2,3,4,5])"
+        :class="{ 'group--inactive': atWalkthroughStep([5]) && matrixData[1].society.code != selection.society.code }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[1].society"
@@ -71,9 +72,7 @@ export default {
   computed: {
     ...mapState(['selection', 'walkthrough', 'mode']),
     ...mapGetters([
-      'fossilData',
-      'totalData',
-      'matrixData', // TODO: create computed properties to tidy up data in template
+      'matrixData', // TODO: replace with new matrix data architecture
       'matrixMaxValue',
       'rangeValue'
     ]),

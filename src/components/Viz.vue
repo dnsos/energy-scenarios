@@ -109,24 +109,13 @@ export default {
   computed: {
     ...mapState(['selection', 'walkthrough', 'mode']),
     ...mapGetters({
-        carriers: 'carriersData',
         carriersNew: 'carriersDataNew',
-        fossilData: 'fossilData',
-        totalData: 'totalData',
         maxValue: 'carriersMaxValue',
         carriersMaxValueAbs: 'carriersMaxValueAbs',
         rangeValue: 'rangeValue'
     }),
-    fossilAmount: function () {
-      let fossilAmount = this.fossilData.values[this.rangeValue]
-      return fossilAmount
-    },
-    nonfossilAmount: function () {
-      let nonfossilAmount = this.totalData.values[this.rangeValue] - this.fossilData.values[this.rangeValue]
-      return nonfossilAmount
-    },
     currentStep: function () {
-      return this.$store.state.walkthrough.activeStep // TODO: get this from mapState
+      return this.$store.state.walkthrough.activeStep
     },
     vizDimensions: function () {
       return {
@@ -137,7 +126,12 @@ export default {
   },
   watch: {
     currentStep: function (newIndex, oldIndex) {
-      this.$store.commit('setYearFromWalkthrough', this.walkthrough.steps[newIndex].year)
+      // only dispatch action if years of current and previous step are not equal
+      if (this.walkthrough.steps[newIndex].year != this.walkthrough.steps[oldIndex].year) {
+       this.$store.dispatch('changeYear', this.walkthrough.steps[newIndex].year) 
+      } else {
+        //console.log('Year has not changed')
+      }
     }
   },
   mounted: function () {

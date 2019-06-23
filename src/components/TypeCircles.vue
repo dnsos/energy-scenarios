@@ -71,7 +71,7 @@
     </transition>
     <transition name="fade">
       <MatrixTooltip
-        v-if="isHovered || !isHovered && atWalkthroughStep([5])"
+        v-if="isHovered || atWalkthroughStep([5]) && society.code === selection.society.code"
         :sspData="sspData"
       />
     </transition>
@@ -184,7 +184,9 @@ export default {
   },
   methods: {
     toggleHovered: function () {
-      this.isHovered = !this.isHovered
+      if (!this.mode.isWalkthrough) {
+        this.isHovered = !this.isHovered
+      }
     },
     saveFossilRadius: function (value) {
       this.radii.fossil = value 
@@ -201,9 +203,7 @@ export default {
       }
     }
   },
-  mounted: function () {
-    console.log('Walkthrough?', this.mode.isWalkthrough)
-  }
+  mounted: function () {}
 }
 </script>
 
