@@ -25,9 +25,11 @@ export default {
       this.$router.push({ name: 'walkthrough', params: { step: newVal } })
     },
     '$route' (to, from) {
-      // the following seems to be redundant because setStep is called in StoryBox.vue
-      console.log('Coming from route:', from)
-      this.$store.commit('setStep', Number(to.params.step))
+      // if route changes from Browser utilities, update step
+      // do not update if activeStep has already been uodated in StoryBox.vue
+      if (Number(to.params.step) != this.activeStep) {
+        this.$store.commit('setStep', Number(to.params.step))
+      }
     }
   },
   mounted: function () {
