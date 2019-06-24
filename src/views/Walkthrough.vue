@@ -26,7 +26,8 @@ export default {
     },
     '$route' (to, from) {
       // the following seems to be redundant because setStep is called in StoryBox.vue
-      //this.$store.commit('setStep', Number(to.params.step))
+      console.log('Coming from route:', from)
+      this.$store.commit('setStep', Number(to.params.step))
     }
   },
   mounted: function () {
