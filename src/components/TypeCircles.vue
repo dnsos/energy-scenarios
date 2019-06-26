@@ -11,7 +11,9 @@
       :xOffset="-(totalRadius - (radii.nonfossil * 2))"
       :value="values.fossil.baseline + values.nonfossil.baseline"
     />
-    <g class="group__fossil" transform="rotate(180)">
+    <g
+      class="group__fossil" transform="rotate(180)"
+    >
       <EnergyCircle
         class="circle circle__fossil circle--target"
         v-if="atWalkthroughStep([4,5,6,7,8,9]) && comparisons.fossil.targetIsHigher"
@@ -75,11 +77,14 @@
         :sspData="sspData"
       />
     </transition>
+    <transition name="fade">
+      <InfeasibleIcon v-if="!isWalkthroughMode() && values.fossil.target === null || isWalkthroughMode() && atWalkthroughStep([4,5,6,7,8,9]) && values.fossil.target === null" />
+    </transition>
     <g class="group__labels" v-if="atWalkthroughStep([3,4,5,6,7,8,9])">
       <transition name="fade">
         <text
           class="matrix__society"
-          :transform="'translate(0,' + height * 0.5 + ')'">
+          :transform="'translate(0,' + height * 0.565 + ')'">
           <tspan x="0" y="0" class="bgtest">{{ society.name }}</tspan>
           <tspan x="0" y="0">{{ society.name }}</tspan>
           <tspan
@@ -101,13 +106,15 @@ import { mapGetters } from 'vuex'
 import EnergyCircle from '@/components/EnergyCircle.vue'
 import GeneralCircles from '@/components/GeneralCircles.vue'
 import MatrixTooltip from '@/components/MatrixTooltip.vue'
+import InfeasibleIcon from '@/components/InfeasibleIcon.vue'
 
 export default {
   name: 'TypeCircles',
   components: {
     EnergyCircle,
     GeneralCircles,
-    MatrixTooltip
+    MatrixTooltip,
+    InfeasibleIcon
   },
   props: {
     width: {

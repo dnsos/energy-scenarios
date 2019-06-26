@@ -1,8 +1,5 @@
 <template>
-  <g
-    v-if="atWalkthroughStep([7,8,9])"
-    class="carriers__wrapper"
-  >
+  <g class="carriers__wrapper">
     <g class="society__groups">
       <g v-for="(society) in societies"
         :key="'circles__' + society.code"
@@ -21,7 +18,7 @@
 
             <transition name="fade">
               <g
-                v-if="walkthrough.steps[activeStep].variables.carriers.includes(carrier.name)"
+                v-if="activeCarriers.includes(carrier.name)"
               >
                 <EnergyCircle
                   class="circle--target"
@@ -100,7 +97,8 @@ export default {
     return {
       hoveredCarrier: null,
       tweeningDuration: 200,
-      activeSSPs: []
+      activeSSPs: [],
+      activeCarriers: []
     }
   },
   computed: {
@@ -112,7 +110,11 @@ export default {
       return this.walkthrough.steps
     },
     currentScale: function () {
-      return this.walkthrough.steps[this.activeStep].scale
+      if (this.mode.isWalkthrough) {
+        return this.walkthrough.steps[this.activeStep].scale
+      } else {
+        return 1
+      }
     },
     carrierMaxWidth: function () {
       return this.width / this.societies[0].carriers.length // TODO: more elegantly?
@@ -141,16 +143,21 @@ export default {
   },
   watch: {
     activeStep: function (newStep, oldStep) {
-      this.activeSSPs = [...this.steps[this.activeStep].variables.SSPs]
+      if (this.mode.isWalkthrough) {
+        this.activeSSPs = [...this.steps[this.activeStep].variables.SSPs]
+        this.activeCarriers = [...this.steps[this.activeStep].variables.carriers]
+      }
     }
   },
   created: function () {
     if (this.mode.isWalkthrough) {
       // if walkthrough: set visible SSPs to array in walkthrough.json
       this.activeSSPs = [...this.steps[this.activeStep].variables.SSPs]
+      this.activeCarriers = [...this.steps[this.activeStep].variables.carriers]
     } else {
-      // if not walkthrough: set visible SSps to currently selected carriers
-      this.activeSSPs = null
+      // if not walkthrough: set visible SSPs to currently selected carriers
+      this.activeSSPs = ["SSP1"]
+      this.activeCarriers = ["Coal", "Gas", "Oil", "Biomass", "Hydro", "Nuclear", "Solar", "Wind"]
     }
   }
 }

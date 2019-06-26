@@ -74,7 +74,9 @@ export default {
   },
   watch: {
     activeStep: function (newStep, oldStep) {
-      this.activeCarriers = [...this.steps[this.activeStep].variables.carriers]
+      if (this.mode.isWalkthrough) {
+        this.activeCarriers = [...this.steps[this.activeStep].variables.carriers]
+      }
     }
   },
   created: function () {
@@ -83,7 +85,8 @@ export default {
       this.activeCarriers = [...this.steps[this.activeStep].variables.carriers]
     } else {
       // if not walkthrough: set visible names to currently selected carriers
-      this.activeCarriers = this.selectedCarriers
+      this.activeCarriers = ["Coal", "Gas", "Oil", "Biomass", "Hydro", "Nuclear", "Solar", "Wind"]
+      // this.activeCarriers = this.selectedCarriers // selected carriers go here
     }
   }
 }

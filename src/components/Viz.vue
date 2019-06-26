@@ -12,7 +12,7 @@
         ><path class="axis__arrow" d="M0,0 L8,4 0,8" />
         </marker>
       </defs>
-      <g v-if="walkthrough.activeStep >= 3 && walkthrough.activeStep <= 5">
+      <g v-if="!isWalkthroughMode() || isWalkthroughMode() && atWalkthroughStep([3,4,5])">
         <g
           class="axis axis__x"
           :transform="'translate(' + 0 + ',' + figure.height + ')'"
@@ -63,11 +63,12 @@
       </g>
       <g :transform="'translate(' + margins.left + ',' + margins.top + ')'">
         <Matrix
-          v-if="atWalkthroughStep([0,1,2,3,4,5])"
+          v-if="!isWalkthroughMode() && mode.explorer.activeState === 'matrix' || isWalkthroughMode() && atWalkthroughStep([0,1,2,3,4,5])"
           :width="vizDimensions.width"
           :height="vizDimensions.height"
         />
         <CarriersCircles
+          v-if="!isWalkthroughMode() && mode.explorer.activeState === 'mix' || isWalkthroughMode() && atWalkthroughStep([7,8,9])"
           :width="vizDimensions.width"
           :height="vizDimensions.height"
           :societies="carriersNew"
@@ -127,10 +128,12 @@ export default {
   watch: {
     currentStep: function (newIndex, oldIndex) {
       // only dispatch action if years of current and previous step are not equal
-      if (this.walkthrough.steps[newIndex].year != this.walkthrough.steps[oldIndex].year) {
-       this.$store.dispatch('changeYear', this.walkthrough.steps[newIndex].year) 
-      } else {
-        //console.log('Year has not changed')
+      if (this.mode.isWalkthrough) {
+        if (this.walkthrough.steps[newIndex].year != this.walkthrough.steps[oldIndex].year) {
+          this.$store.dispatch('changeYear', this.walkthrough.steps[newIndex].year) 
+        } else {
+          //console.log('Year has not changed')
+        }
       }
     }
   },
