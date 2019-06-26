@@ -30,7 +30,11 @@ export default new Vuex.Store({
       total: total
     },
     mode: {
-      isWalkthrough: true
+      isWalkthrough: true,
+      explorer: {
+        states: ['matrix', 'mix'],
+        activeState: 'matrix'
+      }
     },
     selection: {
       region: { name: "World", code: "World"},
