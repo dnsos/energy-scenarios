@@ -10,12 +10,17 @@ Vue.mixin({
   methods: {
     atWalkthroughStep: function (steps) {
       const vm = this
-      if (!vm.mode.isWalkthrough) {
-        return true // return true if in exploration mode
-      } else if (steps.includes(vm.walkthrough.activeStep)) {
+      if (steps.includes(vm.walkthrough.activeStep)) {
         return true // return true if visible at current step
       } else {
         return false // not visible at current step
+      }
+    },
+    isWalkthroughMode: function () {
+      if (this.mode.isWalkthrough) {
+        return true
+      } else {
+        return false
       }
     }
   }
