@@ -26,7 +26,7 @@ export default {
     },
     '$route' (to, from) {
       // if route changes from Browser utilities, update step
-      // do not update if activeStep has already been uodated in StoryBox.vue
+      // do not update if activeStep has already been updated in StoryBox.vue
       if (Number(to.params.step) != this.activeStep) {
         this.$store.commit('setStep', Number(to.params.step))
       }

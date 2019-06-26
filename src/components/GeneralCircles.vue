@@ -97,5 +97,6 @@ export default {
 .tooltip__total {
   font-family: var(--font-family-mono);
   text-anchor: end;
+  fill: var(--color-violet);
 }
 </style>

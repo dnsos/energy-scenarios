@@ -53,6 +53,7 @@ export default {
 <style lang="scss" scoped>
 .sidebar__wrapper {
   height: 100%;
+  display: grid;
   background-color: var(--color-grey-04);
 
   >* {
@@ -65,6 +66,13 @@ export default {
   .headings {
     >* {
       margin-bottom: calc(var(--grid-spacing) / 4);
+    }
+  }
+
+  .sidebar__modeswitch {
+    display: flex;
+    >a {
+      align-self: flex-end;
     }
   }
 }
