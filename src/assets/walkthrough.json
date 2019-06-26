@@ -57,7 +57,7 @@
       "RCPs": ["-26"],
       "carriers": ["Coal", "Gas", "Oil", "Biomass", "Hydro", "Nuclear", "Solar", "Wind"]
     },
-    "text": "The Paris Agreement proposes the introduction of climate policies (RCPs) for keeping the increase of global average temperature to well below 2°C. The five possible futures vary in their proximities to this target. The circles' different area sizes indicate the expenditure to reaching the target – the bigger the difference, the more effort required."
+    "text": "The Paris Agreement proposes the introduction of climate policies (RCPs) for keeping the increase of global average temperature to well below 2°C. The five possible futures vary in their proximities to this target. The circles' different area sizes indicate the expenditure to reaching the target – the bigger the difference between each violet and yellow circle, the more effort required."
   },
   {
     "code": "ssp2-highlighted",
