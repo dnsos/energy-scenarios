@@ -30,11 +30,7 @@ export default new Vuex.Store({
       total: total
     },
     mode: {
-      isWalkthrough: true,
-      explorer: {
-        states: ['matrix', 'mix'],
-        activeState: 'matrix'
-      }
+      isWalkthrough: true
     },
     selection: {
       region: { name: "World", code: "World"},
@@ -42,8 +38,13 @@ export default new Vuex.Store({
       target: { name: "Climate Target 2°C", code: "26"},
       year: 2020,
       explorer: {
-        SSP: null,
-        carrier: null
+        matrix: {
+          isActive: true
+        },
+        mix: {
+          isActive: false,
+          activeCarrier: 'Oil'
+        }
       }
     },
     regions: [
@@ -406,6 +407,9 @@ export default new Vuex.Store({
     },
     changeYear: ({ commit }, payload) => {
       commit('setYear', payload)
+    },
+    changeMode: ({ commit }, payload) => {
+      commit('toggleMode', payload)
     }
   }
 })
