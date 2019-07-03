@@ -23,7 +23,7 @@
       <div class="controls__contents--right">
         <div class="control">
           <RangeSlider
-            v-if="isVisible([0,1,2,3,4,5,6,7,8,9])"
+            v-if="isVisible([])"
             id="years"
             v-model="rangeValue"
             @input="selectedYear = $event"
@@ -59,7 +59,7 @@ export default {
   },
   data: function () {
     return {
-      rangeValue: 0
+      rangeValue: 3
     }
   },
   computed: {

@@ -12,7 +12,7 @@
         ><path class="axis__arrow" d="M0,0 L8,4 0,8" />
         </marker>
       </defs>
-      <g v-if="!isWalkthroughMode() || isWalkthroughMode() && atWalkthroughStep([3,4,5])">
+      <g v-if="isExplorer || isWalkthroughMode() && atWalkthroughStep([3,4,5])">
         <g
           class="axis axis__x"
           :transform="'translate(' + 0 + ',' + figure.height + ')'"
@@ -63,12 +63,12 @@
       </g>
       <g :transform="'translate(' + margins.left + ',' + margins.top + ')'">
         <Matrix
-          v-if="!isWalkthroughMode() && mode.explorer.activeState === 'matrix' || isWalkthroughMode() && atWalkthroughStep([0,1,2,3,4,5])"
+          v-if="isExplorer && selection.explorer.matrix.isActive || isWalkthroughMode() && atWalkthroughStep([0,1,2,3,4,5])"
           :width="vizDimensions.width"
           :height="vizDimensions.height"
         />
         <CarriersCircles
-          v-if="!isWalkthroughMode() && mode.explorer.activeState === 'mix' || isWalkthroughMode() && atWalkthroughStep([7,8,9])"
+          v-if="isExplorer && selection.explorer.mix.isActive || isWalkthroughMode() && atWalkthroughStep([7,8,9])"
           :width="vizDimensions.width"
           :height="vizDimensions.height"
           :societies="carriersNew"
@@ -115,6 +115,9 @@ export default {
         carriersMaxValueAbs: 'carriersMaxValueAbs',
         rangeValue: 'rangeValue'
     }),
+    isExplorer: function () {
+      return !this.mode.isWalkthrough
+    },
     currentStep: function () {
       return this.$store.state.walkthrough.activeStep
     },
@@ -138,7 +141,11 @@ export default {
     }
   },
   mounted: function () {
-    this.$store.commit('setStep', Number(this.$route.params.step)) // sets activeStep when entering via specific URL
+    if (this.mode.isWalkthrough) {
+      this.$store.commit('setStep', Number(this.$route.params.step)) // sets activeStep when entering via specific URL
+    } else {
+      this.$store.commit('setStep', 0)
+    }
     
     this.figure.width = this.$refs.vizWrapper.offsetWidth
     this.figure.height = this.$refs.vizWrapper.offsetWidth / 2

@@ -7,7 +7,7 @@
       name="rangeslider" 
       min="0"
       max="8"
-      value="0"
+      value="3"
       step="1"
       @input="$emit('input', $event.target.value)"
     ><!-- TODO: automate min and max values etc. -->
