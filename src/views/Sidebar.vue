@@ -12,8 +12,8 @@
       <StoryBox />
     </div>
     <div class="sidebar__modeswitch">
-      <router-link v-if="isWalkthrough" :to="'/explorer'">→  Skip guided tour and explore</router-link>
-      <router-link v-else :to="'/walkthrough/' + 0" >→  Take the guided tour</router-link>
+      <router-link v-if="isWalkthrough" :to="'/explorer'" @click="handleToggleMode()">→  Skip guided tour and explore</router-link>
+      <router-link v-else :to="'/walkthrough/' + 0" @click="handleToggleMode()">→  Take the guided tour</router-link>
     </div>
   </div>
 </template>
@@ -39,6 +39,11 @@ export default {
     },
     activeStep: function () {
       return this.$store.state.walkthrough.activeStep
+    }
+  },
+  methods: {
+    handleToggleMode: function () {
+      this.$store.commit('toggleMode')
     }
   },
   mounted: function () {
