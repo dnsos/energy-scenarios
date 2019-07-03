@@ -12,8 +12,8 @@
       <StoryBox />
     </div>
     <div class="sidebar__modeswitch">
-      <router-link v-if="isWalkthrough" :to="'/explorer'">→  Skip guided tour and explore</router-link>
-      <router-link v-else :to="'/walkthrough/' + 0" >→  Take the guided tour</router-link>
+      <router-link v-if="isWalkthrough" :to="'/explorer'" @click="handleToggleMode()">→  Skip guided tour and explore</router-link>
+      <router-link v-else :to="'/walkthrough/' + 0" @click="handleToggleMode()">→  Take the guided tour</router-link>
     </div>
   </div>
 </template>
@@ -41,6 +41,11 @@ export default {
       return this.$store.state.walkthrough.activeStep
     }
   },
+  methods: {
+    handleToggleMode: function () {
+      this.$store.dispatch('changeMode')
+    }
+  },
   mounted: function () {
     this.sidebarWidth = this.$refs.sidebar.offsetWidth
     window.addEventListener("resize", () => { // TODO: better way? 'watch'?
@@ -53,6 +58,7 @@ export default {
 <style lang="scss" scoped>
 .sidebar__wrapper {
   height: 100%;
+  display: grid;
   background-color: var(--color-grey-04);
 
   >* {
@@ -65,6 +71,13 @@ export default {
   .headings {
     >* {
       margin-bottom: calc(var(--grid-spacing) / 4);
+    }
+  }
+
+  .sidebar__modeswitch {
+    display: flex;
+    >a {
+      align-self: flex-end;
     }
   }
 }

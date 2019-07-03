@@ -32,8 +32,11 @@ export default new Router({
       },
       children: [
         {
-          path: 'ssp',
-          component: () => import('./components/CarriersCircles.vue')
+          path: '',
+          components: {
+            sidebar: () => import('./views/Sidebar.vue'),
+            main: () => import('./views/Explorer.vue')
+          }
         }
       ]
     }

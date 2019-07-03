@@ -9,25 +9,31 @@
         :class="{ active: selectedOption === option.code }"
         :for="option.code"
       >
-        <span
-          class="checkmark--custom"
-          :class="{ active: selectedOption === option.code }"
-        ></span>
-        <input
-          type="radio"
-          :id="option.code"
-          :name="id"
-          :value="option.code"
-          @input="$emit('input', $event.target.value)"
-          v-model="selectedOption"
+        <div
+          v-if="isVisible(option.code)"
         >
-        <span class="option-name--custom">{{option.name}}</span>
+          <span
+            class="checkmark--custom"
+            :class="{ active: selectedOption === option.code }"
+          ></span>
+          <input
+            type="radio"
+            :id="option.code"
+            :name="id"
+            :value="option.code"
+            @input="$emit('input', $event.target.value)"
+            v-model="selectedOption"
+          >
+          <span class="option-name--custom">{{option.name}}</span>
+        </div>
       </label>
     </div>
   </fieldset>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'RadioSelect',
   props: {
@@ -51,6 +57,21 @@ export default {
   data: function() {
     return {
       selectedOption: this.defaultSelection
+    }
+  },
+  computed: {
+    ...mapState(['mode']),
+  },
+  methods: {
+    isVisible: function (option) {
+      // all radio selects are visible in Explorer mode
+      if (this.mode.isWalkthrough === false) {
+        return true
+      } else if (this.mode.isWalkthrough && option != '19') { // in Walkthrough, do not show RCP1.9
+        return true
+      } else {
+        return false
+      }
     }
   }
 }

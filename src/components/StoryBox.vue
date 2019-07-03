@@ -43,7 +43,11 @@ export default {
         return this.$store.state.walkthrough.activeStep
       },
       set (value) {
-        this.$store.commit('setStep', value)
+        if (value > this.walkthrough.steps.length) {
+          this.$store.commit('setStep', this.walkthrough.steps.length)
+        } else {
+          this.$store.commit('setStep', value)
+        }
       }
     }
   },

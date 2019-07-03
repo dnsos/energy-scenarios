@@ -4,17 +4,19 @@
     @mouseleave="toggleHovered()"
     @click="selectSSP(sspData)"
     class="matrix__group"
-    :class="{ 'group--active': isHovered }"
+    :class="{ 'group--active': isHovered, 'group--selectable': isExplorer }"
   >
     <GeneralCircles
       :radiusTotal="totalRadius"
       :xOffset="-(totalRadius - (radii.nonfossil * 2))"
       :value="values.fossil.baseline + values.nonfossil.baseline"
     />
-    <g class="group__fossil" transform="rotate(180)">
+    <g
+      class="group__fossil" transform="rotate(180)"
+    >
       <EnergyCircle
         class="circle circle__fossil circle--target"
-        v-if="atWalkthroughStep([4,5,6,7,8,9]) && comparisons.fossil.targetIsHigher"
+        v-if="isVisible([4,5,6,7,8,9]) && comparisons.fossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.fossil.target"
         :maxValue="maxValue"
@@ -22,7 +24,7 @@
       <transition name="fade-slowly">
         <EnergyCircle
           class="circle circle__fossil circle--baseline"
-          v-show="atWalkthroughStep([1,2,3,4,5,6,7,8,9])"
+          v-show="isVisible([1,2,3,4,5,6,7,8,9])"
           @update-radius="saveFossilRadius"
           :maxRadius="maxRadius * currentScale"
           :value="values.fossil.baseline"
@@ -31,7 +33,7 @@
       </transition>
       <EnergyCircle
         class="circle circle__fossil circle--target"
-        v-if="atWalkthroughStep([4,5,6,7,8,9]) && !comparisons.fossil.targetIsHigher"
+        v-if="isVisible([4,5,6,7,8,9]) && !comparisons.fossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.fossil.target"
         :maxValue="maxValue"
@@ -40,7 +42,7 @@
     <g class="group__nonfossil">
       <EnergyCircle
         class="circle circle__nonfossil circle--target"
-        v-if="atWalkthroughStep([4,5,6,7,8,9]) && comparisons.nonfossil.targetIsHigher"
+        v-if="isVisible([4,5,6,7,8,9]) && comparisons.nonfossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.nonfossil.target"
         :maxValue="maxValue"
@@ -48,7 +50,7 @@
       <transition name="fade-slowly">
         <EnergyCircle
           class="circle circle__nonfossil circle--baseline"
-          v-show="atWalkthroughStep([1,2,3,4,5,6,7,8,9])"
+          v-show="isVisible([1,2,3,4,5,6,7,8,9])"
           @update-radius="saveNonfossilRadius"
           :maxRadius="maxRadius * currentScale"
           :value="values.nonfossil.baseline"
@@ -57,14 +59,14 @@
       </transition>
       <EnergyCircle
         class="circle circle__nonfossil circle--target"
-        v-if="atWalkthroughStep([4,5,6,7,8,9]) && !comparisons.nonfossil.targetIsHigher"
+        v-if="isVisible([4,5,6,7,8,9]) && !comparisons.nonfossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.nonfossil.target"
         :maxValue="maxValue"
       />
     </g>
     <transition name="fade-slowly">
-      <g v-if="atWalkthroughStep([1,2,3,4,5,6,7,8,9])" class="type-indicators">
+      <g v-if="isVisible([1,2,3,4,5,6,7,8,9])" class="type-indicators">
         <text class="type-indicator" :x="-radii.fossil">f</text>
         <text class="type-indicator" :x="radii.nonfossil">nf</text>
       </g>
@@ -75,16 +77,19 @@
         :sspData="sspData"
       />
     </transition>
-    <g class="group__labels" v-if="atWalkthroughStep([3,4,5,6,7,8,9])">
+    <transition name="fade">
+      <InfeasibleIcon v-if="isVisible([4,5,6,7,8,9]) && values.fossil.target === null" />
+    </transition>
+    <g class="group__labels" v-if="isVisible([3,4,5,6,7,8,9])">
       <transition name="fade">
         <text
           class="matrix__society"
-          :transform="'translate(0,' + height * 0.5 + ')'">
+          :transform="'translate(0,' + height * 0.565 + ')'">
           <tspan x="0" y="0" class="bgtest">{{ society.name }}</tspan>
           <tspan x="0" y="0">{{ society.name }}</tspan>
           <tspan
             class="matrix__society--infeasible"
-            v-if="atWalkthroughStep([4,5,6,7,8,9]) && values.fossil.target === null"
+            v-if="isVisible([4,5,6,7,8,9]) && values.fossil.target === null"
             x="0"
             y="0"
             dy="12"
@@ -101,13 +106,15 @@ import { mapGetters } from 'vuex'
 import EnergyCircle from '@/components/EnergyCircle.vue'
 import GeneralCircles from '@/components/GeneralCircles.vue'
 import MatrixTooltip from '@/components/MatrixTooltip.vue'
+import InfeasibleIcon from '@/components/InfeasibleIcon.vue'
 
 export default {
   name: 'TypeCircles',
   components: {
     EnergyCircle,
     GeneralCircles,
-    MatrixTooltip
+    MatrixTooltip,
+    InfeasibleIcon
   },
   props: {
     width: {
@@ -143,6 +150,12 @@ export default {
   computed: {
     ...mapState(['walkthrough', 'selection', 'mode']),
     ...mapGetters(['rangeValue']),
+    isWalkthrough: function () {
+      return this.mode.isWalkthrough
+    },
+    isExplorer: function () {
+      return !this.mode.isWalkthrough
+    },
     maxRadius: function () {
       return this.width / 4
     },
@@ -195,11 +208,25 @@ export default {
       this.radii.nonfossil = value 
     },
     selectSSP: function (SSP) {
-      // change SSP only in exploration mode
+      //this.$router.push({ name: 'explorer', params: { ssp: SSP.society.code.toLowerCase() } }) 
+      
+      // change SSP only in Explorer mode
       if (!this.mode.isWalkthrough) {
-        this.$store.commit('setExplorerSociety', SSP.society.code)  
+        this.$store.commit('setExplorerToMix')
+        this.$store.commit('setExplorerSociety', SSP.society.code)
       } else {
+        // do nothing if Walkthrough mode is active
         return
+      }
+    },
+    isVisible: function (steps) {
+      // first check if mode is Explorer and Matrix is active in Explorer
+      if (!this.mode.isWalkthrough && this.selection.explorer.matrix.isActive) {
+        return true
+      } else if (this.mode.isWalkthrough && this.atWalkthroughStep(steps)) {
+        return true
+      } else {
+        return false
       }
     }
   },
@@ -224,6 +251,9 @@ export default {
   .group__background {
     fill: var(--color-grey-02);
   }
+}
+.group--selectable:hover {
+  cursor: pointer;
 }
 .type-indicators {
   dominant-baseline: middle;

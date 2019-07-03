@@ -12,7 +12,7 @@
         ><path class="axis__arrow" d="M0,0 L8,4 0,8" />
         </marker>
       </defs>
-      <g v-if="walkthrough.activeStep >= 3 && walkthrough.activeStep <= 5">
+      <g v-if="isVisible([3,4,5])">
         <g
           class="axis axis__x"
           :transform="'translate(' + 0 + ',' + figure.height + ')'"
@@ -63,11 +63,12 @@
       </g>
       <g :transform="'translate(' + margins.left + ',' + margins.top + ')'">
         <Matrix
-          v-if="atWalkthroughStep([0,1,2,3,4,5])"
+          v-if="isExplorer && selection.explorer.matrix.isActive || isWalkthroughMode() && atWalkthroughStep([0,1,2,3,4,5])"
           :width="vizDimensions.width"
           :height="vizDimensions.height"
         />
         <CarriersCircles
+          v-if="isExplorer && selection.explorer.mix.isActive || isWalkthroughMode() && atWalkthroughStep([7,8,9])"
           :width="vizDimensions.width"
           :height="vizDimensions.height"
           :societies="carriersNew"
@@ -114,6 +115,9 @@ export default {
         carriersMaxValueAbs: 'carriersMaxValueAbs',
         rangeValue: 'rangeValue'
     }),
+    isExplorer: function () {
+      return !this.mode.isWalkthrough
+    },
     currentStep: function () {
       return this.$store.state.walkthrough.activeStep
     },
@@ -124,18 +128,36 @@ export default {
       }
     }
   },
+  methods: {
+    isVisible: function (steps) {
+      // TODO: duplicate of method in TypeCircles.vue. Refactor!
+      if (!this.mode.isWalkthrough && this.selection.explorer.matrix.isActive) {
+        return true
+      } else if (this.mode.isWalkthrough && this.atWalkthroughStep(steps)) {
+        return true
+      } else {
+        return false
+      }
+    }
+  },
   watch: {
     currentStep: function (newIndex, oldIndex) {
       // only dispatch action if years of current and previous step are not equal
-      if (this.walkthrough.steps[newIndex].year != this.walkthrough.steps[oldIndex].year) {
-       this.$store.dispatch('changeYear', this.walkthrough.steps[newIndex].year) 
-      } else {
-        //console.log('Year has not changed')
+      if (this.mode.isWalkthrough) {
+        if (this.walkthrough.steps[newIndex].year != this.walkthrough.steps[oldIndex].year) {
+          this.$store.dispatch('changeYear', this.walkthrough.steps[newIndex].year) 
+        } else {
+          //console.log('Year has not changed')
+        }
       }
     }
   },
   mounted: function () {
-    this.$store.commit('setStep', Number(this.$route.params.step)) // sets activeStep when entering via specific URL
+    if (this.mode.isWalkthrough) {
+      this.$store.commit('setStep', Number(this.$route.params.step)) // sets activeStep when entering via specific URL
+    } else {
+      this.$store.commit('setStep', 0)
+    }
     
     this.figure.width = this.$refs.vizWrapper.offsetWidth
     this.figure.height = this.$refs.vizWrapper.offsetWidth / 2

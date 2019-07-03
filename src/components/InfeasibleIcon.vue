@@ -1,0 +1,28 @@
+<template>
+  <g
+    class="icon__infeasible"
+    :transform="'translate(-20,-20)'"
+  >
+    <circle class="fill1" cx="21.28" cy="21.58" r="19.97"/>
+    <path class="fill2" d="M21.28,2.36A19.22,19.22,0,1,1,2.06,21.58,19.24,19.24,0,0,1,21.28,2.36m0-1.5A20.72,20.72,0,1,0,42,21.58,20.72,20.72,0,0,0,21.28.86Z"/>
+    <path class="fill2" d="M21.56,35.84a3.23,3.23,0,0,1-2.42-.78,2.78,2.78,0,0,1-.74-2V32.3a2.78,2.78,0,0,1,.74-2,3.23,3.23,0,0,1,2.42-.78,3.16,3.16,0,0,1,2.38.78,2.78,2.78,0,0,1,.74,2v.78a2.78,2.78,0,0,1-.74,2A3.16,3.16,0,0,1,21.56,35.84Zm-1-8.65-1.6-11.35V8.15h5.3v7.69L22.69,27.19Z"/>
+  </g>
+</template>
+
+<script>
+export default {
+  name: 'InfeasibleIcon',
+  data: function() {
+    return {}
+  }
+}
+</script>
+
+<style scoped lang="scss">
+.fill1 {
+  fill: #fff7e5;
+}
+.fill2 {
+  fill: #feae00;
+}
+</style>

@@ -1,6 +1,7 @@
 <template>
   <g class="group__tooltip">
     <g transform="translate(0,-5)">
+      <rect x="20" y="-30" width="70" height="40" fill="white" opacity="0.85" />
       <text class="tooltip">
         <tspan class="value__baseline" x="90" dy="-15">{{ Math.round(baselineValue) }} EJ/yr</tspan>
         <tspan class="value__target" x="90" y="0">{{ Math.round(targetValue) }} EJ/yr</tspan>

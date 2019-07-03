@@ -38,8 +38,14 @@ export default new Vuex.Store({
       target: { name: "Climate Target 2°C", code: "26"},
       year: 2020,
       explorer: {
-        SSP: null,
-        carrier: null
+        matrix: {
+          isActive: true
+        },
+        mix: {
+          isActive: false,
+          activeSocieties: [],
+          activeCarrier: 'Oil'
+        }
       }
     },
     regions: [
@@ -389,8 +395,20 @@ export default new Vuex.Store({
     setStep: (state, payload) => {
       state.walkthrough.activeStep = payload
     },
+    setExplorerToMatrix: (state) => {
+      state.selection.explorer.mix.isActive = false
+      state.selection.explorer.matrix.isActive = true
+    },
+    setExplorerToMix: (state) => {
+      state.selection.explorer.matrix.isActive = false
+      state.selection.explorer.mix.isActive = true
+    },
     setExplorerSociety: (state, payload) => {
-      state.selection.explorer.SSP = payload
+      // push payload to array of selected societies
+      state.selection.explorer.mix.activeSocieties.push(payload)
+    },
+    emptySocietiesArray: (state) => {
+      state.selection.explorer.mix.activeSocieties.length = 0 // empty array without creating a new array
     }
   },
   actions: {
@@ -402,6 +420,9 @@ export default new Vuex.Store({
     },
     changeYear: ({ commit }, payload) => {
       commit('setYear', payload)
+    },
+    changeMode: ({ commit }, payload) => {
+      commit('toggleMode', payload)
     }
   }
 })
