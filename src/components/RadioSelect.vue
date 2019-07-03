@@ -10,7 +10,7 @@
         :for="option.code"
       >
         <div
-          v-if="isWalkthroughMode() & option.code != '19'"
+          v-if="isVisible(option.code)"
         >
           <span
             class="checkmark--custom"
@@ -61,6 +61,18 @@ export default {
   },
   computed: {
     ...mapState(['mode']),
+  },
+  methods: {
+    isVisible: function (option) {
+      // all radio selects are visible in Explorer mode
+      if (this.mode.isWalkthrough === false) {
+        return true
+      } else if (this.mode.isWalkthrough && option != '19') { // in Walkthrough, do not show RCP1.9
+        return true
+      } else {
+        return false
+      }
+    }
   }
 }
 </script>

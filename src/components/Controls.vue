@@ -3,7 +3,7 @@
     <div class="controls__contents grid-2-columns">
       <div class="controls__contents--left">
         <RadioSelect
-          v-if="!isWalkthroughMode() || isWalkthroughMode() && atWalkthroughStep([3,4,5,6,7,8,9])"
+          v-if="isVisible([3,4,5,6,7,8,9])"
           :id="'baseline'"
           class="control"
           :options="baseline"
@@ -11,7 +11,7 @@
           :defaultSelection="baseline[0].code"
         />
         <RadioSelect
-          v-if="!isWalkthroughMode() || isWalkthroughMode() && atWalkthroughStep([4,5,6,7,8,9])"
+          v-if="isVisible([4,5,6,7,8,9])"
           :id="'targets'"
           class="control"
           :options="targets"
@@ -23,7 +23,7 @@
       <div class="controls__contents--right">
         <div class="control">
           <RangeSlider
-            v-if="!isWalkthroughMode() && atWalkthroughStep([0,1,2,3,4,5,6,7,8,9])"
+            v-if="isVisible([0,1,2,3,4,5,6,7,8,9])"
             id="years"
             v-model="rangeValue"
             @input="selectedYear = $event"
@@ -89,7 +89,17 @@ export default {
       }
     }
   },
-  methods: {},
+  methods: {
+    isVisible: function (steps) {
+      if (this.mode.isWalkthrough === false) {
+        return true
+      } else if (this.mode.isWalkthrough && this.atWalkthroughStep(steps)) {
+        return true
+      } else {
+        return false
+      }
+    }
+  },
   mounted: function () {}
 }
 </script>
