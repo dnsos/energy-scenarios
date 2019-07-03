@@ -12,7 +12,7 @@
         ><path class="axis__arrow" d="M0,0 L8,4 0,8" />
         </marker>
       </defs>
-      <g v-if="isExplorer || isWalkthroughMode() && atWalkthroughStep([3,4,5])">
+      <g v-if="isVisible([3,4,5])">
         <g
           class="axis axis__x"
           :transform="'translate(' + 0 + ',' + figure.height + ')'"
@@ -125,6 +125,18 @@ export default {
       return {
         width: this.figure.width - this.margins.left - this.margins.right,
         height: this.figure.height - this.margins.top - this.margins.bottom
+      }
+    }
+  },
+  methods: {
+    isVisible: function (steps) {
+      // TODO: duplicate of method in TypeCircles.vue. Refactor!
+      if (!this.mode.isWalkthrough && this.selection.explorer.matrix.isActive) {
+        return true
+      } else if (this.mode.isWalkthrough && this.atWalkthroughStep(steps)) {
+        return true
+      } else {
+        return false
       }
     }
   },

@@ -4,7 +4,7 @@
     @mouseleave="toggleHovered()"
     @click="selectSSP(sspData)"
     class="matrix__group"
-    :class="{ 'group--active': isHovered }"
+    :class="{ 'group--active': isHovered, 'group--selectable': isExplorer }"
   >
     <GeneralCircles
       :radiusTotal="totalRadius"
@@ -208,10 +208,14 @@ export default {
       this.radii.nonfossil = value 
     },
     selectSSP: function (SSP) {
-      // change SSP only in exploration mode
+      //this.$router.push({ name: 'explorer', params: { ssp: SSP.society.code.toLowerCase() } }) 
+      
+      // change SSP only in Explorer mode
       if (!this.mode.isWalkthrough) {
-        this.$store.commit('setExplorerSociety', SSP.society.code)  
+        this.$store.commit('setExplorerToMix')
+        this.$store.commit('setExplorerSociety', SSP.society.code)
       } else {
+        // do nothing if Walkthrough mode is active
         return
       }
     },
@@ -247,6 +251,9 @@ export default {
   .group__background {
     fill: var(--color-grey-02);
   }
+}
+.group--selectable:hover {
+  cursor: pointer;
 }
 .type-indicators {
   dominant-baseline: middle;

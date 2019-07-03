@@ -19,6 +19,7 @@
             <transition name="fade">
               <g
                 v-if="activeCarriers.includes(carrier.name)"
+                :class="{'carrier--selectable': isExplorer}"
               >
                 <EnergyCircle
                   class="circle--target"
@@ -103,6 +104,9 @@ export default {
   },
   computed: {
     ...mapState(['selection', 'walkthrough', 'mode']),
+    isExplorer: function () {
+      return !this.mode.isWalkthrough
+    },
     activeStep: function () {
       return this.walkthrough.activeStep
     },
@@ -156,7 +160,7 @@ export default {
       this.activeCarriers = [...this.steps[this.activeStep].variables.carriers]
     } else {
       // if not walkthrough: set visible SSPs to currently selected carriers
-      this.activeSSPs = ["SSP1"]
+      this.activeSSPs = this.selection.explorer.mix.activeSocieties
       this.activeCarriers = ["Coal", "Gas", "Oil", "Biomass", "Hydro", "Nuclear", "Solar", "Wind"]
     }
   }
@@ -171,6 +175,9 @@ text {
   }
 .carrier-circle {
   transform: rotate(90);
+}
+.carrier--selectable:hover {
+  cursor: pointer;
 }
 .society__name text {
   text-anchor: start;

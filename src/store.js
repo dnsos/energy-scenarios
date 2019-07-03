@@ -43,6 +43,7 @@ export default new Vuex.Store({
         },
         mix: {
           isActive: false,
+          activeSocieties: [],
           activeCarrier: 'Oil'
         }
       }
@@ -394,8 +395,20 @@ export default new Vuex.Store({
     setStep: (state, payload) => {
       state.walkthrough.activeStep = payload
     },
+    setExplorerToMatrix: (state) => {
+      state.selection.explorer.mix.isActive = false
+      state.selection.explorer.matrix.isActive = true
+    },
+    setExplorerToMix: (state) => {
+      state.selection.explorer.matrix.isActive = false
+      state.selection.explorer.mix.isActive = true
+    },
     setExplorerSociety: (state, payload) => {
-      state.selection.explorer.SSP = payload
+      // push payload to array of selected societies
+      state.selection.explorer.mix.activeSocieties.push(payload)
+    },
+    emptySocietiesArray: (state) => {
+      state.selection.explorer.mix.activeSocieties.length = 0 // empty array without creating a new array
     }
   },
   actions: {

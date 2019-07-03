@@ -35,7 +35,7 @@ export default {
   mounted: function () {
     // only toggle specifically to 'walkthrough' if current state is not 'walkthrough'
     if (this.$store.state.mode.isWalkthrough != true) {
-      this.$store.commit('toggleMode', 'walkthrough')
+      this.$store.dispatch('changeMode', 'walkthrough')
       // specify start year for beginning of walkthrough
       this.$store.dispatch('changeYear', 2020)
     }
