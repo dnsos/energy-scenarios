@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     handleToggleMode: function () {
-      this.$store.commit('toggleMode')
+      this.$store.dispatch('changeMode')
     }
   },
   mounted: function () {

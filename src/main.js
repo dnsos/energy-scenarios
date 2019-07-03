@@ -17,7 +17,8 @@ Vue.mixin({
       }
     },
     isWalkthroughMode: function () {
-      if (this.mode.isWalkthrough) {
+      const vm = this
+      if (vm.mode.isWalkthrough) {
         return true
       } else {
         return false
