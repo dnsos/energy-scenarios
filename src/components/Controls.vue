@@ -25,16 +25,18 @@
           <RangeSlider
             v-if="isVisible([])"
             id="years"
+            :years="general.years"
             v-model="rangeValue"
             @input="selectedYear = $event"
           />
-          <output>&nbsp;Year {{ selection.year }}</output>
+          <output v-else><span>Year</span>&nbsp;{{ selection.year }}</output>
         </div>
         <DropDown
           id="regions"
           class="control"
           :options="regions"
           :value="selectedRegion"
+          :disabled="mode.isWalkthrough"
           :defaultSelection="selectedRegion.code"
           @select="selectedRegion = $event"
         />
@@ -120,7 +122,16 @@ export default {
   }
 }
 .controls__contents--right {
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+}
+@media (max-width: 750px) {
+  .controls__contents--right {
+    display: block;
+    > *:not(:last-child) {
+      margin-bottom: var(--grid-spacing);
+    }
+  }
 }
 
 .controls__contents {

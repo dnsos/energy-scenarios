@@ -24,21 +24,12 @@ export default new Router({
       }
     },
     {
-      path: '/explorer/',
+      path: '/explorer/:view',
       name: 'explorer',
       components: {
         sidebar: () => import('./views/Sidebar.vue'),
         main: () => import('./views/Explorer.vue')
-      },
-      children: [
-        {
-          path: '',
-          components: {
-            sidebar: () => import('./views/Sidebar.vue'),
-            main: () => import('./views/Explorer.vue')
-          }
-        }
-      ]
+      }
     }
   ]
 })

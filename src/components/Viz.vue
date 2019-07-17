@@ -149,6 +149,8 @@ export default {
         } else {
           //console.log('Year has not changed')
         }
+      } else {
+        return 
       }
     }
   },
@@ -156,12 +158,15 @@ export default {
     if (this.mode.isWalkthrough) {
       this.$store.commit('setStep', Number(this.$route.params.step)) // sets activeStep when entering via specific URL
     } else {
+      if (this.$route.params.society === 'mix') {
+        this.$store.commit('setExplorerToMix') // TODO: does not work
+      }
       this.$store.commit('setStep', 0)
     }
     
     this.figure.width = this.$refs.vizWrapper.offsetWidth
     this.figure.height = this.$refs.vizWrapper.offsetWidth / 2
-    window.addEventListener("resize", () => { // TODO: better way? 'watch'?
+    window.addEventListener("resize", () => {
       this.figure.width = this.$refs.vizWrapper.offsetWidth
       this.figure.height = this.$refs.vizWrapper.offsetWidth / 2
     })

@@ -65,7 +65,7 @@
         :transform="'translate(0,' +  yTransform(society.code) + ')'"
       >
         <g v-if="activeSSPs.includes(society.code)">
-          <text dy="20">{{ society.name }}</text>
+          <text dy="20">{{ society.name }}<tspan v-if="isExplorer" class="button__clear" @click="removeActiveSociety(society.code)">&nbsp;&nbsp;×&nbsp;&nbsp;</tspan></text>
           <line x1="0" y1="6" :x2="society.carriers.length * carrierMaxWidth" y2="6" class="society__divider" />
         </g>
       </g>
@@ -130,7 +130,8 @@ export default {
       return 'target' + this.selection.target.code
     },
     currentMarginTop: function () {
-      return (this.height - (this.activeSSPs.length * this.carrierMaxWidth)) - (this.activeSSPs.length * this.carrierMaxWidth) + this.carrierMaxWidth
+      const yTransform = (this.activeSSPs.length <= 4) ? -25 : 25 // extra margin for beauty reasons
+      return (this.height / 2) - ((this.carrierMaxWidth * this.activeSSPs.length) / 2) + yTransform
     }
   },
   methods: {
@@ -143,6 +144,10 @@ export default {
       const remainingHeight = this.height - (this.activeSSPs.length * this.carrierMaxWidth)
       const marginTop = (remainingHeight / 2) + (this.activeSSPs.length * this.carrierMaxWidth) / this.activeSSPs.length - (this.carrierMaxWidth / 2)
       return marginTop + (this.activeSSPs.indexOf(code) * this.carrierMaxWidth)
+    },
+    removeActiveSociety: function (society) {
+      console.log(society)
+      this.activeSSPs.splice(this.activeSSPs.indexOf(society),1)
     }
   },
   watch: {
@@ -185,5 +190,9 @@ text {
 .society__divider {
   stroke: var(--color-grey-09);
   stroke-width: .75;
+}
+.button__clear {
+  font-size: var(--font-size-small);
+  cursor: pointer;
 }
 </style>

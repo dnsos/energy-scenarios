@@ -1,8 +1,8 @@
 <template>
-  <g v-if="walkthrough.activeStep <= 2">
+  <g v-if="isVisible([0,1,2])">
     <line
       class="tooltip__line"
-      v-if="walkthrough.activeStep === 0"
+      v-if="isVisible([0])"
       :x1="xOffset"
       y1="0"
       :x2="-xOffset * 3"
@@ -10,13 +10,13 @@
     />
     <circle
       class="circle circle__total"
-      :class="{ 'circle__total--focus': walkthrough.activeStep === 0 }"
+      :class="{ 'circle__total--focus': isVisible([0]) }"
       :r="tweenedTotalRadius"
       :cx="xOffset"
     ></circle>
     <text
       class="tooltip__total"
-      v-if="walkthrough.activeStep === 0"
+      v-if="isVisible([0])"
       :x="-xOffset * 3"
       dy="-5"
     >{{ Math.round(value) }} EJ/yr</text>
@@ -49,9 +49,18 @@ export default {
     }
   },
   computed: {
-    ...mapState(['walkthrough', 'mode']),
+    ...mapState(['walkthrough', 'mode', 'selection']),
   },
   methods: {
+    isVisible: function (steps) {
+      if (!this.mode.isWalkthrough) {
+        return false
+      } else if (this.mode.isWalkthrough && this.atWalkthroughStep(steps)) {
+        return true
+      } else {
+        return false
+      }
+    },
     tween: function (startValue, endValue) {
       var vm = this
       function animate () {

@@ -1,16 +1,29 @@
 <template>
-  <fieldset>
-    <label v-if="label" :for="id">{{ label }}</label>
-    <input
-      type="range"
-      :id="id"
-      name="rangeslider" 
-      min="0"
-      max="8"
-      value="3"
-      step="1"
-      @input="$emit('input', $event.target.value)"
-    ><!-- TODO: automate min and max values etc. -->
+  <fieldset class="control__years">
+    <label v-if="label" :for="id" class="label">{{ label }}</label>
+    <div class="years__slider">
+      <input
+        type="range"
+        :id="id"
+        name="rangeslider" 
+        min="0"
+        max="8"
+        value="3"
+        step="1"
+        @input="$emit('input', $event.target.value)"
+      ><!-- TODO: automate min and max values etc. -->
+    </div>
+    <div class="years__steps">
+      <div
+        v-for="year in years"
+        :key="year.year"
+        class="year__step"
+        :class="{ 'year--active' : (year.year === activeYear) }"
+      >
+        <span v-if="year.abbreviation">{{ year.abbreviation }}</span>
+        <span v-else>{{ year.year }}</span>
+      </div>
+    </div>
   </fieldset>
 </template>
 
@@ -26,9 +39,18 @@ export default {
       type: String,
       required: false
     },
+    years: {
+      type: Array,
+      required: false
+    }
   },
   data: function() {
     return {}
+  },
+  computed: {
+    activeYear: function () {
+      return this.$store.state.selection.year
+    }
   }
 }
 </script>
@@ -37,10 +59,37 @@ export default {
 label {
   margin-right: calc(var(--grid-spacing) / 2);
 }
-
+.years__slider {
+  display: flex;
+  justify-content: center;
+  &::before, &::after {
+    content: '|';
+    margin: 0;
+    color: var(--color-grey-31);
+  }
+  &::before {
+    transform: scaleY(0.5) translateX(.2rem);
+  }
+  &::after {
+    transform: scaleY(0.5) translateX(-.2rem);
+  }
+}
+.years__steps {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-gap: 0;
+  width: calc(30rem + (calc(30rem/9)));
+  color: var(--color-grey-31);
+  .year__step {
+    text-align: center;
+  }
+  .year--active {
+    color: var(--color-grey-76);
+  }
+}
 input[type=range] {
   -webkit-appearance: none;
-  width: 15rem;
+  width: 30rem;
   margin: 0;
   vertical-align: middle;
 }
@@ -51,7 +100,7 @@ input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
   height: .1rem;
   cursor: pointer;
-  background: var(--color-dark-blue);
+  background: var(--color-grey-31);
 }
 input[type=range]::-webkit-slider-thumb {
   height: 1.1rem;
@@ -63,13 +112,13 @@ input[type=range]::-webkit-slider-thumb {
   margin-top: -0.5rem;
 }
 input[type=range]:focus::-webkit-slider-runnable-track {
-  background: var(--color-dark-blue);
+  background: var(--color-grey-31);
 }
 input[type=range]::-moz-range-track {
   width: 100%;
   height: .1rem;
   cursor: pointer;
-  background: var(--color-dark-blue);
+  background: var(--color-grey-31);
 }
 input[type=range]::-moz-range-thumb {
   height: 1.1rem;
@@ -102,9 +151,9 @@ input[type=range]::-ms-thumb {
   cursor: pointer;
 }
 input[type=range]:focus::-ms-fill-lower {
-  background: var(--color-dark-blue);
+  background: var(--color-grey-31);
 }
 input[type=range]:focus::-ms-fill-upper {
-  background: var(--color-dark-blue);
+  background: var(--color-grey-31);
 }
 </style>

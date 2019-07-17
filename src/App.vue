@@ -140,12 +140,26 @@ fieldset {
   stroke-width: 0.75;
 }
 
+.label {
+  margin-bottom: calc(var(--grid-spacing)/4);
+  font-size: var(--font-size-small);
+  font-weight: 400;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--color-grey-31);
+}
+
 /* CHAPTERS
 ----------------------------------------------------- */
 .grid-2-columns {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 100%;
   grid-gap: var(--grid-spacing);
+}
+@media (min-width: 750px) {
+  .grid-2-columns {
+    grid-template-columns: auto auto;
+  }
 }
 
 .grid-12-columns {

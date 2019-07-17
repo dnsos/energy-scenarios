@@ -12,7 +12,7 @@
       <StoryBox />
     </div>
     <div class="sidebar__modeswitch">
-      <router-link v-if="isWalkthrough" :to="'/explorer'" @click="handleToggleMode()">→  Skip guided tour and explore</router-link>
+      <router-link v-if="isWalkthrough" :to="'/explorer/matrix'" @click="handleToggleMode()">→  Skip guided tour and explore</router-link>
       <router-link v-else :to="'/walkthrough/' + 0" @click="handleToggleMode()">→  Take the guided tour</router-link>
     </div>
   </div>
