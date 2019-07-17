@@ -77,23 +77,28 @@ export default new Vuex.Store({
     societies: [
       {
         name: "The Green Road",
-        code: "SSP1"
+        code: "SSP1",
+        url: "the-green-road"
       },
       {
         name: "Middle of the Road",
-        code: "SSP2"
+        code: "SSP2",
+        url: "middle-of-the-road"
       },
       {
         name: "Regional Rivalry",
-        code: "SSP3"
+        code: "SSP3",
+        url: "regional-rivalry"
       },
       {
         name: "A Road Divided",
-        code: "SSP4"
+        code: "SSP4",
+        url: "a-road-divided"
       },
       {
         name: "Fossil Fueled Development",
-        code: "SSP5"
+        code: "SSP5",
+        url: "fossil-fueled-development"
       },
     ],
     baseline: [
@@ -222,7 +227,8 @@ export default new Vuex.Store({
         return {
           society: {
             name: society.name,
-            code: society.code
+            code: society.code,
+            url: society.url
           },
           baseline: baseline,
           target: target

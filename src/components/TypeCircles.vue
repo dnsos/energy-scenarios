@@ -208,10 +208,9 @@ export default {
       this.radii.nonfossil = value 
     },
     selectSSP: function (SSP) {
-      //this.$router.push({ name: 'explorer', params: { ssp: SSP.society.code.toLowerCase() } }) 
-      
       // change SSP only in Explorer mode
       if (!this.mode.isWalkthrough) {
+        this.$router.push({ name: 'explorer', params: { society: 'mix' } }) 
         this.$store.commit('setExplorerToMix')
         this.$store.commit('setExplorerSociety', SSP.society.code)
       } else {
