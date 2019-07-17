@@ -130,7 +130,8 @@ export default {
       return 'target' + this.selection.target.code
     },
     currentMarginTop: function () {
-      return (this.height - (this.activeSSPs.length * this.carrierMaxWidth)) - (this.activeSSPs.length * this.carrierMaxWidth) + this.carrierMaxWidth
+      const yTransform = (this.activeSSPs.length <= 4) ? -25 : 25 // extra margin for beauty reasons
+      return (this.height / 2) - ((this.carrierMaxWidth * this.activeSSPs.length) / 2) + yTransform
     }
   },
   methods: {
