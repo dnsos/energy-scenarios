@@ -36,6 +36,7 @@
           class="control"
           :options="regions"
           :value="selectedRegion"
+          :disabled="mode.isWalkthrough"
           :defaultSelection="selectedRegion.code"
           @select="selectedRegion = $event"
         />
