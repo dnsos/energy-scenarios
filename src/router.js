@@ -24,7 +24,7 @@ export default new Router({
       }
     },
     {
-      path: '/explorer/:society',
+      path: '/explorer/:view',
       name: 'explorer',
       components: {
         sidebar: () => import('./views/Sidebar.vue'),

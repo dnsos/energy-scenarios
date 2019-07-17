@@ -210,7 +210,7 @@ export default {
     selectSSP: function (SSP) {
       // change SSP only in Explorer mode
       if (!this.mode.isWalkthrough) {
-        this.$router.push({ name: 'explorer', params: { society: 'mix' } }) 
+        this.$router.push({ name: 'explorer', params: { view: 'mix' } }) 
         this.$store.commit('setExplorerToMix')
         this.$store.commit('setExplorerSociety', SSP.society.code)
       } else {
