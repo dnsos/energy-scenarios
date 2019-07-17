@@ -115,6 +115,44 @@ export default new Vuex.Store({
     general: {
       startyear: total.startyear,
       yearinterval: total.yearinterval,
+      years: [
+        {
+          year: 2020,
+          abbreviation: null
+        },
+        {
+          year: 2030,
+          abbreviation: '\'30'
+        },
+        {
+          year: 2040,
+          abbreviation: '\'40'
+        },
+        {
+          year: 2050,
+          abbreviation: '\'50'
+        },
+        {
+          year: 2060,
+          abbreviation: '\'60'
+        },
+        {
+          year: 2070,
+          abbreviation: '\'70'
+        },
+        {
+          year: 2080,
+          abbreviation: '\'80'
+        },
+        {
+          year: 2090,
+          abbreviation: '\'90'
+        },
+        {
+          year: 2100,
+          abbreviation: null
+        }
+      ],
       unit: total.unit
     },
     walkthrough: {
