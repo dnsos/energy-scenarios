@@ -149,6 +149,8 @@ export default {
         } else {
           //console.log('Year has not changed')
         }
+      } else {
+        return 
       }
     }
   },

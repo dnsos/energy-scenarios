@@ -5,7 +5,7 @@
         v-for="(step, index) in walkthrough.steps"
         :key="index"
         name="slide-fade">
-        <p v-if="index === activeStep">{{ walkthrough.steps[index].text }}</p>
+        <p v-if="mode.isWalkthrough && index === activeStep">{{ walkthrough.steps[index].text }}</p>
       </transition>
     </div>
     <div class="buttons__wrapper">
@@ -15,7 +15,7 @@
       ><span><span>←</span> Back</span>
       </button>-->
       <button
-        v-if="activeStep < walkthrough.steps.length - 1"
+        v-if="mode.isWalkthrough && activeStep < walkthrough.steps.length - 1"
         class="button__primary"
         :class="{ 'button--active': buttonIsHovered}"
         @click="activeStep = activeStep + 1"
@@ -37,7 +37,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['selection', 'walkthrough']),
+    ...mapState(['selection', 'walkthrough', 'mode']),
     activeStep: {
       get () {
         return this.$store.state.walkthrough.activeStep

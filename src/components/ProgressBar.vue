@@ -1,7 +1,7 @@
 <template>
   <div class="progress-bar__wrapper">
     <svg :width="width" height="5">
-      <rect x="0" y="0" :width="tweenedProgressWidth" height="5" class="progress-bar" />
+      <rect x="0" y="0" :width="mode.isWalkthrough ? tweenedProgressWidth : width" height="5" class="progress-bar" />
     </svg>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['selection', 'walkthrough']),
+    ...mapState(['selection', 'walkthrough', 'mode']),
     progressWidth: function () {
       return (this.width / this.walkthrough.steps.length) * (this.walkthrough.activeStep + 1)
     }

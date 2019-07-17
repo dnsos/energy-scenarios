@@ -21,6 +21,7 @@ export default {
     this.$store.dispatch('changeMode')
     this.$store.commit('setExplorerToMatrix')
     this.$store.commit('emptySocietiesArray')
+    this.$store.commit('setStep', 0)
     this.$store.dispatch('changeYear', 2050)
   }
 }
