@@ -5,6 +5,16 @@
       class="back-button"
       @click="returnToMatrix()"
     >←&nbsp;Back to Matrix</span>
+    <fieldset v-if="!mode.isWalkthrough && selection.explorer.mix.isActive" class="select__society">
+      <label for="society-select">Add a society:</label>
+      <select name="society-select" id="society-select" v-model="selectedSociety" @change="addActiveSociety()">
+        <option
+          v-for="society in societies"
+          :key="society.code"
+          :value="society.code">
+          {{ society.name }}</option>
+      </select>
+    </fieldset>
     <Viz />
   </div>
 </template>
@@ -19,14 +29,19 @@ export default {
     Viz
   },
   data: function () {
-    return {}
+    return {
+      selectedSociety: 'Test'
+    }
   },
   computed: {
-    ...mapState(['selection', 'mode'])
+    ...mapState(['selection', 'mode', 'societies'])
   },
   methods: {
     returnToMatrix: function () {
       this.$router.push({ name: 'explorer', params: { view: 'matrix' } }) 
+    },
+    addActiveSociety: function () {
+      return
     }
   },
   watch: {
@@ -58,6 +73,11 @@ export default {
   font-size: var(--font-size-small);
   color: var(--color-grey-31);
   cursor: pointer;
+}
+.select__society {
+  position: absolute;
+  top: 95%;
+  font-size: var(--font-size-small);
 }
 </style>
 
