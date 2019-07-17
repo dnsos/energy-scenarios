@@ -1,10 +1,16 @@
 <template>
   <div class="viz__wrapper">
+    <span
+      v-if="!mode.isWalkthrough && selection.explorer.mix.isActive"
+      class="back-button"
+      @click="returnToMatrix()"
+    >←&nbsp;Back to Matrix</span>
     <Viz />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Viz from '@/components/Viz.vue'
 
 export default {
@@ -15,11 +21,18 @@ export default {
   data: function () {
     return {}
   },
-  computed: {},
+  computed: {
+    ...mapState(['selection', 'mode'])
+  },
+  methods: {
+    returnToMatrix: function () {
+      this.$router.push({ name: 'explorer', params: { view: 'matrix' } }) 
+    }
+  },
   watch: {
     '$route' (to, from) {
       // if route changes from Browser utilities
-      if (to.params.society === 'matrix') {
+      if (to.params.view === 'matrix') {
         this.$store.commit('setExplorerToMatrix')
         this.$store.commit('emptySocietiesArray')
       } else {
@@ -39,5 +52,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.back-button {
+  position: absolute;
+  font-family: var(--font-family);
+  font-size: var(--font-size-small);
+  color: var(--color-grey-31);
+  cursor: pointer;
+}
 </style>
 
