@@ -184,9 +184,9 @@ export default {
         return 0
       }
     },
-    removeActiveSociety: function (society) {
-      console.log(society)
-      this.activeSSPs.splice(this.activeSSPs.indexOf(society),1)
+    removeActiveSociety: function (SSP) {
+      //this.activeSSPs.splice(this.activeSSPs.indexOf(society),1)
+      this.$store.commit('removeExplorerSociety', SSP)
     }
   },
   watch: {

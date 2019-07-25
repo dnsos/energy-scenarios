@@ -308,6 +308,17 @@ button {
   background-color: var(--color-primary-neutral);
 }
 
+select.select {
+  border: none;
+  border-bottom: .1rem solid var(--color-grey-31);
+  &:focus {
+    outline: .1rem dashed black;
+    option {
+      box-shadow: 0 0 5px black;
+    }
+  }
+}
+
 /* ANIMATIONS/TRANSITIONS
 ----------------------------------------------------- */
 .fade-enter-active, .fade-leave-active {
