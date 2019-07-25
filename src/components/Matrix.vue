@@ -3,7 +3,7 @@
     <g class="matrix__circles">
       <TypeCircles
         v-if="isExplorer || isWalkthroughMode() && atWalkthroughStep([3,4,5,6,7,8,9])"
-        :class="{ 'group--inactive': atWalkthroughStep([5]) && matrixData[4].society.code != selection.society.code }"
+        :class="{ 'group--inactive': atWalkthroughStep([5,6]) && matrixData[4].society.code != selection.society.code }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[4].society"
@@ -13,7 +13,7 @@
       />
       <TypeCircles
         v-if="isExplorer || isWalkthroughMode() && atWalkthroughStep([3,4,5,6,7,8,9])"
-        :class="{ 'group--inactive': atWalkthroughStep([5]) && matrixData[0].society.code != selection.society.code }"
+        :class="{ 'group--inactive': atWalkthroughStep([5,6]) && matrixData[0].society.code != selection.society.code }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[0].society"
@@ -23,7 +23,7 @@
       />
       <TypeCircles
         v-if="isExplorer || isWalkthroughMode() && atWalkthroughStep([3,4,5,6,7,8,9])"
-        :class="{ 'group--inactive': atWalkthroughStep([5]) && matrixData[2].society.code != selection.society.code }"
+        :class="{ 'group--inactive': atWalkthroughStep([5,6]) && matrixData[2].society.code != selection.society.code }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[2].society"
@@ -33,7 +33,7 @@
       />
       <TypeCircles
         v-if="isExplorer || isWalkthroughMode() && atWalkthroughStep([3,4,5,6,7,8,9])"
-        :class="{ 'group--inactive': atWalkthroughStep([5]) && matrixData[3].society.code != selection.society.code }"
+        :class="{ 'group--inactive': atWalkthroughStep([5,6]) && matrixData[3].society.code != selection.society.code }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[3].society"
@@ -42,8 +42,8 @@
         :transform="'translate(' + translateValues(5,5) + ')'"
       />
       <TypeCircles
-        v-if="isExplorer || isWalkthroughMode() && atWalkthroughStep([0,1,2,3,4,5])"
-        :class="{ 'group--inactive': atWalkthroughStep([5]) && matrixData[1].society.code != selection.society.code }"
+        v-if="isExplorer || isWalkthroughMode() && atWalkthroughStep([0,1,2,3,4,5,6])"
+        :class="{ 'group--inactive': atWalkthroughStep([5,6]) && matrixData[1].society.code != selection.society.code }"
         :width="group.width"
         :height="group.height"
         :society="matrixData[1].society"

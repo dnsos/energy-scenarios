@@ -57,7 +57,7 @@
         </g>
       </g>
     </g>
-    <g class="society__names">
+    <g class="society__names" v-if="isExplorer || isWalkthroughMode() && atWalkthroughStep([7,8,9])">
       <g
         v-for="(society) in societies"
         :key="'name__' + society.code"
@@ -71,6 +71,7 @@
       </g>
     </g>
     <CarriersNames
+    v-if="isExplorer || isWalkthroughMode() && atWalkthroughStep([7,8,9])"
       :width="width"
       :height="height"
       :societies="societies"
