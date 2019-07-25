@@ -65,7 +65,17 @@
         :transform="'translate(0,' +  yTransform(society.code) + ')'"
       >
         <g v-if="activeSSPs.includes(society.code)">
-          <text dy="20">{{ society.name }}<tspan v-if="isExplorer" class="button__clear" @click="removeActiveSociety(society.code)">&nbsp;&nbsp;×&nbsp;&nbsp;</tspan></text>
+          <text dy="20">{{ society.name }}
+            <tspan
+              v-if="society.carriers[0]['target' + selection.target.code].status === 'infeasible'"
+              class="society--infeasible"
+            >&nbsp;(Target infeasible)</tspan>
+            <tspan
+              v-if="isExplorer"
+              class="button__clear"
+              @click="removeActiveSociety(society.code)"
+            >&nbsp;&nbsp;×&nbsp;&nbsp;</tspan>
+          </text>
           <line x1="0" y1="6" :x2="society.carriers.length * carrierMaxWidth" y2="6" class="society__divider" />
         </g>
       </g>
@@ -228,6 +238,9 @@ text {
 }
 .society__name text {
   text-anchor: start;
+  .society--infeasible {
+    fill: var(--color-yellow);
+  }
 }
 .society__divider {
   stroke: var(--color-grey-09);

@@ -341,7 +341,7 @@ export default new Vuex.Store({
         // fallback object for infeasible scenarios
         const infeasibleScenario = {
           status: 'infeasible',
-          values: [0,0,0,0,0,0,0,0,0]
+          values: [null,null,null,null,null,null,null,null,null]
         }
 
         // for each society loop through carriers and find respective scenario (or add fallback scenario)
