@@ -44,6 +44,7 @@
       <TypeCircles
         v-if="isExplorer || isWalkthroughMode() && atWalkthroughStep([0,1,2,3,4,5,6])"
         :class="{ 'group--inactive': atWalkthroughStep([5,6]) && matrixData[1].society.code != selection.society.code }"
+        :id="'matrix__group-' + matrixData[1].society.code.toLowerCase()"
         :width="group.width"
         :height="group.height"
         :society="matrixData[1].society"
