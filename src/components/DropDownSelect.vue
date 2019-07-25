@@ -1,7 +1,7 @@
 <template>
   <fieldset>
     <label :for="id">{{ message }}</label>
-    <select :class="{ 'inactive' : disabled }" :disabled="disabled" :name="id" :id="id" v-model="selectedOption" @change="$emit('select', $event.target.value)">
+    <select :class="{ 'inactive' : disabled }" class="select" :disabled="disabled" :name="id" :id="id" v-model="selectedOption" @change="$emit('select', $event.target.value)">
       <option
         v-for="option in options"
         :key="option.code"

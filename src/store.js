@@ -341,7 +341,7 @@ export default new Vuex.Store({
         // fallback object for infeasible scenarios
         const infeasibleScenario = {
           status: 'infeasible',
-          values: [0,0,0,0,0,0,0,0,0]
+          values: [null,null,null,null,null,null,null,null,null]
         }
 
         // for each society loop through carriers and find respective scenario (or add fallback scenario)
@@ -448,8 +448,14 @@ export default new Vuex.Store({
       state.selection.explorer.mix.isActive = true
     },
     setExplorerSociety: (state, payload) => {
-      // push payload to array of selected societies
+      // only push selected society if it's not already in array of selected societies
+      if (!state.selection.explorer.mix.activeSocieties.includes(payload)) {
+        // push payload to array of selected societies
       state.selection.explorer.mix.activeSocieties.push(payload)
+      }
+    },
+    removeExplorerSociety: (state, payload) => {
+      state.selection.explorer.mix.activeSocieties.splice(state.selection.explorer.mix.activeSocieties.indexOf(payload),1)
     },
     emptySocietiesArray: (state) => {
       state.selection.explorer.mix.activeSocieties.length = 0 // empty array without creating a new array

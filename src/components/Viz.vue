@@ -12,7 +12,7 @@
         ><path class="axis__arrow" d="M0,0 L8,4 0,8" />
         </marker>
       </defs>
-      <g v-if="isVisible([3,4,5])">
+      <g v-if="isVisible([3,4,5,6])">
         <g
           class="axis axis__x"
           :transform="'translate(' + 0 + ',' + figure.height + ')'"
@@ -63,12 +63,12 @@
       </g>
       <g :transform="'translate(' + margins.left + ',' + margins.top + ')'">
         <Matrix
-          v-if="isExplorer && selection.explorer.matrix.isActive || isWalkthroughMode() && atWalkthroughStep([0,1,2,3,4,5])"
+          v-if="isExplorer && selection.explorer.matrix.isActive || isWalkthroughMode() && atWalkthroughStep([0,1,2,3,4,5,6])"
           :width="vizDimensions.width"
           :height="vizDimensions.height"
         />
         <CarriersCircles
-          v-if="isExplorer && selection.explorer.mix.isActive || isWalkthroughMode() && atWalkthroughStep([7,8,9])"
+          v-if="isExplorer && selection.explorer.mix.isActive || isWalkthroughMode() && atWalkthroughStep([6,7,8,9])"
           :width="vizDimensions.width"
           :height="vizDimensions.height"
           :societies="carriersNew"

@@ -6,12 +6,16 @@
       @click="returnToMatrix()"
     >←&nbsp;Back to Matrix</span>
     <fieldset v-if="!mode.isWalkthrough && selection.explorer.mix.isActive" class="select__society">
-      <label for="society-select">Add a society:</label>
-      <select name="society-select" id="society-select" v-model="selectedSociety" @change="addActiveSociety()">
+      <!--<label for="society-select">Add a society:&nbsp;</label>-->
+      <select name="society-select" class="select" id="society-select" v-model="selectedSociety" @change="addActiveSociety(selectedSociety)">
+        <option value=""
+            hidden
+        >Add a society</option>
         <option
           v-for="society in societies"
           :key="society.code"
-          :value="society.code">
+          :value="society.code"
+          :disabled="selection.explorer.mix.activeSocieties.includes(society.code)">
           {{ society.name }}</option>
       </select>
     </fieldset>
@@ -30,7 +34,7 @@ export default {
   },
   data: function () {
     return {
-      selectedSociety: 'Test'
+      selectedSociety: ''
     }
   },
   computed: {
@@ -40,8 +44,8 @@ export default {
     returnToMatrix: function () {
       this.$router.push({ name: 'explorer', params: { view: 'matrix' } }) 
     },
-    addActiveSociety: function () {
-      return
+    addActiveSociety: function (SSP) {
+      this.$store.commit('setExplorerSociety', SSP)
     }
   },
   watch: {
