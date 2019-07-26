@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Intro from './views/Intro.vue'
+import Walkthrough from './views/Walkthrough.vue'
 
 Vue.use(Router)
 
@@ -9,10 +9,10 @@ export default new Router({
     {
       path: '/',
       redirect: '/walkthrough/0',
-      name: 'intro',
+      name: 'home',
       components: {
         sidebar: null,
-        main: Intro
+        main: Walkthrough
       }
     },
     {

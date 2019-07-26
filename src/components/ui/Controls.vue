@@ -48,9 +48,9 @@
 
 <script>
 import { mapState } from 'vuex'
-import RadioSelect from '@/components/RadioSelect.vue'
-import RangeSlider from '@/components/RangeSlider.vue'
-import DropDown from '@/components/DropDownSelect.vue'
+import RadioSelect from '@/components/ui/RadioSelect.vue'
+import RangeSlider from '@/components/ui/RangeSlider.vue'
+import DropDown from '@/components/ui/DropDownSelect.vue'
 
 export default {
   name: 'controls',

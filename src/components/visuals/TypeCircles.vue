@@ -103,10 +103,10 @@
 <script>
 import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
-import EnergyCircle from '@/components/EnergyCircle.vue'
-import GeneralCircles from '@/components/GeneralCircles.vue'
-import MatrixTooltip from '@/components/MatrixTooltip.vue'
-import InfeasibleIcon from '@/components/InfeasibleIcon.vue'
+import EnergyCircle from '@/components/visuals/EnergyCircle.vue'
+import GeneralCircles from '@/components/visuals/GeneralCircles.vue'
+import MatrixTooltip from '@/components/matrix/MatrixTooltip.vue'
+import InfeasibleIcon from '@/components/visuals/InfeasibleIcon.vue'
 
 export default {
   name: 'TypeCircles',
