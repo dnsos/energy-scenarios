@@ -4,7 +4,7 @@
       <img class="title__logo" src="../../assets/img/senses_logo.svg" />
       <h1 class="title__text">SENSES Toolkit</h1>
     </div>
-    <hgroup>
+    <hgroup class="senses__nav">
       <h6 class="active">Learn</h6>
       <h6>Explore</h6>
       <h6>Share</h6>
@@ -25,6 +25,7 @@ export default {
 <style lang="scss">
 .header__wrapper {
   height: 100%;
+  align-self: center;
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: calc(var(--grid-spacing) / 2) var(--grid-spacing);
@@ -32,6 +33,7 @@ export default {
   background-color: var(--color-primary-neutral);
 
   .title__wrapper {
+    align-self: center;
     .title__logo {
       display: inline-block;
       width: 2rem;
@@ -48,7 +50,8 @@ export default {
     }
   }
 
-  hgroup {
+  .senses__nav {
+    align-self: center;
     text-align: right;
     h6 {
       display: inline;
