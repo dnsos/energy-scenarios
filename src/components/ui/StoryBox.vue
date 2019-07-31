@@ -1,11 +1,13 @@
 <template>
   <section class="story__wrapper">
     <div class="story__content">
+      <tooltip />
       <transition
         v-for="(step, index) in walkthrough.steps"
         :key="index"
         name="slide-fade">
-        <p v-if="mode.isWalkthrough && index === activeStep">{{ walkthrough.steps[index].text }}</p>
+        <!--<p v-if="mode.isWalkthrough && index === activeStep">{{ walkthrough.steps[index].text }}</p>-->
+        <p v-if="mode.isWalkthrough && index === activeStep"><story-content :displayedIndex="index" /></p>
       </transition>
       <transition name="slide-fade">
         <p v-if="!mode.isWalkthrough">The Explorer mode offers the possibility to examine the scenarios according to custom interests. Use the navigation elements and filters and interact with the visualisation to explore the scenarios in detail.</p>
@@ -26,9 +28,15 @@
 
 <script>
 import { mapState } from 'vuex'
+import StoryContent from '@/components/ui/StoryContent.vue'
+import Tooltip from '@/components/ui/Tooltip.vue'
 
 export default {
   name: 'StoryBox',
+  components: {
+    'story-content': StoryContent,
+    'tooltip': Tooltip
+  },
   data: function () {
     return {
       buttonIsHovered: false
