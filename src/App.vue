@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import Header from '@/components/Header.vue'
-import Controls from '@/components/Controls.vue'
+import Header from '@/components/ui/Header.vue'
+import Controls from '@/components/ui/Controls.vue'
 
 export default {
   name: 'app',

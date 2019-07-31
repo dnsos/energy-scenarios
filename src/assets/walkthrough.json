@@ -69,7 +69,7 @@
       "RCPs": ["-26"],
       "carriers": ["Coal", "Gas", "Oil", "Biomass", "Hydro", "Nuclear", "Solar", "Wind"]
     },
-    "text": "Reaching the 2°C target in the “Middle of the Road” future requires a shift in energy sources: the share of fossil sources needs to decrease, while the share of non-fossil sources needs to increase."
+    "text": "Reaching the 2°C target in the 'Middle of the Road' future requires a shift in energy sources: the share of fossil sources needs to decrease, while the share of non-fossil sources needs to increase."
   },
   {
     "code": "mix",
@@ -81,7 +81,7 @@
       "RCPs": ["-26"],
       "carriers": ["Coal", "Gas", "Oil", "Biomass", "Hydro", "Nuclear", "Solar", "Wind"]
     },
-    "text": "Fossil and non-fossil sources each consist of a range of energy carriers. They can be further subdivided and then looked at in detail."
+    "text": "Fossil and non-fossil sources each consist of a range of energy carriers. The sources can be subdivided and then looked at in detail."
   },
   {
     "code": "mix+ssp1",
@@ -110,7 +110,7 @@
   {
     "code": "detail",
     "name": "Carrier Oil",
-    "year": 2100,
+    "year": 2050,
     "scale": 1,
     "variables": {
       "SSPs": ["SSP1", "SSP2"],

@@ -59,7 +59,7 @@
 <script>
 import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
-import TypeCircles from '@/components/TypeCircles.vue'
+import TypeCircles from '@/components/visuals/TypeCircles.vue'
 
 export default {
   name: 'Matrix',

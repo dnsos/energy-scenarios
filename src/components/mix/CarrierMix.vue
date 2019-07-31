@@ -93,13 +93,13 @@
 
 <script>
 import { mapState } from 'vuex'
-import EnergyCircle from '@/components/EnergyCircle.vue'
-import CarriersNames from '@/components/carriermix/CarriersNames.vue'
-import CarrierTooltip from '@/components/CarrierTooltip.vue'
+import EnergyCircle from '@/components/visuals/EnergyCircle.vue'
+import CarriersNames from '@/components/mix/CarriersNames.vue'
+import CarrierTooltip from '@/components/mix/CarrierTooltip.vue'
 import * as d3 from 'd3'
 
 export default {
-  name: 'CarriersCircles',
+  name: 'CarrierMix',
   components: {
     EnergyCircle,
     CarriersNames,

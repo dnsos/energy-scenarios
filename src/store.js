@@ -7,13 +7,13 @@ import total from './assets/data/total.json'
 import biomass from './assets/data/biomass.json'
 import coal from './assets/data/coal.json'
 import gas from './assets/data/gas.json'
-// import geothermal from './assets/data/geothermal.json'
 import hydro from './assets/data/hydro.json'
 import nuclear from './assets/data/nuclear.json'
 import oil from './assets/data/oil.json'
-// import other from './assets/data/other.json'
 import solar from './assets/data/solar.json'
 import wind from './assets/data/wind.json'
+// import geothermal from './assets/data/geothermal.json'
+// import other from './assets/data/other.json'
 
 import walkthrough from './assets/walkthrough.json'
 
@@ -37,9 +37,18 @@ export default new Vuex.Store({
       society: { name: "Middle of the Road", code: "SSP2"},
       target: { name: "Climate Target 2°C", code: "26"},
       year: 2020,
+      tooltip: {
+        isActive: false,
+        content: {
+          text: '',
+          x: 0,
+          y: 0
+        }
+      },
       explorer: {
         matrix: {
-          isActive: true
+          isActive: true,
+          hovering: false
         },
         mix: {
           isActive: false,
@@ -443,6 +452,9 @@ export default new Vuex.Store({
       state.selection.explorer.mix.isActive = false
       state.selection.explorer.matrix.isActive = true
     },
+    toggleMatrixHovering: (state) => {
+      state.selection.explorer.matrix.hovering = !state.selection.explorer.matrix.hovering
+    },
     setExplorerToMix: (state) => {
       state.selection.explorer.matrix.isActive = false
       state.selection.explorer.mix.isActive = true
@@ -459,6 +471,13 @@ export default new Vuex.Store({
     },
     emptySocietiesArray: (state) => {
       state.selection.explorer.mix.activeSocieties.length = 0 // empty array without creating a new array
+    },
+    setTooltip: (state, payload) => {
+      state.selection.tooltip.isActive = true
+      state.selection.tooltip.content = payload
+    },
+    unsetTooltip: (state) => {
+      state.selection.tooltip.isActive = false
     }
   },
   actions: {

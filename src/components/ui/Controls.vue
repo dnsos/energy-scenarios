@@ -48,9 +48,9 @@
 
 <script>
 import { mapState } from 'vuex'
-import RadioSelect from '@/components/RadioSelect.vue'
-import RangeSlider from '@/components/RangeSlider.vue'
-import DropDown from '@/components/DropDownSelect.vue'
+import RadioSelect from '@/components/ui/RadioSelect.vue'
+import RangeSlider from '@/components/ui/RangeSlider.vue'
+import DropDown from '@/components/ui/DropDownSelect.vue'
 
 export default {
   name: 'controls',
@@ -109,6 +109,7 @@ export default {
 
 <style lang="scss">
 .controls__wrapper {
+  height: 100%;
   font-size: var(--font-size-small);
   font-weight: 500;
   background-color: white;
@@ -116,6 +117,7 @@ export default {
 }
 
 .controls__contents--left, .controls__contents--right {
+  align-self: center;
   display: inline-block;
   > *:not(:last-child) {
     margin-right: calc(var(--grid-spacing) / 2);
@@ -135,9 +137,11 @@ export default {
 }
 
 .controls__contents {
+  height: calc(100% - .1rem);
   padding: calc(var(--grid-spacing) / 2) var(--grid-spacing);
   text-align: left;
   .control {
+    align-self: center;
     display: inline-block;
     > * {
       display: inline-block;

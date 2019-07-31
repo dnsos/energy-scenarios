@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import StoryBox from '@/components/StoryBox.vue'
-import ProgressBar from '@/components/ProgressBar.vue'
+import StoryBox from '@/components/ui/StoryBox.vue'
+import ProgressBar from '@/components/visuals/ProgressBar.vue'
 
 export default {
   name: 'sidebar',

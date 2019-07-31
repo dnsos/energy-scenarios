@@ -67,7 +67,7 @@
           :width="vizDimensions.width"
           :height="vizDimensions.height"
         />
-        <CarriersCircles
+        <CarrierMix
           v-if="isExplorer && selection.explorer.mix.isActive || isWalkthroughMode() && atWalkthroughStep([6,7,8,9])"
           :width="vizDimensions.width"
           :height="vizDimensions.height"
@@ -83,14 +83,14 @@
 <script>
 import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
-import Matrix from '@/components/Matrix.vue'
-import CarriersCircles from '@/components/CarriersCircles.vue'
+import Matrix from '@/components/matrix/Matrix.vue'
+import CarrierMix from '@/components/mix/CarrierMix.vue'
 
 export default {
   name: 'Viz',
   components: {
     Matrix,
-    CarriersCircles
+    CarrierMix
   },
   props: [],
   data: function() {
