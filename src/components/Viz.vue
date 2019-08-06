@@ -68,7 +68,9 @@
           :height="vizDimensions.height"
         />
         <CarrierMix
-          v-if="isExplorer && selection.explorer.mix.isActive || isWalkthroughMode() && atWalkthroughStep([6,7,8,9])"
+          v-if="isExplorer && selection.explorer.mix.isActive
+                || isExplorer && selection.explorer.matrix.hovering
+                || isWalkthroughMode() && atWalkthroughStep([6,7,8,9])"
           :width="vizDimensions.width"
           :height="vizDimensions.height"
           :societies="carriersNew"

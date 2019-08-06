@@ -15,7 +15,7 @@
       class="group__fossil" transform="rotate(180)"
     >
       <EnergyCircle
-        class="circle circle__fossil circle--target"
+        class="circle circle__fossil circle__target"
         v-if="isVisible([4,5,6,7,8,9]) && comparisons.fossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.fossil.target"
@@ -23,7 +23,7 @@
       />
       <transition name="fade-slowly">
         <EnergyCircle
-          class="circle circle__fossil circle--baseline"
+          class="circle circle__fossil circle__baseline"
           v-show="isVisible([1,2,3,4,5,6,7,8,9])"
           @update-radius="saveFossilRadius"
           :maxRadius="maxRadius * currentScale"
@@ -32,7 +32,7 @@
         />
       </transition>
       <EnergyCircle
-        class="circle circle__fossil circle--target"
+        class="circle circle__fossil circle__target"
         v-if="isVisible([4,5,6,7,8,9]) && !comparisons.fossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.fossil.target"
@@ -41,7 +41,7 @@
     </g>
     <g class="group__nonfossil">
       <EnergyCircle
-        class="circle circle__nonfossil circle--target"
+        class="circle circle__nonfossil circle__target"
         v-if="isVisible([4,5,6,7,8,9]) && comparisons.nonfossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.nonfossil.target"
@@ -49,7 +49,7 @@
       />
       <transition name="fade-slowly">
         <EnergyCircle
-          class="circle circle__nonfossil circle--baseline"
+          class="circle circle__nonfossil circle__baseline"
           v-show="isVisible([1,2,3,4,5,6,7,8,9])"
           @update-radius="saveNonfossilRadius"
           :maxRadius="maxRadius * currentScale"
@@ -58,7 +58,7 @@
         />
       </transition>
       <EnergyCircle
-        class="circle circle__nonfossil circle--target"
+        class="circle circle__nonfossil circle__target"
         v-if="isVisible([4,5,6,7,8,9]) && !comparisons.nonfossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.nonfossil.target"

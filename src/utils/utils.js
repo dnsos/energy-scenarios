@@ -18,7 +18,7 @@ export function getDiameters() {
 
 export function createPackData (size, carriers) {
 
-  const pack = d3.pack().size([size, size]).padding(3)
+  const pack = d3.pack().size([size, size]).padding(2)
 
   const root = d3.hierarchy(carriers).sum(d => {
     return d.value

@@ -1,5 +1,10 @@
 <template>
-  <circle :class="carrierType" :cx="tweenedRadius" cy="0" :r="tweenedRadius" />
+  <circle
+    :class="carrierType"
+    :cx="[ !packingMode ? tweenedRadius : packingValues.x ]"
+    :cy="[ !packingMode ? 0 : packingValues.y ]"
+    :r="[ !packingMode ? tweenedRadius : packingValues.r ]"
+  />
 </template>
 
 <script>
@@ -24,6 +29,22 @@ export default {
     maxValue: {
       type: Number,
       required: true
+    },
+    packingMode: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    packingValues: {
+      type: Object,
+      required: false,
+      default: () => {
+        return {
+          x: 80,
+          y: 0,
+          r: 35
+        }
+      }
     }
   },
   data: function() {
@@ -83,12 +104,12 @@ circle {
   fill-opacity: 1;
 }
 
-.circle--baseline {
+.circle__baseline {
   stroke: var(--color-violet);
   fill: var(--color-violet-light);
 }
 
-.circle--target {
+.circle__target {
   stroke: var(--color-yellow);
   fill: var(--color-yellow-light);
 }
