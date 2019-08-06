@@ -20,17 +20,4 @@ let carriers = [
   { ...solar }
 ]
 
-/*
-// loop through all carriers and change the values arrays from string values to numbers
-carriers.forEach(carrier => {
-  carrier.data.forEach(scenario => {
-    if (scenario.values !== null) { // some scenarios in other.json have values of null
-      scenario.values = Array.from(scenario.values, value => {
-        return Number(value)
-      })
-    }
-  })
-})
-*/
-
 export default carriers
