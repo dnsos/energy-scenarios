@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import * as d3 from "d3" // TODO: create d3 functionalities asset
+import { scaleLinear } from 'd3'
 
 export default {
   name: 'EnergyCircle',
@@ -56,8 +56,8 @@ export default {
     radius: function () {
       const maxArea = Math.pow(this.maxRadius, 2) * Math.PI // calculates the maximum available area based on maxRadius
       
-      const scale = d3 // creates a scale for mapping a value on range between zero and the maximum area
-        .scaleLinear()
+      // creates a scale for mapping a value on range between zero and the maximum area
+      const scale = scaleLinear()
         .range([0, maxArea])
         .domain([0, this.maxValue])
 

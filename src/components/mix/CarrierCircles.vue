@@ -1,9 +1,9 @@
 <template>
-  <g v-if="activeSSPs.includes(society.code)" class="carrier-circles">
+  <g v-if="activeSSPs.includes(society.code)" class="carrier-wrappers">
     <g
       v-for="(carrier, index) in society.carriers"
       :key="carrier.name"
-      class="carrier-circle"
+      class="carrier-wrapper"
       :transform="'translate(' + xTransform(index) + ',' + yTransform() + ')'"
       @mouseenter="setHovered(carrier.name)"
       @mouseleave="setUnhovered()"
@@ -20,20 +20,20 @@
             :maxRadius="maxRadius * currentScale"
             :value="carrier[currentTargetCode].values[rangeValue]"
             :maxValue="maxValue"
-            :carrierType="[ isFossil(carrier.name) ? 'type__f' : 'type__nf' ]"
+            :carrierType="isFossil(carrier.name) ? 'type__f' : 'type__nf'"
             :packingMode="isWalkthroughMode() && atWalkthroughStep([6])"
             :packingValues="getPackData(carrier.name, 'target')"
-            :transform="getRotation(carrier.name)"
+            :transform="getRotation(carrier.name) + getYTranslate(carrier.name, 'target')"
           />
           <EnergyCircle
             class="circle__baseline"
             :maxRadius="maxRadius * currentScale"
             :value="carrier.baseline.values[rangeValue]"
             :maxValue="maxValue"
-            :carrierType="[ isFossil(carrier.name) ? 'type__f' : 'type__nf' ]"
+            :carrierType="isFossil(carrier.name) ? 'type__f' : 'type__nf'"
             :packingMode="isWalkthroughMode() && atWalkthroughStep([6])"
             :packingValues="getPackData(carrier.name, 'baseline')"
-            :transform="getRotation(carrier.name)"
+            :transform="getRotation(carrier.name) + getYTranslate(carrier.name, 'baseline')"
           />
           <EnergyCircle
             class="circle__target"
@@ -42,10 +42,10 @@
             :maxRadius="maxRadius * currentScale"
             :value="carrier[currentTargetCode].values[rangeValue]"
             :maxValue="maxValue"
-            :carrierType="[ isFossil(carrier.name) ? 'type__f' : 'type__nf' ]"
+            :carrierType="isFossil(carrier.name) ? 'type__f' : 'type__nf'"
             :packingMode="isWalkthroughMode() && atWalkthroughStep([6])"
             :packingValues="getPackData(carrier.name, 'target')"
-            :transform="getRotation(carrier.name)"
+            :transform="getRotation(carrier.name) + getYTranslate(carrier.name, 'target')"
           />
           <transition name="fade">
             <CarrierTooltip
@@ -123,79 +123,84 @@ export default {
     },
     packData: function () {
 
-      const diameters = getDiameters()
+      if (this.isWalkthroughMode() && this.atWalkthroughStep([6])) {
 
-      const fossil = this.society.carriers.filter(carrier => {
-        return this.isFossil(carrier.name)
-      })
+        const diameters = getDiameters()
 
-      const nonfossil = this.society.carriers.filter(carrier => {
-        return !this.isFossil(carrier.name)
-      })
-
-      const fossilBaseline = {
-        name: 'fossilBaseline',
-        children: fossil.map(carrier => {
-          return {
-            name: carrier.name,
-            value: carrier.baseline.values[this.rangeValue]
-          }
+        const fossil = this.society.carriers.filter(carrier => {
+          return this.isFossil(carrier.name)
         })
-      }
 
-      const fossilTarget = {
-        name: 'fossilTarget',
-        children: fossil.map(carrier => {
-          return {
-            name: carrier.name,
-            value: carrier[this.currentTargetCode].values[this.rangeValue]
-          }
+        const nonfossil = this.society.carriers.filter(carrier => {
+          return !this.isFossil(carrier.name)
         })
-      }
 
-      const nonfossilBaseline = {
-        name: 'nonfossilBaseline',
-        children: nonfossil.map(carrier => {
-          return {
-            name: carrier.name,
-            value: carrier.baseline.values[this.rangeValue]
-          }
-        }) 
-      }
-
-      const nonfossilTarget = {
-        name: 'nonfossilTarget',
-        children: nonfossil.map(carrier => {
-          return {
-            name: carrier.name,
-            value: carrier[this.currentTargetCode].values[this.rangeValue]
-          }
-        })
-      }
-
-      const packData = {
-        fossil: {
-          baseline: createPackData(diameters.fossil.baseline, fossilBaseline),
-          target: createPackData(diameters.fossil.target, fossilTarget)
-        },
-        nonfossil: {
-          baseline: createPackData(diameters.nonfossil.baseline, nonfossilBaseline),
-          target: createPackData(diameters.nonfossil.target, nonfossilTarget)
+        const fossilBaseline = {
+          name: 'fossilBaseline',
+          children: fossil.map(carrier => {
+            return {
+              name: carrier.name,
+              value: carrier.baseline.values[this.rangeValue]
+            }
+          })
         }
+
+        const fossilTarget = {
+          name: 'fossilTarget',
+          children: fossil.map(carrier => {
+            return {
+              name: carrier.name,
+              value: carrier[this.currentTargetCode].values[this.rangeValue]
+            }
+          })
+        }
+
+        const nonfossilBaseline = {
+          name: 'nonfossilBaseline',
+          children: nonfossil.map(carrier => {
+            return {
+              name: carrier.name,
+              value: carrier.baseline.values[this.rangeValue]
+            }
+          }) 
+        }
+
+        const nonfossilTarget = {
+          name: 'nonfossilTarget',
+          children: nonfossil.map(carrier => {
+            return {
+              name: carrier.name,
+              value: carrier[this.currentTargetCode].values[this.rangeValue]
+            }
+          })
+        }
+
+        const packData = {
+          fossil: {
+            baseline: createPackData(diameters.fossil.baseline, fossilBaseline),
+            target: createPackData(diameters.fossil.target, fossilTarget)
+          },
+          nonfossil: {
+            baseline: createPackData(diameters.nonfossil.baseline, nonfossilBaseline),
+            target: createPackData(diameters.nonfossil.target, nonfossilTarget)
+          }
+        }
+        return packData
       }
-      return packData
     }
   },
   methods: {
     getPackData: function (carrier, scenario) {
-      if (this.isFossil(carrier)) {
-        return scenario === 'baseline'
-          ? this.packData.fossil.baseline.children.find(node => node.data.name === carrier)
-          : this.packData.fossil.target.children.find(node => node.data.name === carrier)
-      } else {
-        return scenario === 'target'
-          ? this.packData.nonfossil.target.children.find(node => node.data.name === carrier)
-          : this.packData.nonfossil.baseline.children.find(node => node.data.name === carrier)
+      if (this.isWalkthroughMode() && this.atWalkthroughStep([6])) {
+        if (this.isFossil(carrier)) {
+          return scenario === 'baseline'
+            ? this.packData.fossil.baseline.children.find(node => node.data.name === carrier) 
+            : this.packData.fossil.target.children.find(node => node.data.name === carrier)
+        } else {
+          return scenario === 'target'
+            ? this.packData.nonfossil.target.children.find(node => node.data.name === carrier)
+            : this.packData.nonfossil.baseline.children.find(node => node.data.name === carrier)
+        }
       }
     },
     getRotation: function (carrier) {
@@ -208,6 +213,25 @@ export default {
         }
       } else {
         return 'rotate(-90)'
+      }
+    },
+    getYTranslate: function (carrier, scenario) {
+      if (this.isWalkthroughMode() && this.atWalkthroughStep([6])) {
+        if (this.isFossil(carrier)) {
+          if (scenario === 'baseline') {
+            return 'translate(0,-' + getDiameters().fossil.baseline / 2 + ')'
+          } else {
+            return 'translate(0,-' + getDiameters().fossil.target / 2 + ')'
+          }
+        } else {
+          if (scenario === 'baseline') {
+            return 'translate(0,-' + getDiameters().nonfossil.baseline / 2 + ')'
+          } else {
+            return 'translate(0,-' + getDiameters().nonfossil.target / 2 + ')'
+          }
+        }
+      } else {
+        return 'translate(0,0)'
       }
     },
     isFossil: function (carrier) {
@@ -265,9 +289,7 @@ export default {
       this.activeCarriers = ["Coal", "Gas", "Oil", "Biomass", "Hydro", "Nuclear", "Solar", "Wind"]
     }
   },
-  mounted: function () {
-    console.log(this.getPackData('Coal', 'baseline'))
-  }
+  mounted: function () {}
 }
 </script>
 
@@ -277,7 +299,7 @@ text {
     font-weight: 500;
     text-anchor: middle;
   }
-.carrier-circle {
+.carrier-wrapper {
   transform: rotate(90);
 }
 .carrier--selectable:hover {
