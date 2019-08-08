@@ -1,7 +1,7 @@
 <template>
   <g
-    @mouseenter="toggleHovered()"
-    @mouseleave="toggleHovered()"
+    @mouseenter="toggleHovered(sspData.society.code)"
+    @mouseleave="toggleHovered(sspData.society.code)"
     @click="selectSSP(sspData)"
     class="matrix__group"
     :class="{ 'group--active': isHovered, 'group--selectable': isExplorer }"
@@ -196,8 +196,14 @@ export default {
     }
   },
   methods: {
-    toggleHovered: function () {
+    toggleHovered: function (SSP) {
       if (!this.mode.isWalkthrough) {
+        if (!this.isHovered) {
+          this.$store.commit('setExplorerSociety', SSP)
+        } else {
+          this.$store.commit('removeExplorerSociety', SSP)
+        }
+        this.$store.commit('toggleMatrixHovering')
         this.isHovered = !this.isHovered
       }
     },

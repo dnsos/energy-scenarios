@@ -1,69 +1,50 @@
 <template>
-  <g v-if="activeSSPs.includes(society.code)" class="carrier-wrappers">
-    <g
-      v-for="(carrier, index) in society.carriers"
-      :key="carrier.name"
-      class="carrier-wrapper"
-      :transform="'translate(' + 0 + ',' + yTransform() + ')'"
-      @mouseenter="setHovered(carrier.name)"
-      @mouseleave="setUnhovered()"
-    >
-      <!--<transition name="fade">
-        <g
-          v-if="activeCarriers.includes(carrier.name)"
-          :class="{'carrier--selectable': isExplorer}"
-        >
-          <EnergyCircle
-            class="circle__target"
-            :class="{ 'circle__target--active' : carrier[currentTargetCode].values[rangeValue] > carrier.baseline.values[rangeValue] }"
-            v-show="carrier[currentTargetCode].values[rangeValue] > carrier.baseline.values[rangeValue]"
-            :maxRadius="maxRadius * currentScale"
-            :value="carrier[currentTargetCode].values[rangeValue]"
-            :maxValue="maxValue"
-            :carrierType="isFossil(carrier.name) ? 'type__f' : 'type__nf'"
-            :packingMode="isWalkthroughMode() && atWalkthroughStep([6])"
-            :packingValues="getPackData(carrier.name, 'target')"
-            :transform="getRotation(carrier.name) + getYTranslate(carrier.name, 'target')"
-          />
-          <EnergyCircle
-            class="circle__baseline"
-            :maxRadius="maxRadius * currentScale"
-            :value="carrier.baseline.values[rangeValue]"
-            :maxValue="maxValue"
-            :carrierType="isFossil(carrier.name) ? 'type__f' : 'type__nf'"
-            :packingMode="isWalkthroughMode() && atWalkthroughStep([6])"
-            :packingValues="getPackData(carrier.name, 'baseline')"
-            :transform="getRotation(carrier.name) + getYTranslate(carrier.name, 'baseline')"
-          />
-          <EnergyCircle
-            class="circle__target"
-            :class="{ 'circle__target--active' : carrier[currentTargetCode].values[rangeValue] < carrier.baseline.values[rangeValue] }"
-            v-show="carrier[currentTargetCode].values[rangeValue] < carrier.baseline.values[rangeValue]"
-            :maxRadius="maxRadius * currentScale"
-            :value="carrier[currentTargetCode].values[rangeValue]"
-            :maxValue="maxValue"
-            :carrierType="isFossil(carrier.name) ? 'type__f' : 'type__nf'"
-            :packingMode="isWalkthroughMode() && atWalkthroughStep([6])"
-            :packingValues="getPackData(carrier.name, 'target')"
-            :transform="getRotation(carrier.name) + getYTranslate(carrier.name, 'target')"
-          />
-          <transition name="fade">
-            <CarrierTooltip
-              v-if="hoveredCarrier === carrier.name"
-              :baselineValue="carrier.baseline.values[rangeValue]"
-              :targetValue="carrier[currentTargetCode].values[rangeValue]"
-            />
-          </transition>
-        </g>
-      </transition>-->
-      <Carrier
-        :maxWidth="maxWidth"
-        :carrier="carrier"
-        :society="society"
-        :xPosition="xTransform(index)"
-        :hoveredCarrier="hoveredCarrier"
+  <g
+    v-if="activeCarriers.includes(carrier.name)"
+    :class="{'carrier--selectable': isExplorer}"
+    :transform="'translate(' + tweenedXPosition + ',0)'"
+  >
+    <EnergyCircle
+      class="circle__target"
+      :class="{ 'circle__target--active' : carrier[currentTargetCode].values[rangeValue] > carrier.baseline.values[rangeValue] }"
+      v-show="carrier[currentTargetCode].values[rangeValue] > carrier.baseline.values[rangeValue]"
+      :maxRadius="maxRadius * currentScale"
+      :value="carrier[currentTargetCode].values[rangeValue]"
+      :maxValue="maxValue"
+      :carrierType="isFossil(carrier.name) ? 'type__f' : 'type__nf'"
+      :packingMode="isWalkthroughMode() && atWalkthroughStep([6])"
+      :packingValues="getPackData(carrier.name, 'target')"
+      :transform="getRotation(carrier.name) + getYTranslate(carrier.name, 'target')"
+    />
+    <EnergyCircle
+      class="circle__baseline"
+      :maxRadius="maxRadius * currentScale"
+      :value="carrier.baseline.values[rangeValue]"
+      :maxValue="maxValue"
+      :carrierType="isFossil(carrier.name) ? 'type__f' : 'type__nf'"
+      :packingMode="isWalkthroughMode() && atWalkthroughStep([6])"
+      :packingValues="getPackData(carrier.name, 'baseline')"
+      :transform="getRotation(carrier.name) + getYTranslate(carrier.name, 'baseline')"
+    />
+    <EnergyCircle
+      class="circle__target"
+      :class="{ 'circle__target--active' : carrier[currentTargetCode].values[rangeValue] < carrier.baseline.values[rangeValue] }"
+      v-show="carrier[currentTargetCode].values[rangeValue] < carrier.baseline.values[rangeValue]"
+      :maxRadius="maxRadius * currentScale"
+      :value="carrier[currentTargetCode].values[rangeValue]"
+      :maxValue="maxValue"
+      :carrierType="isFossil(carrier.name) ? 'type__f' : 'type__nf'"
+      :packingMode="isWalkthroughMode() && atWalkthroughStep([6])"
+      :packingValues="getPackData(carrier.name, 'target')"
+      :transform="getRotation(carrier.name) + getYTranslate(carrier.name, 'target')"
+    />
+    <transition name="fade">
+      <CarrierTooltip
+        v-if="hoveredCarrier === carrier.name"
+        :baselineValue="carrier.baseline.values[rangeValue]"
+        :targetValue="carrier[currentTargetCode].values[rangeValue]"
       />
-    </g>
+    </transition>
   </g>
 </template>
 
@@ -73,32 +54,39 @@ import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
 import EnergyCircle from '@/components/visuals/EnergyCircle.vue'
 import CarrierTooltip from '@/components/mix/CarrierTooltip.vue'
-import Carrier from '@/components/mix/Carrier.vue'
 
 export default {
-  name: 'CarrierCircles',
+  name: 'Carrier',
   components: {
     EnergyCircle,
-    CarrierTooltip,
-    Carrier
+    CarrierTooltip
   },
   props: {
     maxWidth: {
       type: Number,
       required: true
     },
+    carrier: {
+      type: Object,
+      required: true
+    },
     society: {
       type: Object,
       required: true
     },
-    activeSSPs: {
-      type: Array,
+    xPosition: {
+      type: Number,
       required: true
+    },
+    hoveredCarrier: {
+      type: String,
+      required: false,
+      default: null
     }
   },
   data: function() {
     return {
-      hoveredCarrier: null,
+      tweenedXPosition: 0,
       activeCarriers: []
     }
   },
@@ -251,35 +239,22 @@ export default {
         return false
       }
     },
-    xTransform: function (index) {
-      if (this.isExplorer && this.selection.explorer.matrix.hovering || this.mode.isWalkthrough && this.atWalkthroughStep([6])) {
-        const xPositionMatrix = document.getElementById('matrix__group-' + this.society.code.toLowerCase())
-          .getAttribute('transform')
-          .replace('translate(', '')
-          .replace(/\,(.*?)\)/, '')
-        return +xPositionMatrix
-      } else {
-        return (this.maxWidth * index) + this.maxRadius
+    tween: function (startValue, endValue, tweeningDuration) {
+      const vm = this
+      function animate () {
+        if (TWEEN.update()) {
+          requestAnimationFrame(animate)
+        }
       }
-    },
-    yTransform: function () {
-      if (this.isExplorer && this.selection.explorer.matrix.hovering || this.mode.isWalkthrough && this.atWalkthroughStep([6])) {
-        const yPositionMatrix = document.getElementById('matrix__group-' + this.society.code.toLowerCase())
-          .getAttribute('transform')
-          .replace(/t(.*?)\,/, '')
-          .replace(')', '')
-        return +yPositionMatrix
-      } else {
-        return 0
-      }
-    },
-    setHovered: function (carrier) {
-      this.$store.commit('toggleMatrixHovering')
-      this.hoveredCarrier = carrier
-    },
-    setUnhovered: function () {
-      this.$store.commit('toggleMatrixHovering')
-      this.hoveredCarrier = null
+
+      new TWEEN.Tween({ tweeningValue: startValue })
+        .to({ tweeningValue: endValue }, tweeningDuration)
+        .onUpdate(function () {
+          vm.tweenedXPosition = this.tweeningValue
+        })
+        .start()
+      
+      animate()
     }
   },
   watch: {
@@ -287,6 +262,9 @@ export default {
       if (this.mode.isWalkthrough) {
         this.activeCarriers = [...this.steps[this.activeStep].variables.carriers]
       }
+    },
+    xPosition: function (newPos, oldPos) {
+      this.tween(oldPos, newPos, 800)
     }
   },
   created: function () {
@@ -298,20 +276,11 @@ export default {
       this.activeCarriers = ["Coal", "Gas", "Oil", "Biomass", "Hydro", "Nuclear", "Solar", "Wind"]
     }
   },
-  mounted: function () {}
+  mounted: function () {
+    this.tweenedXPosition = this.xPosition
+  }
 }
 </script>
 
 <style scoped lang="scss">
-text {
-    font-size: calc(var(--font-size) - 4px);
-    font-weight: 500;
-    text-anchor: middle;
-  }
-.carrier-wrapper {
-  transform: rotate(90);
-}
-.carrier--selectable:hover {
-  cursor: pointer;
-}
 </style>
