@@ -38,6 +38,7 @@ export default {
       this.$store.dispatch('changeMode', 'walkthrough')
       // specify start year for beginning of walkthrough
       this.$store.dispatch('changeYear', 2020)
+      this.$store.dispatch('changeRegion', 'World')
     }
   }
 }
