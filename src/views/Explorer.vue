@@ -34,7 +34,8 @@ export default {
   },
   data: function () {
     return {
-      selectedSociety: ''
+      selectedSociety: '',
+      accessView: null
     }
   },
   computed: {
@@ -54,15 +55,23 @@ export default {
       if (to.params.view === 'matrix') {
         this.$store.commit('setExplorerToMatrix')
         this.$store.commit('emptySocietiesArray')
-      } else {
-        console.log('to:', to)
+      } else if (to.params.view === 'mix') {
         this.$store.commit('setExplorerToMix')
+      } else {
+        return
       }
     }
   },
+  created: function () {
+    this.accessView = this.$route.params.view
+  },
   mounted: function () {
+    if (this.accessView === 'matrix') {
+      this.$store.commit('setExplorerToMatrix')
+    } else {
+      this.$store.commit('setExplorerToMix')
+    }
     this.$store.dispatch('changeMode')
-    this.$store.commit('setExplorerToMatrix')
     this.$store.commit('emptySocietiesArray')
     this.$store.commit('setStep', 0)
     this.$store.dispatch('changeYear', 2050)
