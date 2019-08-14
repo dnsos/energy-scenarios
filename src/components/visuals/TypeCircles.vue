@@ -1,10 +1,11 @@
 <template>
   <g
-    @mouseenter="toggleHovered()"
-    @mouseleave="toggleHovered()"
+    @mouseenter="toggleHovered(sspData.society.code)"
+    @mouseleave="toggleHovered(sspData.society.code)"
     @click="selectSSP(sspData)"
     class="matrix__group"
     :class="{ 'group--active': isHovered, 'group--selectable': isExplorer }"
+    :transform="'translate(' + coordinates.x + ',' + coordinates.y + ')'"
   >
     <GeneralCircles
       :radiusTotal="totalRadius"
@@ -15,7 +16,7 @@
       class="group__fossil" transform="rotate(180)"
     >
       <EnergyCircle
-        class="circle circle__fossil circle--target"
+        class="circle circle__fossil circle__target"
         v-if="isVisible([4,5,6,7,8,9]) && comparisons.fossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.fossil.target"
@@ -23,7 +24,7 @@
       />
       <transition name="fade-slowly">
         <EnergyCircle
-          class="circle circle__fossil circle--baseline"
+          class="circle circle__fossil circle__baseline"
           v-show="isVisible([1,2,3,4,5,6,7,8,9])"
           @update-radius="saveFossilRadius"
           :maxRadius="maxRadius * currentScale"
@@ -32,7 +33,7 @@
         />
       </transition>
       <EnergyCircle
-        class="circle circle__fossil circle--target"
+        class="circle circle__fossil circle__target"
         v-if="isVisible([4,5,6,7,8,9]) && !comparisons.fossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.fossil.target"
@@ -41,7 +42,7 @@
     </g>
     <g class="group__nonfossil">
       <EnergyCircle
-        class="circle circle__nonfossil circle--target"
+        class="circle circle__nonfossil circle__target"
         v-if="isVisible([4,5,6,7,8,9]) && comparisons.nonfossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.nonfossil.target"
@@ -49,7 +50,7 @@
       />
       <transition name="fade-slowly">
         <EnergyCircle
-          class="circle circle__nonfossil circle--baseline"
+          class="circle circle__nonfossil circle__baseline"
           v-show="isVisible([1,2,3,4,5,6,7,8,9])"
           @update-radius="saveNonfossilRadius"
           :maxRadius="maxRadius * currentScale"
@@ -58,7 +59,7 @@
         />
       </transition>
       <EnergyCircle
-        class="circle circle__nonfossil circle--target"
+        class="circle circle__nonfossil circle__target"
         v-if="isVisible([4,5,6,7,8,9]) && !comparisons.nonfossil.targetIsHigher"
         :maxRadius="maxRadius"
         :value="values.nonfossil.target"
@@ -136,6 +137,10 @@ export default {
     maxValue: {
       type: Number,
       required: true
+    },
+    coordinates: {
+      type: Object,
+      required: true
     }
   },
   data: function() {
@@ -195,9 +200,29 @@ export default {
       return this.radii.fossil + this.radii.nonfossil
     }
   },
+  watch: {
+    currentStep: function (newStep, previousStep) {
+      if (newStep === 5) {
+        const matrixGroup = {
+          ssp: this.society.code.toLowerCase(),
+          coordinates: {
+            x: this.coordinates.x,
+            y: this.coordinates.y
+          }
+        }
+        this.$store.commit('saveMatrixCoordinates', matrixGroup)
+      }
+    }
+  },
   methods: {
-    toggleHovered: function () {
+    toggleHovered: function (SSP) {
       if (!this.mode.isWalkthrough) {
+        if (!this.isHovered) {
+          this.$store.commit('setExplorerSociety', SSP)
+        } else {
+          this.$store.commit('removeExplorerSociety', SSP)
+        }
+        this.$store.commit('toggleMatrixHovering')
         this.isHovered = !this.isHovered
       }
     },
@@ -211,7 +236,6 @@ export default {
       // change SSP only in Explorer mode
       if (!this.mode.isWalkthrough) {
         this.$router.push({ name: 'explorer', params: { view: 'mix' } }) 
-        this.$store.commit('setExplorerToMix')
         this.$store.commit('setExplorerSociety', SSP.society.code)
       } else {
         // do nothing if Walkthrough mode is active

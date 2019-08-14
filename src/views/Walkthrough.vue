@@ -28,7 +28,13 @@ export default {
       // if route changes from Browser utilities, update step
       // do not update if activeStep has already been updated in StoryBox.vue
       if (Number(to.params.step) != this.activeStep) {
-        this.$store.commit('setStep', Number(to.params.step))
+        if (Number(to.params.step) === 6 && Number(from.params.step != 7)) {
+          // redirect to step 5 if 6 is targeted: otherwise data for circle packing won't be available
+          this.$store.commit('setStep', Number(to.params.step) - 1)
+        } else {
+          // set step from Browser utilities
+          this.$store.commit('setStep', Number(to.params.step))
+        }
       }
     }
   },
@@ -38,6 +44,7 @@ export default {
       this.$store.dispatch('changeMode', 'walkthrough')
       // specify start year for beginning of walkthrough
       this.$store.dispatch('changeYear', 2020)
+      this.$store.dispatch('changeRegion', 'World')
     }
   }
 }

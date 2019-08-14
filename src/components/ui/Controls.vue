@@ -32,6 +32,7 @@
           <output v-else><span>Year</span>&nbsp;{{ selection.year }}</output>
         </div>
         <DropDown
+          v-if="isVisible([])"
           id="regions"
           class="control"
           :options="regions"
@@ -40,6 +41,9 @@
           :defaultSelection="selectedRegion.code"
           @select="selectedRegion = $event"
         />
+        <div v-else class="control">
+          <span>{{ selection.region.name }}</span>
+        </div>
       </div>
     </div>
     <div class="controls__border"></div>

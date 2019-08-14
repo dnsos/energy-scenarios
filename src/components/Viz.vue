@@ -67,7 +67,7 @@
           :width="vizDimensions.width"
           :height="vizDimensions.height"
         />
-        <CarrierMix
+        <SocietiesWrapper
           v-if="isExplorer && selection.explorer.mix.isActive || isWalkthroughMode() && atWalkthroughStep([6,7,8,9])"
           :width="vizDimensions.width"
           :height="vizDimensions.height"
@@ -84,13 +84,13 @@
 import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
 import Matrix from '@/components/matrix/Matrix.vue'
-import CarrierMix from '@/components/mix/CarrierMix.vue'
+import SocietiesWrapper from '@/components/mix/SocietiesWrapper.vue'
 
 export default {
   name: 'Viz',
   components: {
     Matrix,
-    CarrierMix
+    SocietiesWrapper
   },
   props: [],
   data: function() {
