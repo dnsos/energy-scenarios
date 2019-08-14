@@ -10,7 +10,7 @@
         :society="matrixData[4].society"
         :sspData="matrixData[4]"
         :maxValue="matrixMaxValue"
-        :transform="'translate(' + translateValues(1,1) + ')'"
+        :coordinates="translateValues(1,1)"
       />
       <TypeCircles
         v-if="isExplorer || isWalkthroughMode() && atWalkthroughStep([3,4,5,6,7,8,9])"
@@ -21,7 +21,7 @@
         :society="matrixData[0].society"
         :sspData="matrixData[0]"
         :maxValue="matrixMaxValue"
-        :transform="'translate(' + translateValues(1,5) + ')'"
+        :coordinates="translateValues(1,5)"
       />
       <TypeCircles
         v-if="isExplorer || isWalkthroughMode() && atWalkthroughStep([3,4,5,6,7,8,9])"
@@ -32,7 +32,7 @@
         :society="matrixData[2].society"
         :sspData="matrixData[2]"
         :maxValue="matrixMaxValue"
-        :transform="'translate(' + translateValues(5,1) + ')'"
+        :coordinates="translateValues(5,1)"
       />
       <TypeCircles
         v-if="isExplorer || isWalkthroughMode() && atWalkthroughStep([3,4,5,6,7,8,9])"
@@ -43,7 +43,7 @@
         :society="matrixData[3].society"
         :sspData="matrixData[3]"
         :maxValue="matrixMaxValue"
-        :transform="'translate(' + translateValues(5,5) + ')'"
+        :coordinates="translateValues(5,5)"
       />
       <TypeCircles
         v-if="isExplorer || isWalkthroughMode() && atWalkthroughStep([0,1,2,3,4,5,6])"
@@ -54,7 +54,7 @@
         :society="matrixData[1].society"
         :sspData="matrixData[1]"
         :maxValue="matrixMaxValue"
-        :transform="'translate(' + translateValues(3,3) + ')'"
+        :coordinates="translateValues(3,3)"
       />
     </g>
   </g>
@@ -96,11 +96,13 @@ export default {
     translateValues: function (columnIndex, rowIndex) {
       const x = (this.group.width / 2) * columnIndex
       const y = (this.group.height / 2) * rowIndex
-      return x + ',' + y
+      return {
+        x: x,
+        y: y
+      }
     }
   },
-  mounted: function () {
-  }
+  mounted: function () { }
 }
 </script>
 

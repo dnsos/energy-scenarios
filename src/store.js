@@ -32,6 +32,13 @@ export default new Vuex.Store({
     mode: {
       isWalkthrough: true
     },
+    matrixCoordinates: {
+      ssp1: { x: null, y: null },
+      ssp2: { x: null, y: null },
+      ssp3: { x: null, y: null },
+      ssp4: { x: null, y: null },
+      ssp5: { x: null, y: null }
+    },
     selection: {
       region: { name: "World", code: "World"},
       society: { name: "Middle of the Road", code: "SSP2"},
@@ -47,7 +54,7 @@ export default new Vuex.Store({
       },
       explorer: {
         matrix: {
-          isActive: true,
+          isActive: null,
           hovering: false
         },
         mix: {
@@ -478,6 +485,9 @@ export default new Vuex.Store({
     },
     unsetTooltip: (state) => {
       state.selection.tooltip.isActive = false
+    },
+    saveMatrixCoordinates: (state, payload) => {
+      state.matrixCoordinates[payload.ssp] = payload.coordinates
     }
   },
   actions: {

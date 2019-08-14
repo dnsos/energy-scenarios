@@ -6,7 +6,7 @@
         class="society__group"
         :transform="'translate(0,' +  yTransform(society.code) + ')'"
       >
-        <CarrierCircles
+        <SocietyGroup
           :maxWidth="carrierMaxWidth"
           :society="society"
           :activeSSPs="activeSSPs"
@@ -37,7 +37,7 @@
       </g>
     </g>
     <CarriersNames
-      v-if="isExplorer || isWalkthroughMode() && atWalkthroughStep([7,8,9])"
+      v-if="isExplorer && selection.explorer.mix.isActive || isWalkthroughMode() && atWalkthroughStep([7,8,9])"
       :width="width"
       :height="height"
       :societies="societies"
@@ -49,14 +49,14 @@
 
 <script>
 import { mapState } from 'vuex'
-import CarrierCircles from '@/components/mix/CarrierCircles.vue'
+import SocietyGroup from '@/components/mix/SocietyGroup.vue'
 import CarriersNames from '@/components/mix/CarriersNames.vue'
 import * as d3 from 'd3'
 
 export default {
-  name: 'CarrierMix',
+  name: 'SocietiesWrapper',
   components: {
-    CarrierCircles,
+    SocietyGroup,
     CarriersNames
   },
   props: ['width', 'height', 'societies', 'maxValue', 'rangeValue'],

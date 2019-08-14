@@ -5,6 +5,7 @@
     @click="selectSSP(sspData)"
     class="matrix__group"
     :class="{ 'group--active': isHovered, 'group--selectable': isExplorer }"
+    :transform="'translate(' + coordinates.x + ',' + coordinates.y + ')'"
   >
     <GeneralCircles
       :radiusTotal="totalRadius"
@@ -136,6 +137,10 @@ export default {
     maxValue: {
       type: Number,
       required: true
+    },
+    coordinates: {
+      type: Object,
+      required: true
     }
   },
   data: function() {
@@ -193,6 +198,20 @@ export default {
     },
     totalRadius: function () {
       return this.radii.fossil + this.radii.nonfossil
+    }
+  },
+  watch: {
+    currentStep: function (newStep, previousStep) {
+      if (newStep === 5) {
+        const matrixGroup = {
+          ssp: this.society.code.toLowerCase(),
+          coordinates: {
+            x: this.coordinates.x,
+            y: this.coordinates.y
+          }
+        }
+        this.$store.commit('saveMatrixCoordinates', matrixGroup)
+      }
     }
   },
   methods: {
