@@ -1,13 +1,15 @@
 <template>
   <section class="story__wrapper">
     <div class="story__content">
-      <tooltip />
+      <story-tooltip />
       <transition
         v-for="(step, index) in walkthrough.steps"
         :key="index"
-        name="slide-fade">
-        <!--<p v-if="mode.isWalkthrough && index === activeStep">{{ walkthrough.steps[index].text }}</p>-->
-        <p v-if="mode.isWalkthrough && index === activeStep"><story-content :displayedIndex="index" /></p>
+        name="slide-fade"
+      >
+        <p v-if="mode.isWalkthrough && index === activeStep">
+          <story-content :displayedIndex="index" />
+        </p>
       </transition>
       <transition name="slide-fade">
         <p v-if="!mode.isWalkthrough">The Explorer mode offers the possibility to examine the scenarios according to custom interests. Use the navigation elements and filters and interact with the visualisation to explore the scenarios in detail.</p>
@@ -21,7 +23,21 @@
         @click="activeStep = activeStep + 1"
         @mouseenter="toggleButtonHover()"
         @mouseleave="toggleButtonHover()"
-      ><span class="arrow--next">→   </span><span>{{ walkthrough.steps[activeStep + 1].name }}</span></button>
+      >
+        <span class="arrow--next">→  </span>
+        <span>{{ walkthrough.steps[activeStep + 1].name }}</span>
+      </button>
+      <button
+        v-else-if="mode.isWalkthrough"
+        class="button__primary"
+        :class="{ 'button--active': buttonIsHovered}"
+        @click="enterExplorerMode()"
+        @mouseenter="toggleButtonHover()"
+        @mouseleave="toggleButtonHover()"
+      >
+        <span class="arrow--next">→  </span>
+        <span>Explore the scenarios</span>
+      </button>
     </div>
   </section>
 </template>
@@ -29,13 +45,13 @@
 <script>
 import { mapState } from 'vuex'
 import StoryContent from '@/components/ui/StoryContent.vue'
-import Tooltip from '@/components/ui/Tooltip.vue'
+import StoryTooltip from '@/components/ui/StoryTooltip.vue'
 
 export default {
   name: 'StoryBox',
   components: {
     'story-content': StoryContent,
-    'tooltip': Tooltip
+    'story-tooltip': StoryTooltip
   },
   data: function () {
     return {
@@ -60,6 +76,9 @@ export default {
   methods: {
     toggleButtonHover: function () {
       this.buttonIsHovered = !this.buttonIsHovered
+    },
+    enterExplorerMode: function () {
+      this.$router.push({ name: 'explorer', params: { view: 'matrix' } })
     }
   }
 }
