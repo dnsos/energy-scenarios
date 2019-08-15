@@ -77,7 +77,7 @@ export default {
   computed: {
     ...mapState(['selection', 'walkthrough', 'mode']),
     ...mapGetters([
-      'matrixData', // TODO: replace with new matrix data architecture
+      'matrixData',
       'matrixMaxValue',
       'rangeValue'
     ]),

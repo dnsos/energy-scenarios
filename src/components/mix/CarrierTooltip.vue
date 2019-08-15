@@ -32,10 +32,7 @@ export default {
   },
   computed: {
     ...mapGetters(['rangeValue'])
-  },
-  methods: {},
-  watch: {},
-  mounted: function () {}
+  }
 }
 </script>
 

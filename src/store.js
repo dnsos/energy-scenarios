@@ -20,7 +20,7 @@ import walkthrough from './assets/walkthrough.json'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  strict: true, // TODO: disable for production (https://vuex.vuejs.org/guide/strict.html)
+  strict: false, // disabled for production (https://vuex.vuejs.org/guide/strict.html)
   state: {
     carriers: {
       fossil: fossil,
@@ -182,17 +182,6 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    // TODO: remove unused getters: fossilData, totalData?
-    fossilData: (state) => {
-      return state.carriers.fossil.data.find(s => {
-        return s.regioncode === state.selection.region.code && s.scenario === (state.selection.society.code + "-Baseline")
-      })
-    },
-    totalData: (state) => {
-      return state.carriers.total.data.find(s => {
-        return s.regioncode === state.selection.region.code && s.scenario === (state.selection.society.code + "-Baseline")
-      })
-    },
     matrixData: (state) => {
       const arrSSPs = state.societies.map(society => {
         const baseline = {
@@ -344,7 +333,7 @@ export default new Vuex.Store({
       })
       return Math.max(...maxSSPs)
     },
-    carriersDataNew: (state) => {
+    carriersData: (state) => {
       const carriersData = state.societies.map(society => {
         
         // object for society
@@ -418,16 +407,6 @@ export default new Vuex.Store({
     },
     rangeValue: (state) => {
       return (state.selection.year - state.general.startyear) / state.general.yearinterval
-    },
-    // TODO: the following can be acessed via mapState. Remove from getters?
-    startyear: (state) => {
-      return state.general.startyear
-    },
-    yearinterval: (state) => {
-      return state.general.yearinterval
-    },
-    unit: (state) => {
-      return state.general.unit
     }
   },
   mutations: {
@@ -459,9 +438,6 @@ export default new Vuex.Store({
       state.selection.explorer.mix.isActive = false
       state.selection.explorer.matrix.isActive = true
     },
-    toggleMatrixHovering: (state) => {
-      state.selection.explorer.matrix.hovering = !state.selection.explorer.matrix.hovering
-    },
     setExplorerToMix: (state) => {
       state.selection.explorer.matrix.isActive = false
       state.selection.explorer.mix.isActive = true
@@ -490,18 +466,5 @@ export default new Vuex.Store({
       state.matrixCoordinates[payload.ssp] = payload.coordinates
     }
   },
-  actions: {
-    changeTarget: ({ commit }, payload) => {
-      commit('setTarget', payload)
-    },
-    changeRegion: ({ commit }, payload) => {
-      commit('setRegion', payload)
-    },
-    changeYear: ({ commit }, payload) => {
-      commit('setYear', payload)
-    },
-    changeMode: ({ commit }, payload) => {
-      commit('toggleMode', payload)
-    }
-  }
+  actions: {}
 })

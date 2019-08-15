@@ -88,15 +88,5 @@
       "RCPs": ["-26"],
       "carriers": ["Coal", "Gas", "Oil", "Biomass", "Hydro", "Nuclear", "Solar", "Wind"]
     }
-  },
-  {
-    "name": "Carrier Oil",
-    "year": 2050,
-    "scale": 1,
-    "variables": {
-      "SSPs": ["SSP1", "SSP2"],
-      "RCPs": ["-26"],
-      "carriers": ["Oil"]
-    }
   }
 ]

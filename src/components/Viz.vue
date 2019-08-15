@@ -71,7 +71,7 @@
           v-if="isExplorer && selection.explorer.mix.isActive || isWalkthroughMode() && atWalkthroughStep([6,7,8,9])"
           :width="vizDimensions.width"
           :height="vizDimensions.height"
-          :societies="carriersNew"
+          :societies="carriersData"
           :maxValue="carriersMaxValueAbs"
           :rangeValue="rangeValue"
         />
@@ -110,8 +110,7 @@ export default {
   computed: {
     ...mapState(['selection', 'walkthrough', 'mode']),
     ...mapGetters({
-        carriersNew: 'carriersDataNew',
-        maxValue: 'carriersMaxValue',
+        carriersData: 'carriersData',
         carriersMaxValueAbs: 'carriersMaxValueAbs',
         rangeValue: 'rangeValue'
     }),
@@ -145,7 +144,7 @@ export default {
       // only dispatch action if years of current and previous step are not equal
       if (this.mode.isWalkthrough) {
         if (this.walkthrough.steps[newIndex].year != this.walkthrough.steps[oldIndex].year) {
-          this.$store.dispatch('changeYear', this.walkthrough.steps[newIndex].year) 
+          this.$store.commit('setYear', this.walkthrough.steps[newIndex].year) 
         } else {
           //console.log('Year has not changed')
         }

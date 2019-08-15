@@ -217,12 +217,6 @@ export default {
   methods: {
     toggleHovered: function (SSP) {
       if (!this.mode.isWalkthrough) {
-        if (!this.isHovered) {
-          this.$store.commit('setExplorerSociety', SSP)
-        } else {
-          this.$store.commit('removeExplorerSociety', SSP)
-        }
-        this.$store.commit('toggleMatrixHovering')
         this.isHovered = !this.isHovered
       }
     },

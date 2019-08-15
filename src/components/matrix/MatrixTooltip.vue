@@ -43,10 +43,7 @@ export default {
         }
       }
     }
-  },
-  methods: {},
-  watch: {},
-  mounted: function () {}
+  }
 }
 </script>
 

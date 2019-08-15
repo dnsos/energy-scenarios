@@ -86,7 +86,6 @@ export default {
     } else {
       // if not walkthrough: set visible names to currently selected carriers
       this.activeCarriers = ["Coal", "Gas", "Oil", "Biomass", "Hydro", "Nuclear", "Solar", "Wind"]
-      // this.activeCarriers = this.selectedCarriers // selected carriers go here
     }
   }
 }

@@ -75,7 +75,7 @@ export default {
         return this.$store.state.selection.target
       },
       set (value) {
-        this.$store.dispatch('changeTarget', value)
+        this.$store.commit('setTarget', value)
       }
     },
     selectedYear: {
@@ -83,7 +83,7 @@ export default {
         return this.$store.state.selection.year
       },
       set (value) {
-        this.$store.dispatch('changeYear', this.general.startyear + (value * this.general.yearinterval))
+        this.$store.commit('setYear', this.general.startyear + (value * this.general.yearinterval))
       }
     },
     selectedRegion: {
@@ -91,7 +91,7 @@ export default {
         return this.$store.state.selection.region
       },
       set (value) {
-        this.$store.dispatch('changeRegion', value)
+        this.$store.commit('setRegion', value)
       }
     }
   },
