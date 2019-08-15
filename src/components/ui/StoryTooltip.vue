@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'Tooltip',
+  name: 'StoryTooltip',
   data: function () {
     return {}
   },

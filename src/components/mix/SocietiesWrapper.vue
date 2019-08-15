@@ -51,7 +51,6 @@
 import { mapState } from 'vuex'
 import SocietyGroup from '@/components/mix/SocietyGroup.vue'
 import CarriersNames from '@/components/mix/CarriersNames.vue'
-import * as d3 from 'd3'
 
 export default {
   name: 'SocietiesWrapper',

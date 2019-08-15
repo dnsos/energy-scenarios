@@ -100,11 +100,9 @@ export default {
       }
     },
     setHovered: function (carrier) {
-      this.$store.commit('toggleMatrixHovering')
       this.hoveredCarrier = carrier
     },
     setUnhovered: function () {
-      this.$store.commit('toggleMatrixHovering')
       this.hoveredCarrier = null
     }
   },

@@ -21,7 +21,7 @@ export default {
     }
   },
   watch: {
-    activeStep: function (newVal, oldVal) {
+    activeStep: function (newVal) {
       this.$router.push({ name: 'walkthrough', params: { step: newVal } })
     },
     '$route' (to, from) {
@@ -41,10 +41,10 @@ export default {
   mounted: function () {
     // only toggle specifically to 'walkthrough' if current state is not 'walkthrough'
     if (this.$store.state.mode.isWalkthrough != true) {
-      this.$store.dispatch('changeMode', 'walkthrough')
-      // specify start year for beginning of walkthrough
-      this.$store.dispatch('changeYear', 2020)
-      this.$store.dispatch('changeRegion', 'World')
+      this.$store.commit('toggleMode', 'walkthrough')
+      this.$store.commit('setYear', 2020)
+      this.$store.commit('setRegion', 'World')
+      this.$store.commit('setTarget', '26')
     }
   }
 }

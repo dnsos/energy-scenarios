@@ -149,7 +149,7 @@ fieldset {
   color: var(--color-grey-31);
 }
 
-/* CHAPTERS
+/* UI
 ----------------------------------------------------- */
 .grid-2-columns {
   display: grid;
