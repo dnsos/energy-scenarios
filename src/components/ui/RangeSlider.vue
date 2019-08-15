@@ -129,19 +129,17 @@ input[type=range]::-moz-range-thumb {
 }
 input[type=range]::-ms-track {
   width: 100%;
-  height: 1.2rem;
+  height: .1rem;
   cursor: pointer;
   background: transparent;
   border-color: transparent;
   color: transparent;
 }
 input[type=range]::-ms-fill-lower {
-  background: var(--color-dark-blue);
-  border-radius: 50%;
+  background-color: var(--color-grey-31);
 }
 input[type=range]::-ms-fill-upper {
-  background: var(--color-dark-blue);
-  border-radius: 50%;
+  background-color: var(--color-grey-31);
 }
 input[type=range]::-ms-thumb {
   height: 1.1rem;
@@ -149,11 +147,12 @@ input[type=range]::-ms-thumb {
   border-radius: 50%;
   background: black;
   cursor: pointer;
+  margin-top: -0.2rem;
 }
 input[type=range]:focus::-ms-fill-lower {
-  background: var(--color-grey-31);
+  background-color: var(--color-grey-31);
 }
 input[type=range]:focus::-ms-fill-upper {
-  background: var(--color-grey-31);
+  background-color: var(--color-grey-31);
 }
 </style>

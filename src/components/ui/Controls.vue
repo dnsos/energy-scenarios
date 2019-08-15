@@ -15,7 +15,7 @@
           :id="'targets'"
           class="control"
           :options="targets"
-          :value="selectedTarget"
+          :value="selectedTarget.code"
           :defaultSelection="selectedTarget.code"
           @input="selectedTarget = $event"
         />

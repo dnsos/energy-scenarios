@@ -35,10 +35,7 @@ export default {
   },
   methods: {},
   watch: {},
-  mounted: function () {
-    console.log()
-    
-  }
+  mounted: function () {}
 }
 </script>
 
