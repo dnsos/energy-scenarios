@@ -75,6 +75,11 @@
           :maxValue="carriersMaxValueAbs"
           :rangeValue="rangeValue"
         />
+        <PackingOverlay
+          v-if="isWalkthroughMode() && atWalkthroughStep([5,6,7])"
+          :xPosition="figure.width/2 - margins.left"
+          :yPosition="figure.height/2 - margins.top"
+        />
       </g>
     </svg>
   </figure>
@@ -85,12 +90,14 @@ import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
 import Matrix from '@/components/matrix/Matrix.vue'
 import SocietiesWrapper from '@/components/mix/SocietiesWrapper.vue'
+import PackingOverlay from '@/components/mix/PackingOverlay.vue'
 
 export default {
   name: 'Viz',
   components: {
     Matrix,
-    SocietiesWrapper
+    SocietiesWrapper,
+    PackingOverlay
   },
   props: [],
   data: function() {
