@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar__wrapper">
+  <div class="sidebar__wrapper" :class="!isWalkthrough ? 'sidebar__explorer' : ''">
     <hgroup class="headings">
       <h6>Learn Module</h6>
       <h1>Primary Energy Scenarios</h1>
@@ -10,6 +10,9 @@
         <ProgressBar :width="sidebarWidth" />
       </div>
       <StoryBox />
+      <div v-if="!isWalkthrough">
+        <ProgressBar :width="sidebarWidth" />
+      </div>
     </div>
     <div class="sidebar__modeswitch">
       <router-link
@@ -95,6 +98,10 @@ export default {
       align-self: flex-end;
     }
   }
+}
+
+.sidebar__explorer {
+  background-color: #dcdcdc;
 }
 </style>
 
