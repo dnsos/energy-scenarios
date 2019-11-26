@@ -1,8 +1,10 @@
 <template>
-  <div class="sidebar__wrapper">
+  <div class="sidebar__wrapper" :class="!isWalkthrough ? 'sidebar__explorer' : ''">
     <hgroup class="headings">
       <h6>Learn Module</h6>
-      <h1>Primary Energy Scenarios</h1>
+      <h1>
+        <router-link :to="'/walkthrough/' + 0">Primary Energy Scenarios</router-link>
+      </h1>
       <h3>{{ isWalkthrough ? 'Guided Tour' : 'Explorer' }}</h3>
     </hgroup>
     <div class="sidebar__content">
@@ -10,6 +12,9 @@
         <ProgressBar :width="sidebarWidth" />
       </div>
       <StoryBox />
+      <div v-if="!isWalkthrough">
+        <ProgressBar :width="sidebarWidth" />
+      </div>
     </div>
     <div class="sidebar__modeswitch">
       <router-link
@@ -73,7 +78,8 @@ export default {
 <style lang="scss" scoped>
 .sidebar__wrapper {
   height: 100%;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   background-color: var(--color-grey-04);
 
   >* {
@@ -91,10 +97,15 @@ export default {
 
   .sidebar__modeswitch {
     display: flex;
+    height: inherit;
     >a {
       align-self: flex-end;
     }
   }
+}
+
+.sidebar__explorer {
+  background-color: #dcdcdc;
 }
 </style>
 

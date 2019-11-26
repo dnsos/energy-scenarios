@@ -17,6 +17,12 @@
     </div>
     <div class="buttons__wrapper">
       <button
+        v-if="mode.isWalkthrough && activeStep >= 1"
+        @click="activeStep = activeStep - 1"
+      >
+        <span>←</span>
+      </button>
+      <button
         v-if="mode.isWalkthrough && activeStep < walkthrough.steps.length - 1"
         class="button__primary"
         :class="{ 'button--active': buttonIsHovered}"
@@ -132,10 +138,6 @@ export default {
 .buttons__wrapper {
   text-align: right;
   transform: translateY(100%);
-
-  button {
-    border: none;
-  }
 
   .arrow--next {
     display: inline-block;

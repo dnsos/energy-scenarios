@@ -290,9 +290,9 @@ button {
     padding: .6rem 1.2rem;
     margin-right: .6rem;
     font-family: var(--font-family-mono);
-    color: var(--color-dark-blue);
-    background-color: transparent;
-    border: .15rem solid var(--color-dark-blue);
+    color: var(--color-primary-neutral);
+    background-color: white;
+    border: .1rem solid var(--color-primary-neutral);
 
     &:last-child {
       margin-right: 0;
