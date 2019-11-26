@@ -76,7 +76,8 @@ export default {
 <style lang="scss" scoped>
 .sidebar__wrapper {
   height: 100%;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   background-color: var(--color-grey-04);
 
   >* {
@@ -94,6 +95,7 @@ export default {
 
   .sidebar__modeswitch {
     display: flex;
+    height: inherit;
     >a {
       align-self: flex-end;
     }
