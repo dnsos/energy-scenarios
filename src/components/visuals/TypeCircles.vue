@@ -93,8 +93,8 @@
             v-if="isVisible([4,5,6,7,8,9]) && values.fossil.target === null"
             x="0"
             y="0"
-            dy="12"
-          >(Target infeasible)</tspan>
+            dy="16"
+          >{{ selection.target.code === "26" ? "2°C" : "1.5°C" }} warming boundary infeasible</tspan>
           </text>
       </transition>
     </g>
