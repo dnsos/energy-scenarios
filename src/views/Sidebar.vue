@@ -1,7 +1,6 @@
 <template>
   <div class="sidebar__wrapper" :class="!isWalkthrough ? 'sidebar__explorer' : ''">
     <hgroup class="headings">
-      <h6>Learn Module</h6>
       <h1>
         <router-link :to="'/walkthrough/' + 0">Primary Energy Scenarios</router-link>
       </h1>
