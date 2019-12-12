@@ -12,7 +12,7 @@
         </p>
       </transition>
       <transition name="slide-fade">
-        <p v-if="!mode.isWalkthrough">The Explorer mode offers the possibility to examine the scenarios according to custom interests. Use the navigation elements and filters and interact with the visualisation to explore the scenarios in detail.</p>
+        <p v-if="!mode.isWalkthrough">The Explorer mode offers the possibility to examine the scenarios according to custom interests. Use the navigation elements and filters on top to inspect different climate targets or a specific time horizon. Or click on the circles to explore the scenarios in detail.</p>
       </transition>
     </div>
     <div class="buttons__wrapper">
@@ -101,7 +101,7 @@ export default {
 }
 @media (min-width: 850px) {
   .story__wrapper {
-    grid-template-rows: 25rem auto;
+    grid-template-rows: max-content auto;
   }  
 }
 
