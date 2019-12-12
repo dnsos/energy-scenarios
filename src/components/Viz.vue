@@ -1,5 +1,8 @@
 <template>
   <figure class="viz__figure" ref="vizWrapper">
+    <div class="key" v-if="mode.isWalkthrough && atWalkthroughStep([1])">
+      f = fossil (474 EJ/yr), nf = non-fossil (106 EJ/yr)
+    </div>
     <svg :width="figure.width" :height="figure.height">
       <defs>
         <marker
@@ -186,6 +189,11 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.key {
+  position: absolute;
+  bottom: var(--grid-spacing);
+  right: var(--grid-spacing);
 }
 svg {
   /*border: .1rem dashed var(--color-grey-09);*/

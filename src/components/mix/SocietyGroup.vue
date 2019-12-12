@@ -128,7 +128,7 @@ export default {
 
 <style scoped lang="scss">
 text {
-    font-size: calc(var(--font-size) - 4px);
+    font-size: var(--font-size-small);
     font-weight: 500;
     text-anchor: middle;
   }
