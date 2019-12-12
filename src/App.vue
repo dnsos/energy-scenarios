@@ -53,7 +53,7 @@ export default {
   --color-grey-04: #f5f5f5;
   --color-grey-02: #f9f9f9;
   --font-size: 16px;
-  --font-size-small: 12px;
+  --font-size-small: 14px;
   --font-family: "IBM Plex Sans", Arial, sans-serif;
   --font-family-serif: "IBM Plex Serif", serif;
   --font-family-mono: "IBM Plex Mono", monospace;

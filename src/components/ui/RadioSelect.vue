@@ -85,6 +85,10 @@ export default {
     display: inline-block;
     cursor: pointer;
 
+    & > * {
+      display: flex;
+    }
+
     input {
       //display: none;
       position: absolute;
@@ -106,6 +110,7 @@ export default {
       background-color: white;
       border: .15rem solid var(--color-grey-31);
       border-radius: 50%;
+      align-self: center;
     }
 
     .option-name--custom {
