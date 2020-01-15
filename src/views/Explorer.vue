@@ -10,7 +10,7 @@
       <select name="society-select" class="select" id="society-select" v-model="selectedSociety" @change="addActiveSociety(selectedSociety)">
         <option value=""
             hidden
-        >Add a society</option>
+        >Compare with another future</option>
         <option
           v-for="society in societies"
           :key="society.code"
