@@ -1,14 +1,5 @@
 <template>
   <div class="header__wrapper">
-    <div class="title__wrapper">
-      <img class="title__logo" src="../../assets/img/senses_logo.svg" />
-      <h1 class="title__text">SENSES Toolkit</h1>
-    </div>
-    <hgroup class="senses__nav">
-      <h6 class="active">Learn</h6>
-      <h6>Explore</h6>
-      <h6>Share</h6>
-    </hgroup>
   </div>
 </template>
 
